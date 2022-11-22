@@ -79,6 +79,7 @@ form {
 .input-field input {
     width: 344px;
     background: none;
+    padding-left: 28px ;
     outline: none;
     border: 1px solid #118129;
     line-height: 1;
@@ -102,7 +103,7 @@ form {
     color: #FFFFFF;
     text-transform: uppercase;
     font-weight: 600;
-    margin: 10px 0;
+    margin-left: 28px;
     transition: all 0.5s;
 }
 
@@ -183,6 +184,15 @@ form.sign-up-form {
 .left-panel {
     padding: 3rem 17% 2rem 12%;
 
+}
+
+.right-panel {
+    padding: 3rem 12% 2rem 17%;
+
+}
+
+.panel {
+    color: #FFFFFF;
 }
 
 .image {
