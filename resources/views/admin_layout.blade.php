@@ -119,7 +119,7 @@
                         <li class="dropdown dropdown-animated scale-left">
                             <div class="pointer" data-toggle="dropdown">
                                 <div class="avatar avatar-image  m-h-10 m-r-15">
-                                    <img src="assets/images/avatars/thumb-3.jpg"  alt="">
+                                    <img src="assets/images/avatars/thumb-3.jpg" alt="">
                                 </div>
                             </div>
                             <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
@@ -129,8 +129,23 @@
                                             <img src="assets/images/avatars/thumb-3.jpg" alt="">
                                         </div>
                                         <div class="m-l-10">
-                                            <p class="m-b-0 text-dark font-weight-semibold">Marshall Nichols</p>
-                                            <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                                            <p class="m-b-0 text-dark font-weight-semibold">
+                                                <?php
+
+                                                use Illuminate\Support\Facades\Session;
+                                                use Illuminate\Support\Facades\DB;
+
+                                                $UserID = Session::get('UserID');
+                                                
+                                                if ($UserID) {
+                                                    $result = DB::table('customer')->where('UserID', $UserID)->first();
+                                                    echo $result->LastName;
+                                                    echo ' ';
+                                                    echo $result->FirstName;
+                                                }
+                                                ?>
+                                            </p>
+                                            <!-- <p class="m-b-0 opacity-07">UI/UX Desinger</p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +153,7 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-user"></i>
-                                            <span class="m-l-10">Edit Profile</span>
+                                            <span class="m-l-10">Sửa thông tin</span>
                                         </div>
                                         <i class="anticon font-size-10 anticon-right"></i>
                                     </div>
@@ -161,11 +176,11 @@
                                         <i class="anticon font-size-10 anticon-right"></i>
                                     </div>
                                 </a>
-                                <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                                <a href="{{URL::to('/logout')}}" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
-                                            <span class="m-l-10">Logout</span>
+                                            <span class="m-l-10">Đăng xuất</span>
                                         </div>
                                         <i class="anticon font-size-10 anticon-right"></i>
                                     </div>
@@ -174,7 +189,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>    
+            </div>
             <!-- Header END -->
 
             <!-- Side Nav START -->
@@ -269,12 +284,12 @@
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
                                 <span class="icon-holder">
-									<i class="anticon anticon-build"></i>
-								</span>
+                                    <i class="anticon anticon-build"></i>
+                                </span>
                                 <span class="title">Quản lý đặt hàng</span>
                                 <span class="arrow">
-									<i class="arrow-icon"></i>
-								</span>
+                                    <i class="arrow-icon"></i>
+                                </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -494,7 +509,7 @@
 
             <!-- Page Container START -->
             <div class="page-container">
-                
+
 
                 <!-- Content Wrapper START -->
                 <div class="main-content">
@@ -598,7 +613,7 @@
                                                     <div class="m-l-5">
                                                         <h4 class="m-b-0">350</h4>
                                                         <p class="m-b-0 muted">New</p>
-                                                    </div>    
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -609,7 +624,7 @@
                                                     <div class="m-l-5">
                                                         <h4 class="m-b-0">450</h4>
                                                         <p class="m-b-0 muted">Returning</p>
-                                                    </div>    
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -620,7 +635,7 @@
                                                     <div class="m-l-5">
                                                         <h4 class="m-b-0">100</h4>
                                                         <p class="m-b-0 muted">Others</p>
-                                                    </div>    
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -645,7 +660,7 @@
                                         </div>
                                     </div>
                                     <div class="m-t-50" style="height: 375px">
-                                         <canvas class="chart" id="avg-profit-chart"></canvas>
+                                        <canvas class="chart" id="avg-profit-chart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -653,7 +668,7 @@
                         <div class="col-md-12 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
-                                   <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center">
                                         <h5>Top Product</h5>
                                         <div>
                                             <a href="javascript:void(0);" class="btn btn-sm btn-default">View All</a>
@@ -1034,13 +1049,13 @@
                                                     <div class="timeline-item-head">
                                                         <div class="avatar avatar-text avatar-sm bg-primary">
                                                             <span>V</span>
-                                                        </div>                                                                
+                                                        </div>
                                                     </div>
                                                     <div class="timeline-item-content">
                                                         <div class="m-l-10">
                                                             <h5 class="m-b-5">Virgil Gonzales</h5>
                                                             <p class="m-b-0">
-                                                                <span class="font-weight-semibold">Complete task </span> 
+                                                                <span class="font-weight-semibold">Complete task </span>
                                                                 <span class="m-l-5"> Prototype Design</span>
                                                             </p>
                                                             <span class="text-muted font-size-13">
@@ -1054,13 +1069,13 @@
                                                     <div class="timeline-item-head">
                                                         <div class="avatar avatar-text avatar-sm bg-success">
                                                             <span>L</span>
-                                                        </div>                                                                
+                                                        </div>
                                                     </div>
                                                     <div class="timeline-item-content">
                                                         <div class="m-l-10">
                                                             <h5 class="m-b-5">Lilian Stone</h5>
                                                             <p class="m-b-0">
-                                                                <span class="font-weight-semibold">Attached file </span> 
+                                                                <span class="font-weight-semibold">Attached file </span>
                                                                 <span class="m-l-5"> Mockup Zip</span>
                                                             </p>
                                                             <span class="text-muted font-size-13">
@@ -1074,13 +1089,13 @@
                                                     <div class="timeline-item-head">
                                                         <div class="avatar avatar-text avatar-sm bg-warning">
                                                             <span>E</span>
-                                                        </div>                                                                
+                                                        </div>
                                                     </div>
                                                     <div class="timeline-item-content">
                                                         <div class="m-l-10">
                                                             <h5 class="m-b-5">Erin Gonzales</h5>
                                                             <p class="m-b-0">
-                                                                <span class="font-weight-semibold">Commented  </span> 
+                                                                <span class="font-weight-semibold">Commented </span>
                                                                 <span class="m-l-5"> 'This is not our work!'</span>
                                                             </p>
                                                             <span class="text-muted font-size-13">
@@ -1094,13 +1109,13 @@
                                                     <div class="timeline-item-head">
                                                         <div class="avatar avatar-text avatar-sm bg-primary">
                                                             <span>R</span>
-                                                        </div>                                                                
+                                                        </div>
                                                     </div>
                                                     <div class="timeline-item-content">
                                                         <div class="m-l-10">
                                                             <h5 class="m-b-5">Riley Newman</h5>
                                                             <p class="m-b-0">
-                                                                <span class="font-weight-semibold">Commented  </span> 
+                                                                <span class="font-weight-semibold">Commented </span>
                                                                 <span class="m-l-5"> 'Hi, please done this before tommorow'</span>
                                                             </p>
                                                             <span class="text-muted font-size-13">
@@ -1114,13 +1129,13 @@
                                                     <div class="timeline-item-head">
                                                         <div class="avatar avatar-text avatar-sm bg-danger">
                                                             <span>P</span>
-                                                        </div>                                                                
+                                                        </div>
                                                     </div>
                                                     <div class="timeline-item-content">
                                                         <div class="m-l-10">
                                                             <h5 class="m-b-5">Pamela Wanda</h5>
                                                             <p class="m-b-0">
-                                                                <span class="font-weight-semibold">Removed  </span> 
+                                                                <span class="font-weight-semibold">Removed </span>
                                                                 <span class="m-l-5"> a file</span>
                                                             </p>
                                                             <span class="text-muted font-size-13">
@@ -1134,13 +1149,13 @@
                                                     <div class="timeline-item-head">
                                                         <div class="avatar avatar-text avatar-sm bg-secondary">
                                                             <span>M</span>
-                                                        </div>                                                                
+                                                        </div>
                                                     </div>
                                                     <div class="timeline-item-content">
                                                         <div class="m-l-10">
                                                             <h5 class="m-b-5">Marshall Nichols</h5>
                                                             <p class="m-b-0">
-                                                                <span class="font-weight-semibold">Create   </span> 
+                                                                <span class="font-weight-semibold">Create </span>
                                                                 <span class="m-l-5"> this project</span>
                                                             </p>
                                                             <span class="text-muted font-size-13">
@@ -1406,7 +1421,7 @@
         </div>
     </div>
 
-    
+
     <!-- Core Vendors JS -->
     <script src="{{asset('public/backend/js/vendors.min.js')}}"></script>
 

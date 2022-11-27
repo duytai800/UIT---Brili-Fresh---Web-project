@@ -20,9 +20,16 @@ Route::get('/', function () {
 
 //Admin 
 //Laravel 8 goi Controller cần ghi địa chỉ đầy đủ
+//Màn hình đăng nhập admin
 Route::get('/admin','App\Http\Controllers\Admincontroller@index');
+
+//Giao diện chính admin
 Route::get('/dashboard','App\Http\Controllers\Admincontroller@show_dashboard');
+
+//Giao diện chính admin
 Route::post('/admin-dashboard','App\Http\Controllers\Admincontroller@dashboard');
 
+//Đăng xuất admin
+Route::get('/logout','App\Http\Controllers\Admincontroller@logout');
 
 
