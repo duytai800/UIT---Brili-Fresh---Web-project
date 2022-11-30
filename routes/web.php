@@ -32,4 +32,8 @@ Route::post('/admin-dashboard','App\Http\Controllers\Admincontroller@dashboard')
 //Đăng xuất admin
 Route::get('/logout','App\Http\Controllers\Admincontroller@logout');
 
+//Quản lý khách hàng all-customers
+Route::get('/all-customers','App\Http\Controllers\AdminCustomer@all_customers');
+
+
 
