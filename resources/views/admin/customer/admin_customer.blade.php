@@ -93,7 +93,7 @@
     </div>
 </div>
 @endsection
-@section('javascript')
+<!-- @section('javascript')
 <script>
     $(document).ready(function() {
         var table = $('#datatable').DataTable({
@@ -121,4 +121,4 @@
         });
     })
 </script>
-@endsection
+@endsection -->

@@ -1,13 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
-
-use Illuminate\Http\Request;
-
 class AdminCustomer extends Controller
 {
     public function all_customers()
@@ -24,8 +18,8 @@ class AdminCustomer extends Controller
         return view('admin_layout')->with('admin.customer.detail_customer', $manager_detail_customers);
     }
 
-    public function ajax(){
-        $all_customers = DB::table('customer')->join('reward','customer.rewardid','=','reward.rewardid')->get();
-        $customer_id=$all_customers->sortBy('CusID')->pluck('CusID')->unique();
-        return view('admin_layout')->with('admin.customer.admin_customer', $customer_id, compact('cusid'));    }
+    // public function ajax(){
+    //     $all_customers = DB::table('customer')->join('reward','customer.rewardid','=','reward.rewardid')->get();
+    //     $customer_id=$all_customers->sortBy('CusID')->pluck('CusID')->unique();
+    //     return view('admin_layout')->with('admin.customer.admin_customer', $customer_id, compact('cusid'));    }
 }
