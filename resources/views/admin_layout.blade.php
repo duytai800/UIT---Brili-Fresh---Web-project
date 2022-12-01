@@ -146,7 +146,7 @@
                                                 use Illuminate\Support\Facades\DB;
 
                                                 $UserID = Session::get('UserID');
-                                                
+
                                                 if ($UserID) {
                                                     $result = DB::table('employee')->where('UserID', $UserID)->first();
                                                     echo $result->LastName;
@@ -212,24 +212,7 @@
                                     <i class="anticon anticon-dashboard"></i>
                                 </span>
                                 <span class="title">Bảng điều khiển</span>
-                                <span class="arrow">
-                                    <i class="arrow-icon"></i>
-                                </span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li class="active">
-                                    <a href="index.html">Default</a>
-                                </li>
-                                <li>
-                                    <a href="index-crm.html">CRM</a>
-                                </li>
-                                <li>
-                                    <a href="index-e-commerce.html">E-commerce</a>
-                                </li>
-                                <li>
-                                    <a href="index-projects.html">Projects</a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
@@ -342,7 +325,7 @@
                                 <li>
                                     <a href="{{URL::to('/all-customers')}}">Danh sách khách hàng</a>
                                 </li>
-                                
+
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

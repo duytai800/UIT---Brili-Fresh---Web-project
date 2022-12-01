@@ -34,6 +34,8 @@ Route::get('/logout','App\Http\Controllers\AdminController@logout');
 
 //Quản lý khách hàng all-customers
 Route::get('/all-customers','App\Http\Controllers\AdminCustomer@all_customers');
+Route::get('/detail-customers/{customer_id}','App\Http\Controllers\AdminCustomer@detail_customers');
+Route::get('filter-customers','App\Http\Controllers\AdminCustomer@ajax');
 
 
 
