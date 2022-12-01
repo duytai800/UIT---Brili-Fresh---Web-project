@@ -340,13 +340,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="form-elements.html">Form Elements</a>
-                                </li>
-                                <li>
-                                    <a href="form-layouts.html">Form Layouts</a>
-                                </li>
-                                <li>
-                                    <a href="form-validation.html">Form Validation</a>
+                                    <a href="{{URL::to('/all-employee')}}">Danh sách nhân viên</a>
                                 </li>
                             </ul>
                         </li>
