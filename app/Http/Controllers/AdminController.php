@@ -17,13 +17,13 @@ class AdminController extends Controller
     }
 
     public function show_dashboard(){
-        return view('admin_layout');
+        return view('admin.dashboard');
     }
 
     public function dashboard(Request $request){
         $admin_email=$request->admin_username;
         $admin_pass=md5($request->admin_pass);
-        $result = DB::table('user')->where('UserName',$admin_email)-> where('UserPassword',$admin_pass)->first();
+        $result = DB::table('user')->where('UserName',$admin_email)-> where('UserPassword',$admin_pass)->where('UserRole',1)->first();
         if($result){
             Session::put('UserID',$result->UserID);
             return Redirect::to('/dashboard');
@@ -35,6 +35,7 @@ class AdminController extends Controller
     public function logout(){
         Session::put('admin_username',null);
         Session::put('admin_pass',null);
+        Session::put('fail_message',null);
         return Redirect::to('/admin');
     }
 
