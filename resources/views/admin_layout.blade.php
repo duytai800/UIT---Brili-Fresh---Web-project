@@ -10,9 +10,19 @@
     <link rel="shortcut icon" href="{{asset('public/backend/images/logo/BRILI-FRESH.png')}}">
 
     <!-- page css -->
+    <link href="{{asset('public/backend/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backend/vendors/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/backend/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('public/backend/datepicker.css')}}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
 
     <!-- Core css -->
     <link href="{{asset('public/backend/css/app.min.css')}}" rel="stylesheet">
+
+    <!-- Core css -->
+    @RenderSection("Scripts",false/*required*/)
 
 </head>
 
@@ -330,7 +340,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href={{URL::to('/all-customers')}}">Danh sách khách hàng</a>
+                                    <a href="{{URL::to('/all-customers')}}">Danh sách khách hàng</a>
                                 </li>
                                 
                             </ul>
@@ -516,7 +526,11 @@
 
     <!-- page js -->
     <script src="{{asset('public/backend/vendors/chartjs/Chart.min.js')}}"></script>
-    <script src="{{asset('public/backend/js/pages/dashboard-default.js')}}"></script>
+    <script src="{{asset('public/backend/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('public/backend/vendors/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('public/backend/js/pages/dashboard-e-commerce.js')}}"></script>
+    <script src="{{asset('public/backend/js/pages/e-commerce-order-list.js')}}"></script>
+    <script src="{{asset('public/backend/js/jquery-1.11.1.min.js')}}"></script>
 
     <!-- Core JS -->
     <script src="{{asset('public/backend/js/app.min.js')}}"></script>
