@@ -43,6 +43,7 @@ Route::post('/save-employee','App\Http\Controllers\AdminEmployee@save_employee')
 Route::get('/detail-employee/{employee_id}','App\Http\Controllers\AdminEmployee@detail_employee');
 Route::get('/edit-employee/{employee_id}','App\Http\Controllers\AdminEmployee@edit_employee');
 Route::post('/update-employee/{employee_id}','App\Http\Controllers\AdminEmployee@update_employee');
+Route::get('/delete-employee/{employee_id}','App\Http\Controllers\AdminEmployee@delete_employee');
 
 
 

@@ -76,4 +76,10 @@ class AdminEmployee extends Controller
         Session::put('add_employee_message','Sửa thông tin nhân viên thành công!');
         return Redirect::to('all-employee');    
     }
+
+    public function delete_employee($employee_id){
+        DB::table('employee')->where('empid',$employee_id)->delete();
+        Session::put('add_employee_message','Xoá thông tin nhân viên thành công!');
+        return Redirect::to('all-employee');  
+    }
 }

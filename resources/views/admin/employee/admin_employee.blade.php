@@ -77,7 +77,7 @@ if ($message) {
                             <a href="{{URL::to('/edit-employee/'.$employee->EmpID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                 <i class="anticon anticon-edit"></i>
                             </a>
-                            <a href="{{URL::to('/delete-employee/'.$employee->EmpID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                            <a onclick="return confirm('Bạn có chắc muốn xoá thông tin nhân viên này?')" href="{{URL::to('/delete-employee/'.$employee->EmpID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
                                 <i class="anticon anticon-delete"></i>
                             </a>
                             <a href="{{URL::to('/detail-employee/'.$employee->EmpID)}}" style="padding: 12px 20px;">
