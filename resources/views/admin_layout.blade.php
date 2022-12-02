@@ -406,51 +406,20 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="javascript:void(0);">
+                            <a class="dropdown-toggle" href="{{URL::to('/manage-store')}}">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-file"></i>
                                 </span>
-                                <span class="title">Pages</span>
-                                <span class="arrow">
-                                    <i class="arrow-icon"></i>
-                                </span>
+                                <span class="title">Quản lý cửa hàng</span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="profile.html">Profile</a>
-                                </li>
-                                <li>
-                                    <a href="invoice.html">Invoice</a>
-                                </li>
-                                <li>
-                                    <a href="members.html">Members</a>
-                                </li>
-                                <li>
-                                    <a href="pricing.html">Pricing</a>
-                                </li>
-                                <li>
-                                    <a href="setting.html">Setting</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a href="javascript:void(0);">
-                                        <span>Blog</span>
-                                        <span class="arrow">
-                                            <i class="arrow-icon"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="blog-grid.html">Blog Grid</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-list.html">Blog List</a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-post.html">Blog Post</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="{{URL::to('/manage-stock')}}">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-file"></i>
+                                </span>
+                                <span class="title">Quản lý kho</span>
+                            </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
