@@ -55,7 +55,7 @@
                                             $message = Session::get('fail_message');
                                             if ($message){
                                                 echo '<span style= "color: red"; text-align: center; font-size: 14px; >'.$message.'</span>';
-                                                Session::get('fail_message',null);
+                                                Session::put('fail_message',null);
                                             }
                                         ?>
                                         <div class="form-group">
@@ -74,17 +74,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="d-none d-md-flex p-h-40 justify-content-between">
-                    <span class="">© 2019 ThemeNate</span>
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a class="text-dark text-link" href="">Legal</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-dark text-link" href="">Privacy</a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </div>
     </div>

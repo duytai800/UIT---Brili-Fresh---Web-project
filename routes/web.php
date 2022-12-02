@@ -34,6 +34,16 @@ Route::get('/logout','App\Http\Controllers\AdminController@logout');
 
 //Quản lý khách hàng all-customers
 Route::get('/all-customers','App\Http\Controllers\AdminCustomer@all_customers');
+Route::get('/detail-customers/{customer_id}','App\Http\Controllers\AdminCustomer@detail_customers');
+
+//Quản lý nhân viên 
+Route::get('/all-employee','App\Http\Controllers\AdminEmployee@all_employee');
+Route::get('/create-employee','App\Http\Controllers\AdminEmployee@create_employee');
+Route::post('/save-employee','App\Http\Controllers\AdminEmployee@save_employee');
+Route::get('/detail-employee/{employee_id}','App\Http\Controllers\AdminEmployee@detail_employee');
+Route::get('/edit-employee/{employee_id}','App\Http\Controllers\AdminEmployee@edit_employee');
+Route::post('/update-employee/{employee_id}','App\Http\Controllers\AdminEmployee@update_employee');
+Route::get('/delete-employee/{employee_id}','App\Http\Controllers\AdminEmployee@delete_employee');
 
 
 
