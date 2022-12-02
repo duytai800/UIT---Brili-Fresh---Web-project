@@ -40,8 +40,9 @@ Route::get('/detail-customers/{customer_id}','App\Http\Controllers\AdminCustomer
 Route::get('/all-employee','App\Http\Controllers\AdminEmployee@all_employee');
 Route::get('/create-employee','App\Http\Controllers\AdminEmployee@create_employee');
 Route::post('/save-employee','App\Http\Controllers\AdminEmployee@save_employee');
-
-
+Route::get('/detail-employee/{employee_id}','App\Http\Controllers\AdminEmployee@detail_employee');
+Route::get('/edit-employee/{employee_id}','App\Http\Controllers\AdminEmployee@edit_employee');
+Route::post('/update-employee/{employee_id}','App\Http\Controllers\AdminEmployee@update_employee');
 
 
 

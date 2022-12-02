@@ -68,7 +68,7 @@ if ($message) {
                         <td>
                             <div class="d-flex align-items-center">
                                 <h6 class="m-b-0 m-l-10">{{$employee->store_city}}</h6>
-                                <h6 class="m-b-0 m-l-10">{{$employee->SpecificAddress}}</h6>
+                                <h6 class="m-b-0 m-l-10">{{$employee->store_address}}</h6>
                             </div>
                         </td>
                         <td>{{$employee->StartDate}}</td>
