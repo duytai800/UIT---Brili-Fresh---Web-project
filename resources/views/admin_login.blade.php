@@ -55,7 +55,7 @@
                                             $message = Session::get('fail_message');
                                             if ($message){
                                                 echo '<span style= "color: red"; text-align: center; font-size: 14px; >'.$message.'</span>';
-                                                Session::get('fail_message',null);
+                                                Session::put('fail_message',null);
                                             }
                                         ?>
                                         <div class="form-group">

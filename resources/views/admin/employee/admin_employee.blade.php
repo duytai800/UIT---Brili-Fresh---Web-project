@@ -11,6 +11,16 @@
     </div>
 </div>
 <h1>Danh sách nhân viên</h1>
+<?php
+
+use Illuminate\Support\Facades\Session;
+
+$message = Session::get('add_employee_message');
+if ($message) {
+    echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $message . '</span>';
+    Session::put('add_employee_message', null);
+}
+?>
 <div class="card">
     <div class="card-body">
         <div class="row m-b-30">
@@ -27,10 +37,11 @@
                 </div>
             </div>
             <div class="col-lg-4 text-right">
-                <a class="btn btn-primary">
+                <a href="{{URL::to('/create-employee')}}" class="btn btn-primary">
                     <i class="anticon anticon-plus-circle m-r-5"></i>
                     <span>Thêm nhân viên</span>
                 </a>
+
             </div>
         </div>
         <div class="table-responsive">
@@ -45,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($all_employee as $key =>$employee)
+                    @foreach($all_employee as $key =>$employee)
                     <tr>
                         <td>{{$employee->EmpID}}</td>
                         <td>
@@ -80,4 +91,5 @@
         </div>
     </div>
 </div>
+
 @endsection

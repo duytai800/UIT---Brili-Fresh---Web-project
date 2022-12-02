@@ -38,6 +38,8 @@ Route::get('/detail-customers/{customer_id}','App\Http\Controllers\AdminCustomer
 
 //Quản lý nhân viên 
 Route::get('/all-employee','App\Http\Controllers\AdminEmployee@all_employee');
+Route::get('/create-employee','App\Http\Controllers\AdminEmployee@create_employee');
+Route::post('/save-employee','App\Http\Controllers\AdminEmployee@save_employee');
 
 
 
