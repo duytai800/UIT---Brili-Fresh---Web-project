@@ -13,7 +13,8 @@ class AdminEmployee extends Controller
     public function all_employee()
     {
         $all_employee = DB::table('employee')->join('store','employee.storeid','=','store.storeid')
-        ->select('employee.*', 'store.city as store_city', 'store.SpecificAddress as store_address')->get();
+        ->select('employee.*', 'store.city as store_city', 'store.SpecificAddress as store_address', 'store.IsDeleted as store_isdeleted')
+        ->where('employee.IsDeleted',0)->get();
         $manager_all_employee = view('admin.employee.admin_employee')->with('all_employee', $all_employee);
         return view('admin_layout')->with('admin.employee.admin_employee', $manager_all_employee);
     }
@@ -78,7 +79,9 @@ class AdminEmployee extends Controller
     }
 
     public function delete_employee($employee_id){
-        DB::table('employee')->where('empid',$employee_id)->delete();
+        $data = array();
+        $data['IsDeleted']=1;
+        DB::table('employee')->where('empid',$employee_id)->update($data);
         Session::put('add_employee_message','Xoá thông tin nhân viên thành công!');
         return Redirect::to('all-employee');  
     }
