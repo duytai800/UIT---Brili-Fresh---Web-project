@@ -383,7 +383,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="{{URL::to('/manage-store')}}">
+                            <a class="dropdown-toggle" href="{{URL::to('/index-store')}}">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-file"></i>
                                 </span>
@@ -391,7 +391,7 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="{{URL::to('/manage-stock')}}">
+                            <a class="dropdown-toggle" href="{{URL::to('/index-stock')}}">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-file"></i>
                                 </span>

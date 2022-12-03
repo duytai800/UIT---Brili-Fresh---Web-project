@@ -45,5 +45,12 @@ Route::get('/edit-employee/{employee_id}','App\Http\Controllers\AdminEmployee@ed
 Route::post('/update-employee/{employee_id}','App\Http\Controllers\AdminEmployee@update_employee');
 Route::get('/delete-employee/{employee_id}','App\Http\Controllers\AdminEmployee@delete_employee');
 
-
-
+//Quản lý cửa hàng
+Route::get('/index-store','App\Http\Controllers\AdminStore@index_store');
+Route::get('/create-store','App\Http\Controllers\AdminStore@create_store');
+Route::post('/save-store','App\Http\Controllers\AdminStore@save_store');
+Route::get('/detail-store/{store_id}','App\Http\Controllers\AdminStore@detail_store');
+Route::get('/edit-store/{store_id}','App\Http\Controllers\AdminStore@edit_store');
+Route::post('/update-store/{store_id}','App\Http\Controllers\AdminStore@update_store');
+Route::get('/delete-store/{store_id}','App\Http\Controllers\AdminStore@delete_store');
+Route::post('/soft-delete-store/{store_id}','App\Http\Controllers\AdminStore@soft_delete_store');
