@@ -24,7 +24,7 @@
         {{csrf_field()}}
             <div class="form-group">
                 <label class="control-label">Số lượng</label>
-                <input id="quantity" name="quantity"  class="form-control" value="{{$stock->Quantity}}"/>
+                <input id="quantity" name="quantity"  class="form-control" value="{{$stock->Quantity}}" required/>
                 <span class="text-danger" id="quantity-message" style="display:none">Vui lòng nhập Số lượng!</span>
                 <span class="text-danger" id="quantity-message1" style="display:none">Số lượng sản phẩm không thể âm!</span>
             </div>
@@ -40,19 +40,20 @@
 </div>
 
 <script>
-    $("#save-btn").click(function () {
-            if ($("#quantity").is(':invalid')) {
-                $("#quantity-message").show();
-            }
-            if ($("#quantity").val() < 0) {
-                $("#quantity-message1").show();
-            }
+    $("#save-btn").click(function (e) {
+        if ($("#quantity").is(':invalid')) {
+            $("#quantity-message").show();
+        }
+        if ($("#quantity").val() < 0) {
+            e.preventDefault();
+            $("#quantity-message1").show();
+        }
 
-        })
-        //Bỏ thông báo yêu cầu chọn/nhập
-        $("#quantity").keyup(function(){
-            $("#quantity-message").hide();
-            $("#quantity-message1").hide();
-        })
+    })
+    //Bỏ thông báo yêu cầu chọn/nhập
+    $("#quantity").keyup(function(){
+        $("#quantity-message").hide();
+        $("#quantity-message1").hide();
+    })
 </script>
 @endsection
