@@ -19,8 +19,8 @@ class AdminStore extends Controller
     }
 
     public function create_store(){
-        $manage_insert_store_id = view('admin.store.create_store');
-        return view('admin_layout')->with('admin.store.create_store', $manage_insert_store_id);
+        $manage_create_store = view('admin.store.create_store');
+        return view('admin_layout')->with('admin.store.create_store', $manage_create_store);
         
     }
 

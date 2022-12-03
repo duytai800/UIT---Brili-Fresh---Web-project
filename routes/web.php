@@ -54,3 +54,13 @@ Route::get('/edit-store/{store_id}','App\Http\Controllers\AdminStore@edit_store'
 Route::post('/update-store/{store_id}','App\Http\Controllers\AdminStore@update_store');
 Route::get('/delete-store/{store_id}','App\Http\Controllers\AdminStore@delete_store');
 Route::post('/soft-delete-store/{store_id}','App\Http\Controllers\AdminStore@soft_delete_store');
+
+//Quản lý kho
+Route::get('/index-stock/{store_id?}','App\Http\Controllers\AdminStock@index_stock');
+Route::get('/create-stock/{store_id?}','App\Http\Controllers\AdminStock@create_stock');
+Route::post('/save-stock','App\Http\Controllers\AdminStock@save_stock');
+Route::get('/detail-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@detail_stock');
+Route::get('/edit-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@edit_stock');
+Route::post('/update-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@update_stock');
+Route::get('/delete-stock/{stock_id}/{pro_id}','App\Http\Controllers\AdminStock@delete_stock');
+Route::post('/confirm-delete-stock/{stock_id}/{pro_id}','App\Http\Controllers\AdminStock@confirm_delete_stock');
