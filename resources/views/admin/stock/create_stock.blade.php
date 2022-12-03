@@ -61,31 +61,32 @@
         $('#store_id option[value=' + path + ']').attr('selected', true);
         
     })
-    $("#create-btn").click(function () {
-            if ($("#store_id").is(':invalid')) {
-                $("#store-message").show();
-            }
-            if ($("#pro_id").is(':invalid')) {
-                $("#pro-message").show();
-            }
-            if ($("#quantity").is(':invalid')) {
-                $("#quantity-message").show();
-            }
-            if ($("#quantity").val() < 0) {
-                $("#quantity-message1").show();
-            }
+    $("#create-btn").click(function (e) {
+        if ($("#store_id").is(':invalid')) {
+            $("#store-message").show();
+        }
+        if ($("#pro_id").is(':invalid')) {
+            $("#pro-message").show();
+        }
+        if ($("#quantity").is(':invalid')) {
+            $("#quantity-message").show();
+        }
+        if ($("#quantity").val() < 0) {
+            e.preventDefault();
+            $("#quantity-message1").show();
+        }
 
-        })
-        //Bỏ thông báo yêu cầu chọn/nhập
-        $("#store_id").change(function(){
-            $("#store-message").hide();
-        })
+    })
+    //Bỏ thông báo yêu cầu chọn/nhập
+     $("#store_id").change(function(){
+        $("#store-message").hide();
+    })
         $("#pro_id").change(function(){
-            $("#pro-message").hide();
-        })
-        $("#quantity").keyup(function(){
-            $("#quantity-message").hide();
-            $("#quantity-message1").hide();
-        })
+        $("#pro-message").hide();
+    })
+    $("#quantity").keyup(function(){
+        $("#quantity-message").hide();
+        $("#quantity-message1").hide();
+    })
 </script>
 @endsection

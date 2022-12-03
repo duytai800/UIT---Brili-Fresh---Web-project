@@ -27,7 +27,7 @@
             Địa chỉ
         </dt>
         <dd class="col-sm-10">
-            {{$stock->Store_SpecificAddress}}, {{$stock->Store_Ward}}, {{$stock->Store_District}}, {{$stock->Store_City}})
+            {{$stock->Store_SpecificAddress}}, {{$stock->Store_Ward}}, {{$stock->Store_District}}, {{$stock->Store_City}}
         </dd>
         <dt class = "col-sm-2">
             ID sản phẩm
