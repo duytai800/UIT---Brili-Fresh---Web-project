@@ -45,5 +45,7 @@ Route::get('/edit-employee/{employee_id}','App\Http\Controllers\AdminEmployee@ed
 Route::post('/update-employee/{employee_id}','App\Http\Controllers\AdminEmployee@update_employee');
 Route::get('/delete-employee/{employee_id}','App\Http\Controllers\AdminEmployee@delete_employee');
 
+//Quản lý sản phẩm 
+Route::get('/all-products','App\Http\Controllers\AdminProduct@all_products');
 
 
