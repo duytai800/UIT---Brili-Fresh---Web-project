@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Session;
 
 $message = Session::get('add_employee_message');
 if ($message) {
-    echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $message . '</span>';
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message . '</span>';
     Session::put('add_employee_message', null);
 }
 ?>
