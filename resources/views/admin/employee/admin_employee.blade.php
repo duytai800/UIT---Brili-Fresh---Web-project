@@ -10,14 +10,16 @@
         </nav>
     </div>
 </div>
+<hr />
 <h1>Danh sách nhân viên</h1>
 <?php
 
 use Illuminate\Support\Facades\Session;
 
-$message = Session::get('add_employee_message');
-if ($message) {
-    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message . '</span>';
+$add_employee_message = Session::get('add_employee_message');
+
+if ($add_employee_message) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $add_employee_message . '</span>';
     Session::put('add_employee_message', null);
 }
 ?>
