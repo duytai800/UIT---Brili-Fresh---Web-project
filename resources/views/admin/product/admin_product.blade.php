@@ -10,6 +10,8 @@
         </nav>
     </div>
 </div>
+<hr />
+
 <h1>Danh sách sản phẩm</h1>
 <?php
 
@@ -59,7 +61,7 @@ if ($message) {
                 </thead>
                 <tbody>
                     @foreach($all_products as $key =>$product)
-                        
+
                     <tr>
                         <td>{{$product->ProID}}</td>
                         <td>
@@ -77,21 +79,19 @@ if ($message) {
                         <td>{{$product->Unit}}</td>
                         <td>{{$product->Price}}</td>
                         <td>{{$product->Source}}</td>
-                        
-                        <?php
-                         {
+
+                        <?php {
                             echo "<td>";
                             echo    "<div class='d-flex align-items-center' class='logo logo-dark'> ";
                             $pro_quantity = $product->product_quantity;
                             if ($pro_quantity > 0) {
                                 echo "<div class='badge badge-success badge-dot m-r-10'></div>";
                                 echo "<div>Còn hàng</div>";
-                                
                             } else {
                                 echo "<div class='badge badge-danger badge-dot m-r-10'></div>";
                                 echo "<div>Hết hàng</div>";
-                                
                             }
+                            echo "</td>";
                         }
                         ?>
                         <td class="text-right">
@@ -106,7 +106,7 @@ if ($message) {
                             </a>
                         </td>
                     </tr>
-                    
+
                     @endforeach
                 </tbody>
             </table>

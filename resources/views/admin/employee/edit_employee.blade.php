@@ -10,6 +10,8 @@
         </nav>
     </div>
 </div>
+<hr />
+
 @foreach($edit_employee as $key =>$employee)
 <form action="{{URL::to('/update-employee/'.$employee->EmpID)}}" method="post">
     {{csrf_field()}}

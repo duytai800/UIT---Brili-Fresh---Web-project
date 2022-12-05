@@ -10,6 +10,8 @@
         </nav>
     </div>
 </div>
+<hr />
+
 <h1>Thông tin nhân viên</h1>
 <div class="page-header no-gutters has-tab">
     <div class="d-md-flex m-b-15 align-items-center justify-content-between">
