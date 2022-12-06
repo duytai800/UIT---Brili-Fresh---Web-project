@@ -23,7 +23,7 @@ class AdminController extends Controller
     public function dashboard(Request $request){
         $admin_email=$request->admin_username;
         $admin_pass=md5($request->admin_pass);
-        $result = DB::table('user')->where('UserName',$admin_email)-> where('UserPassword',$admin_pass)->where('UserRole',2)->first();
+        $result = DB::table('user')->where('UserName',$admin_email)-> where('UserPassword',$admin_pass)->where('UserRole',1)->first();
         if($result){
             Session::put('UserID',$result->UserID);
             return Redirect::to('/dashboard');
