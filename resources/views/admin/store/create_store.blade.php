@@ -49,14 +49,12 @@
             </div>
             <div class="form-group">
                 <input id="create-btn" type="submit" value="Thêm mới" class="btn btn-primary" />
+                <a href="{{URL::to('/index-store')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a href="{{URL::to('/index-store')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
-</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script>
     $(document).ready(function () {

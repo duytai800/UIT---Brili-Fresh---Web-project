@@ -30,14 +30,12 @@
             </div>
             <div class="form-group">
                 <input id="save-btn" type="submit" value="Lưu" class="btn btn-primary" />
+                <a href="{{URL::to('/index-stock')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
             </div>
         </form>
     </div>
 </div>
 @endforeach
-<div>
-    <a href="{{URL::to('/index-stock')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
-</div>
 
 <script>
     $("#save-btn").click(function (e) {

@@ -14,89 +14,121 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form action="{{URL::to('/save-stock')}}" method="post">
+        <form action="{{URL::to('/save-stock')}}" method="post" style="width:1000px">
         {{csrf_field()}}
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label">ID cửa hàng</label>
-                <select name="store_id" id="store_id" class ="form-control" required>
-                    <option value="" selected>Chọn mã cửa hàng</option>
-                    @foreach ($insert_store_id as $key =>$store_id)
-                    <option value="{{$store_id->StoreID}}">{{$store_id->StoreID}} </option>
-                    @endforeach
-                </select>
-                <span class="text-danger" id="store-message" style="display:none">Vui lòng chọn Mã cửa hàng!</span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Địa chỉ</label>
-                <select name="specificAddress" id="specificAddress" class ="form-control" disabled>
-                    <option value="" selected></option>
-                    @foreach ($insert_store_id as $key =>$store_id)
-                    <option value="{{$store_id->StoreID}}">{{$store_id->SpecificAddress}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Phường/Xã</label>
-                <select name="ward" id="ward" class ="form-control" disabled>
-                    <option value="" selected></option>
-                    @foreach ($insert_store_id as $key =>$store_id)
-                    <option value="{{$store_id->StoreID}}">{{$store_id->Ward}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Quận/Huyện</label>
-                <select name="district" id="district" class ="form-control" disabled>
-                    <option value="" selected></option>
-                    @foreach ($insert_store_id as $key =>$store_id)
-                    <option value="{{$store_id->StoreID}}">{{$store_id->District}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Tỉnh/Thành</label>
-                <select name="city" id="city" class ="form-control" disabled>
-                    <option value="" selected></option>
-                    @foreach ($insert_store_id as $key =>$store_id)
-                    <option value="{{$store_id->StoreID}}">{{$store_id->City}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">ID sản phẩm</label>
-                <select name="pro_id" id="pro_id" class ="form-control" required>
-                    <option value="" selected>Chọn mã sản phẩm</option>
-                    @foreach ($insert_pro_id as $key =>$pro_id)
-                    <option value="{{$pro_id->ProID}}">{{$pro_id->ProID}} </option>
-                    @endforeach
-                </select>
-                <span class="text-danger" id="pro-message" style="display:none">Vui lòng chọn Mã sản phẩm!</span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Tên sản phẩm</label>
-                <select name="proName" id="proName" class ="form-control" disabled>
-                    <option value="" selected></option>
-                    @foreach ($insert_pro_id as $key =>$pro_id)
-                    <option value="{{$pro_id->ProID}}">{{$pro_id->ProName}} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Số lượng</label>
-                <input name="quantity" id="quantity" class="form-control" placeholder="Nhập số lượng sản phẩm" required/>
-                <span class="text-danger" id="quantity-message" style="display:none">Vui lòng nhập Số lượng!</span>
-                <span class="text-danger" id="quantity-message1" style="display:none">Số lượng sản phẩm không thể âm!</span>
-            </div>
-            <div class="form-group">
+            <table style="width:1000px">
+                <tr>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label"><b>ID cửa hàng</b></label>
+                            <select name="store_id" id="store_id" class ="form-control" required>
+                                <option value="" selected>Chọn mã cửa hàng</option>
+                                @foreach ($insert_store_id as $key =>$store_id)
+                                <option value="{{$store_id->StoreID}}">{{$store_id->StoreID}} </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="store-message" style="display:none">Vui lòng chọn Mã cửa hàng!</span>
+                        </div>
+                    </td>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label"><b>ID sản phẩm</b></label>
+                            <select name="pro_id" id="pro_id" class ="form-control" required>
+                                <option value="" selected>Chọn mã sản phẩm</option>
+                                @foreach ($insert_pro_id as $key =>$pro_id)
+                                <option value="{{$pro_id->ProID}}">{{$pro_id->ProID}} </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="pro-message" style="display:none">Vui lòng chọn Mã sản phẩm!</span>
+                        </div>
+                    </td>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label"><b>Số lượng</b></label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Nhập số lượng sản phẩm" required/>
+                            <span class="text-danger" id="quantity-message" style="display:none">Vui lòng nhập Số lượng!</span>
+                            <span class="text-danger" id="quantity-message1" style="display:none">Số lượng sản phẩm không thể âm!</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label">Địa chỉ</label>
+                            <select name="specificAddress" id="specificAddress" class ="form-control" disabled>
+                                <option value="" selected></option>
+                                @foreach ($insert_store_id as $key =>$store_id)
+                                <option value="{{$store_id->StoreID}}">{{$store_id->SpecificAddress}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label">Tên sản phẩm</label>
+                            <select name="proName" id="proName" class ="form-control" disabled>
+                                <option value="" selected></option>
+                                @foreach ($insert_pro_id as $key =>$pro_id)
+                                <option value="{{$pro_id->ProID}}">{{$pro_id->ProName}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label">Phường/Xã</label>
+                            <select name="ward" id="ward" class ="form-control" disabled>
+                                <option value="" selected></option>
+                                @foreach ($insert_store_id as $key =>$store_id)
+                                <option value="{{$store_id->StoreID}}">{{$store_id->Ward}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label">Quận/Huyện</label>
+                            <select name="district" id="district" class ="form-control" disabled>
+                                <option value="" selected></option>
+                                @foreach ($insert_store_id as $key =>$store_id)
+                                <option value="{{$store_id->StoreID}}">{{$store_id->District}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="padding:0px 20px">
+                        <div class="form-group">
+                            <label class="control-label">Tỉnh/Thành</label>
+                            <select name="city" id="city" class ="form-control" disabled>
+                                <option value="" selected></option>
+                                @foreach ($insert_store_id as $key =>$store_id)
+                                <option value="{{$store_id->StoreID}}">{{$store_id->City}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <div class="form-group" style="float:right">
+                <a href="{{URL::to('/index-stock')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
                 <input id="create-btn" type="submit" value="Thêm mới" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a href="{{URL::to('/index-stock')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
 </div>
 
 <script>
