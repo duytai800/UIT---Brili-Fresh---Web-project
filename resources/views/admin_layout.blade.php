@@ -226,51 +226,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="app-chat.html">Chat</a>
-                                </li>
-                                <li>
-                                    <a href="app-file-manager.html">File Manager</a>
-                                </li>
-                                <li>
-                                    <a href="app-mail.html">Mail</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a href="javascript:void(0);">
-                                        <span>Projects</span>
-                                        <span class="arrow">
-                                            <i class="arrow-icon"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="app-project-list.html">Project List</a>
-                                        </li>
-                                        <li>
-                                            <a href="app-project-details.html">Project Details</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a href="javascript:void(0);">
-                                        <span>E-commerce</span>
-                                        <span class="arrow">
-                                            <i class="arrow-icon"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="app-e-commerce-order-list.html">Orders List</a>
-                                        </li>
-                                        <li>
-                                            <a href="app-e-commerce-products.html">Products</a>
-                                        </li>
-                                        <li>
-                                            <a href="app-e-commerce-products-list.html">Products List</a>
-                                        </li>
-                                        <li>
-                                            <a href="app-e-commerce-products-edit.html">Products Edit</a>
-                                        </li>
-                                    </ul>
+                                    <a href="{{URL::to('/all-products')}}">Danh sách sản phẩm</a>
                                 </li>
                             </ul>
                         </li>
@@ -451,7 +407,7 @@
                 <!-- Footer START -->
                 <footer class="footer">
                     <div class="footer-content">
-                        <p class="m-b-0">Copyright © 2019 Theme_Nate. All rights reserved.</p>
+                        <p class="m-b-0">Copyright © 2019 Brili Fresh. All rights reserved.</p>
                         <span>
                             <a href="" class="text-gray m-r-15">Term &amp; Conditions</a>
                             <a href="" class="text-gray">Privacy &amp; Policy</a>

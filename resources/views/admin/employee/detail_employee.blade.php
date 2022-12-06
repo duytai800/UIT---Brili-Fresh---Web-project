@@ -10,6 +10,8 @@
         </nav>
     </div>
 </div>
+<hr />
+
 <h1>Thông tin nhân viên</h1>
 <div class="page-header no-gutters has-tab">
     <div class="d-md-flex m-b-15 align-items-center justify-content-between">
@@ -22,10 +24,10 @@
         </div>
         <div class="m-b-15">
             <a href="{{URL::to('/edit-employee/'.$detail_employee->EmpID)}}">
-            <button class="btn btn-primary">
-                <i class="anticon anticon-edit"></i>
-                <span>Chỉnh sửa</span>
-            </button>
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-edit"></i>
+                    <span>Chỉnh sửa</span>
+                </button>
             </a>
         </div>
     </div>
@@ -54,14 +56,15 @@
                                     <td>ID tài khoản:</td>
                                     <td class="text-dark font-weight-semibold">{{$detail_employee->UserID}}</td>
                                 </tr>
+
                                 <tr>
                                     <td>Cửa hàng làm việc:</td>
-                                    <td class="text-dark font-weight-semibold">{{$detail_employee->store_city}}</td>
-                                    <td class="text-dark font-weight-semibold">{{$detail_employee->store_address}}</td>
+                                    <td class="text-dark font-weight-semibold">ID cửa hàng: {{$detail_employee->StoreID}} <br>
+                                   Địa chỉ: {{$detail_employee->store_address}}, {{$detail_employee->store_ward}}, {{$detail_employee->store_district}}, {{$detail_employee->store_city}} </td>
                                 </tr>
                                 <tr>
                                     <td>Ngày vào làm</td>
-                                    <td class="text-dark font-weight-semibold">{{$detail_employee->StartDate}}</td>
+                                    <td class="text-dark font-weight-semibold" >{{$startdate}}</td>
                                 </tr>
                                 <tr>
                                     <td>Ngày kết thúc</td>
@@ -119,4 +122,13 @@
         @endforeach
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+                flatpickr("#start_date", {
+                    altInput: true,
+                    altFormat: " d/m/Y ",
+                    dateFormat: "m/d/Y",
+                })});
+</script>
 @endsection

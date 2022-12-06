@@ -10,6 +10,8 @@
         </nav>
     </div>
 </div>
+<hr />
+
 <h1>Danh sách khách hàng</h1>
 <div class="card">
     <div class="card-body">
@@ -68,19 +70,24 @@
                         <?php
                         $type_customer = $customer->CusType;
                         if ($type_customer == 1) {
-                            echo "<td>Vàng</td>";
+                            echo "<td>";
+                            echo "<div class='badge badge-warning badge-dot m-r-10'></div>";                          
+                            echo "Vàng";
+                            echo "</td>";
                         } elseif ($type_customer == 2) {
-                            echo "<td>Bạc</td>";
-                        } else echo "<td>Đồng</td>";
+                            echo "<td>";
+                            echo "<div class='badge badge-dark badge-dot m-r-10'></div>";                          
+                            echo "Bạc";
+                            echo "</td>";
+                        } else {
+                            echo "<td>";
+                            echo "<div class='badge badge-light badge-dot m-r-10'></div>";                          
+                            echo "Đồng";
+                            echo "</td>";
+                        };
                         ?>
 
                         <td class="text-right">
-                            <!-- <a  class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
-                                <i class="anticon anticon-edit"></i>
-                            </a>
-                            <a  class="btn btn-icon btn-hover btn-sm btn-rounded">
-                                <i class="anticon anticon-delete"></i>
-                            </a> -->
                             <a href="{{URL::to('/detail-customers/'.$customer->CusID)}}" style="padding: 12px 20px;">
                                 Xem chi tiết
                             </a>

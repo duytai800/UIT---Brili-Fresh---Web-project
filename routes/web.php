@@ -54,6 +54,14 @@ Route::get('/edit-store/{store_id}','App\Http\Controllers\AdminStore@edit_store'
 Route::post('/update-store/{store_id}','App\Http\Controllers\AdminStore@update_store');
 Route::get('/delete-store/{store_id}','App\Http\Controllers\AdminStore@delete_store');
 Route::post('/soft-delete-store/{store_id}','App\Http\Controllers\AdminStore@soft_delete_store');
+//Quản lý sản phẩm 
+Route::get('/all-products','App\Http\Controllers\AdminProduct@all_products');
+//Route::get('/detail-product/{productid}','App\Http\Controllers\AdminProduct@detail_product');
+Route::get('/create-product','App\Http\Controllers\AdminProduct@create_product');
+Route::post('/save-product','App\Http\Controllers\AdminProduct@save_product');
+Route::get('/edit-product/{product_id}','App\Http\Controllers\AdminProduct@edit_product');
+
+
 
 //Quản lý kho
 Route::get('/index-stock/{store_id?}','App\Http\Controllers\AdminStock@index_stock');
