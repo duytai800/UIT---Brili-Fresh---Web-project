@@ -28,6 +28,42 @@
                 <span class="text-danger" id="store-message" style="display:none">Vui lòng chọn Mã cửa hàng!</span>
             </div>
             <div class="form-group">
+                <label class="control-label">Địa chỉ</label>
+                <select name="specificAddress" id="specificAddress" class ="form-control" disabled>
+                    <option value="" selected></option>
+                    @foreach ($insert_store_id as $key =>$store_id)
+                    <option value="{{$store_id->StoreID}}">{{$store_id->SpecificAddress}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phường/Xã</label>
+                <select name="ward" id="ward" class ="form-control" disabled>
+                    <option value="" selected></option>
+                    @foreach ($insert_store_id as $key =>$store_id)
+                    <option value="{{$store_id->StoreID}}">{{$store_id->Ward}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Quận/Huyện</label>
+                <select name="district" id="district" class ="form-control" disabled>
+                    <option value="" selected></option>
+                    @foreach ($insert_store_id as $key =>$store_id)
+                    <option value="{{$store_id->StoreID}}">{{$store_id->District}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Tỉnh/Thành</label>
+                <select name="city" id="city" class ="form-control" disabled>
+                    <option value="" selected></option>
+                    @foreach ($insert_store_id as $key =>$store_id)
+                    <option value="{{$store_id->StoreID}}">{{$store_id->City}} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label class="control-label">ID sản phẩm</label>
                 <select name="pro_id" id="pro_id" class ="form-control" required>
                     <option value="" selected>Chọn mã sản phẩm</option>
@@ -36,6 +72,15 @@
                     @endforeach
                 </select>
                 <span class="text-danger" id="pro-message" style="display:none">Vui lòng chọn Mã sản phẩm!</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Tên sản phẩm</label>
+                <select name="proName" id="proName" class ="form-control" disabled>
+                    <option value="" selected></option>
+                    @foreach ($insert_pro_id as $key =>$pro_id)
+                    <option value="{{$pro_id->ProID}}">{{$pro_id->ProName}} </option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Số lượng</label>
@@ -80,9 +125,16 @@
     //Bỏ thông báo yêu cầu chọn/nhập
      $("#store_id").change(function(){
         $("#store-message").hide();
+        var $storeId = $(this).val();
+        $("#specificAddress option[value='"+ $storeId + "']").prop('selected', true);
+        $("#ward option[value='" + $storeId + "']").prop('selected', true);
+        $("#district option[value='" + $storeId + "']").prop('selected', true);
+        $("#city option[value='" + $storeId + "']").prop('selected', true);
     })
         $("#pro_id").change(function(){
         $("#pro-message").hide();
+        var $proId = $(this).val();
+        $("#proName option[value='" + $proId + "']").prop('selected', true);
     })
     $("#quantity").keyup(function(){
         $("#quantity-message").hide();
