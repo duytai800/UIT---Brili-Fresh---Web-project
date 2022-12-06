@@ -50,6 +50,8 @@ Route::get('/all-products','App\Http\Controllers\AdminProduct@all_products');
 //Route::get('/detail-product/{productid}','App\Http\Controllers\AdminProduct@detail_product');
 Route::get('/create-product','App\Http\Controllers\AdminProduct@create_product');
 Route::post('/save-product','App\Http\Controllers\AdminProduct@save_product');
+Route::get('/edit-product/{product_id}','App\Http\Controllers\AdminProduct@edit_product');
+
 
 
 

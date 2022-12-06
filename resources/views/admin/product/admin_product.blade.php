@@ -95,10 +95,10 @@ if ($message) {
                         }
                         ?>
                         <td class="text-right">
-                            <a href="{{URL::to('/edit-employee/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
+                            <a href="{{URL::to('/edit-product/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                 <i class="anticon anticon-edit"></i>
                             </a>
-                            <a onclick="return confirm('Bạn có chắc muốn xoá thông tin nhân viên này?')" href="{{URL::to('/delete-employee/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                            <a onclick="return confirm('Bạn có chắc muốn xoá thông tin sản phẩm này?')" href="{{URL::to('/delete-employee/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
                                 <i class="anticon anticon-delete"></i>
                             </a>
                             <a href="{{URL::to('/detail-product/'.$product->ProID)}}" style="padding: 12px 20px;">

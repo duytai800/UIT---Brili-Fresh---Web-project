@@ -85,7 +85,7 @@ class AdminProduct extends Controller
         $data_img_description = array();
         $get_image_main = $request->file('product_img_main');
 
-  
+
         if ($get_image_main) {
             if ($get_image_description = $request->file('product_img_description')) {
 
@@ -95,10 +95,7 @@ class AdminProduct extends Controller
                 $get_image_main->move('public/upload/product', $image_main);
                 $data_img['ImgData'] = $image_main;
                 $data_img['ProID'] = $pro_id;
-                echo '<pre>';
-                print_r($data_img);
-                echo '</pre>';
-     
+
                 foreach ($get_image_description as $get_image_description_detail) {
 
                     $get_name_img_description = $get_image_description_detail->getClientOriginalName();
@@ -108,30 +105,58 @@ class AdminProduct extends Controller
                     $data_img_description['ProID'] = $pro_id;
                     $data_img_description['ImgData'] = $image_description;
                     DB::table('product_image')->insert($data_img_description);
-
-                    //echo $get_name_img_description;
-                    echo "OK";
-
-
-                    echo '<pre>';
-                    print_r($data_img_description);
-                    echo '</pre>';
                 }
 
                 DB::table('product_image')->insert($data_img);
                 Session::put('message', 'Thêm sản phẩm thành công!');
                 return Redirect::to('all-products');
             }
-
-
-            // DB::table('product_image')->insert($data_img);
-            // Session::put('message', 'Thêm sản phẩm thành công!');
-            // return Redirect::to('all-products');
         }
         $data_img['ImgData'] = '';
         $data_img['ProID'] = $pro_id;
         // DB::table('product_image')->insert($data_img);
         // Session::put('message', 'Thêm sản phẩm thành công!');
         // return Redirect::to('all-products');
+    }
+
+    public function edit_product($product_id)
+    {
+        $edit_product = DB::table('product')
+            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->join('product_image', 'product.proid', '=', 'product_image.proid')
+            ->join('type', 'product.typeid', '=', 'type.typeid')
+            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
+            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
+            ->where('product.proid', $product_id)
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
+        $main_img = DB::table('product_image')
+            ->select('imgdata')->where('product_image.imgdata', 'like', 'main%')->where('product_image.proid', $product_id)
+            ->distinct()->get();
+        $des_img = DB::table('product_image')
+            ->select('imgdata')->where('product_image.imgdata', 'like', 'des%')->where('product_image.proid', $product_id)
+            ->distinct()->get();
+        $main_type = DB::table('type')
+            ->select('type.MainType', 'type.TypeID')
+            ->distinct()->get();
+        $sub_type_thitca = DB::table('type')
+            ->select('type.SubType', 'type.TypeID')->where('type.MainType', 'Thịt cá')
+            ->distinct()->get()->toArray();
+        $sub_type_raucu = DB::table('type')
+            ->select('type.SubType', 'type.TypeID')->where('type.MainType', 'Rau củ')
+            ->distinct()->get()->toArray();
+        $sub_type_traicay = DB::table('type')
+            ->select('type.SubType', 'type.TypeID')->where('type.MainType', 'Hoa quả 4 mùa')
+            ->distinct()->get()->toArray();
+
+        $manage_type = view('admin.product.edit_product')
+            ->with('sub_type_thitca', $sub_type_thitca)
+            ->with('sub_type_raucu', $sub_type_raucu)
+            ->with('sub_type_traicay', $sub_type_traicay)
+            ->with('edit_product', $edit_product)
+            ->with('main_type', $main_type)
+            ->with('main_img', $main_img)
+            ->with('des_img', $des_img);
+
+        return view('admin_layout')->with('admin.product.edit_product', $manage_type);
     }
 }
