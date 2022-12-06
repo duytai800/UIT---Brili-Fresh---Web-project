@@ -66,7 +66,7 @@ if ($message) {
                         <td>{{$product->ProID}}</td>
                         <td>
                             <div class="d-flex align-items-center" class="logo logo-dark">
-                                <img src="{{URL::to('public/upload/product/'.$product->ImgData)}}" height="70" width="70" alt="Logo">
+                                <img src="{{URL::to('../public/upload/product/'.$product->ImgData)}}" height="70" width="70" alt="Logo">
                                 <h6 class="m-b-0 m-l-10">{{$product->ProName}}</h6>
                             </div>
                         </td>
