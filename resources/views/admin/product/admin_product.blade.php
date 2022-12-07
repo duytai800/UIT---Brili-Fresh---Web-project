@@ -16,6 +16,12 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+$delete_product_message = Session::get('delete_product_message');
+if ($delete_product_message) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $delete_product_message . '</span>';
+    Session::put('delete_product_message', null);
+}
+
 $message_save_product = Session::get('message_save_product');
 if ($message_save_product) {
     echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message_save_product . '</span>';
@@ -126,7 +132,7 @@ if ($message_no_des) {
                             <a href="{{URL::to('/edit-product/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                 <i class="anticon anticon-edit"></i>
                             </a>
-                            <a onclick="return confirm('Bạn có chắc muốn xoá thông tin sản phẩm này?')" href="{{URL::to('/delete-employee/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                            <a href="{{URL::to('/delete-product/'.$product->ProID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
                                 <i class="anticon anticon-delete"></i>
                             </a>
                             <a href="{{URL::to('/detail-product/'.$product->ProID)}}" style="padding: 12px 20px;">

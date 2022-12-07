@@ -414,7 +414,7 @@ class AdminProduct extends Controller
         $des_img = DB::table('product_image')
             ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $product_id)
             ->distinct()->get()->toArray();
-            $count_des_img=count($des_img);
+        $count_des_img = count($des_img);
 
         $manage_detail_product = view('admin.product.detail_product')
             ->with('type_detail_product', $type_detail_product)
@@ -427,5 +427,49 @@ class AdminProduct extends Controller
         // echo '</pre>';
 
         return view('admin_layout')->with('admin.product.detail_product', $manage_detail_product);
+    }
+
+    public function delete_product($product_id)
+    {
+        $detail_product = DB::table('product')
+            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->join('product_image', 'product.proid', '=', 'product_image.proid')
+            ->join('type', 'product.typeid', '=', 'type.typeid')
+            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
+            ->where('product.IsDeleted', 0)->where('product.proid', $product_id)->where('product_image.imgdata', 'like', 'main%')
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
+
+        $type_detail_product = DB::table('product')->select('MainType', 'SubType')
+            ->join('type', 'product.typeid', '=', 'type.typeid')
+            ->where('product.proid', $product_id)->distinct('product.proid')->get();
+        $des_detail_product = DB::table('product')->select('Des')
+            ->where('product.proid', $product_id)->distinct('product.proid')->get();
+        $id_product = DB::table('product')->select('ProID')
+            ->where('product.proid', $product_id)->get();
+        $des_img = DB::table('product_image')
+            ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $product_id)
+            ->distinct()->get()->toArray();
+        $count_des_img = count($des_img);
+
+        $manage_detail_product = view('admin.product.delete_product')
+            ->with('type_detail_product', $type_detail_product)
+            ->with('des_detail_product', $des_detail_product)
+            ->with('des_img', $des_img)
+            ->with('count_des_img', $count_des_img)
+            ->with('id_product', $id_product)
+            ->with('detail_product', $detail_product);
+        // echo '<pre>';
+        // print_r($detail_product[0]->Des);
+        // echo '</pre>';
+
+        return view('admin_layout')->with('admin.product.delete_product', $manage_detail_product);
+    }
+
+    public function soft_delete_product($product_id){
+        $data = array();
+        $data['IsDeleted'] = 1;
+        DB::table('product')->where('proid', $product_id)->update($data);
+        Session::put('delete_product_message', 'Xoá thông tin sản phẩm thành công!');
+        return Redirect::to('all-products');
     }
 }
