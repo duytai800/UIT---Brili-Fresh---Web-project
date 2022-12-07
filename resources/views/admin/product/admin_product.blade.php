@@ -16,12 +16,40 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
-
-$message = Session::get('message');
-if ($message) {
-    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message . '</span>';
-    Session::put('add_employee_message', null);
+$message_save_product = Session::get('message_save_product');
+if ($message_save_product) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message_save_product . '</span>';
+    Session::put('message_save_product', null);
 }
+
+$message_info = Session::get('message_info');
+if ($message_info) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message_info . '</span>';
+    echo "<br>";
+    Session::put('message_info', null);
+}
+
+$message_main = Session::get('message_main');
+if ($message_main) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message_main . '</span>';
+    echo "<br>";
+    Session::put('message_main', null);
+}
+
+$message_des = Session::get('message_des');
+if ($message_des) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $message_des . '</span>';
+    echo "<br>";
+    Session::put('message_des', null);
+}
+
+$message_no_des = Session::get('message_no_des');
+if ($message_no_des) {
+    echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $message_no_des . '</span>';
+    echo "<br>";
+    Session::put('message_no_des', null);
+}
+
 ?>
 <div class="card">
     <div class="card-body">

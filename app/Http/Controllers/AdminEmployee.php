@@ -114,7 +114,6 @@ class AdminEmployee extends Controller
     {
         $startdate = $request->startdate;
         $enddate = $request->enddate;
-
         if (is_null($startdate)) {
             $startdate = $request->startdate;
         }

@@ -30,6 +30,7 @@
                 </button>
             </a>
         </div>
+        @endforeach
     </div>
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -119,7 +120,7 @@
                 </div>
             </div>
         </div>
-        @endforeach
+
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
