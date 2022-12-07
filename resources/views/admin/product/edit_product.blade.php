@@ -13,7 +13,7 @@
 </div>
 <hr />
 @foreach($edit_product as $key =>$edit_product)
-<form action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
+<form action="{{URL::to('/update-product/'.$edit_product->ProID)}}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
     <h1>Sửa sản phẩm</h1>
     <div class="row">
@@ -22,11 +22,13 @@
             <div class="d-md-flex m-b-15 align-items-center ">
                 <div class="media align-items-center m-b-15">
                     <div class="avatar avatar-image rounded" style="height: 140px; width: 140px">
-                        <img id="blah" src="{{URL::to('public/upload/product/'.'main-tao159.jpg')}}" alt="Ảnh chính" style='width: 100%;max-height: 100%'>
+                        @foreach($main_img as $key =>$main_img)
+                        <img id="blah" src="{{URL::to('../public/upload/product/'.$main_img->ImgData)}}" alt="Ảnh chính" style='width: 100%;max-height: 100%'>
+                        @endforeach
                     </div>
                 </div>
                 <div class="m-b-15" style="padding-left: 268px">
-                    <input type="file" id="image_submit" name="product_img_main" class="btn btn-primary" accept="image/gif, image/jpeg, image/png" style="display:none;" required />
+                    <input type="file" id="image_submit" name="product_img_main" class="btn btn-primary" accept="image/gif, image/jpeg, image/png" style="display:none;"  />
                     <label id="choose_image" for="image_submit" class="btn-primary btn"> <i class="anticon anticon-save"></i>&nbsp Ảnh đại diện</label>
                     <span class="text-danger"></span>
                 </div>
@@ -35,17 +37,21 @@
             <div class="d-md-flex m-b-15 align-items-center">
                 <div class="media align-items-center m-b-15" id="img1" style="padding-right: 32px">
                     <div class="avatar avatar-image rounded" style="height: 140px; width: 140px">
-                        <img id="blah" src="{{URL::to('public/upload/product/'.'main-tao159.jpg')}}" alt="Ảnh chính" style='width: 100%;max-height: 100%'>
+                        <img id="blah" src="{{URL::to('../public/upload/product/'.$des_img_0)}}" alt="Ảnh mô tả" style='width: 100%;max-height: 100%'>
                     </div>
                 </div>
                 <div class="media align-items-center m-b-15" id="img2" style="padding-right: 32px">
-                    <div class="avatar avatar-image rounded" style="height: 140px; width: 140px"></div>
+                    <div class="avatar avatar-image rounded" style="height: 140px; width: 140px">
+                        <img id="blah" src="{{URL::to('../public/upload/product/'.$des_img_1)}}" alt="Ảnh mô tả" style='width: 100%;max-height: 100%'>
+                    </div>
                 </div>
                 <div class="media align-items-center m-b-15" id="img3" style="padding-right: 32px">
-                    <div class="avatar avatar-image rounded" style="height: 140px; width: 140px"></div>
+                    <div class="avatar avatar-image rounded" style="height: 140px; width: 140px">
+                        <img id="blah" src="{{URL::to('../public/upload/product/'.$des_img_2)}}" alt="Ảnh mô tả" style='width: 100%;max-height: 100%'>
+                    </div>
                 </div>
                 <div class="m-b-15" style="padding-left: 100px">
-                    <input type="file" id="image_submit_2" name="product_img_description[]" class="btn btn-primary" multiple accept="image/gif, image/jpeg, image/png" style="display: none" required />
+                    <input type="file" id="image_submit_2" name="product_img_description[]" class="btn btn-primary" multiple accept="image/gif, image/jpeg, image/png" style="display: none"  />
                     <label id="choose_image" for="image_submit_2" class="btn-primary btn"> <i class="anticon anticon-save"></i>&nbsp Ảnh chi tiết</label>
                     <span class="text-danger"></span>
                 </div>
@@ -64,11 +70,11 @@
                                 <select class="custom-select" name="product_type" id="Type_MainType">
                                     <option value="" disabled="true" selected>Chọn danh mục</option>
                                     @foreach ($main_type as $key =>$main_type)
-                                        @if($main_type->TypeID==$edit_product->TypeID)
-                                        <option selected value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>
-                                        @else
-                                        <option value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>
-                                        @endif
+                                    @if($main_type->TypeID==$edit_product->TypeID)
+                                    <option selected value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>
+                                    @else
+                                    <option value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -77,10 +83,10 @@
                                     <option value="" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_raucu as $key =>$sub_type_raucu)
                                         @if($sub_type_raucu->TypeID==$edit_product->TypeID)
-                                        <option selected value="{{$sub_type_raucu->SubType}}">{{$sub_type_raucu->SubType}} </option>
-                                        @else
-                                        <option value="{{$sub_type_raucu->SubType}}">{{$sub_type_raucu->SubType}} </option>
-                                        @endif
+                                        <option selected value=" {{$sub_type_raucu->SubType}}">{{$sub_type_raucu->SubType}} </option>
+                                    @else
+                                    <option value="{{$sub_type_raucu->SubType}}">{{$sub_type_raucu->SubType}} </option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -88,11 +94,11 @@
                                 <select class="custom-select" name="product_subtype" id="type2">
                                     <option value="" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_thitca as $key =>$sub_type_thitca)
-                                        @if($sub_type_thitca->TypeID==$edit_product->TypeID)
-                                        <option selected value="{{$sub_type_thitca->SubType}}">{{$sub_type_thitca->SubType}} </option>
-                                        @else
-                                        <option value="{{$sub_type_thitca->SubType}}">{{$sub_type_thitca->SubType}} </option>
-                                        @endif
+                                    @if($sub_type_thitca->TypeID==$edit_product->TypeID)
+                                    <option selected value="{{$sub_type_thitca->SubType}}">{{$sub_type_thitca->SubType}} </option>
+                                    @else
+                                    <option value="{{$sub_type_thitca->SubType}}">{{$sub_type_thitca->SubType}} </option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -100,70 +106,80 @@
                                 <select class="custom-select" name="product_subtype" id="type3">
                                     <option value="" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_traicay as $key =>$sub_type_traicay)
-                                        @if($sub_type_traicay->TypeID==$edit_product->TypeID)
-                                        <option selected value="{{$sub_type_traicay->SubType}}">{{$sub_type_traicay->SubType}} </option>
-                                        @else
-                                        <option value="{{$sub_type_traicay->SubType}}">{{$sub_type_traicay->SubType}} </option>
-                                        @endif
+                                    @if($sub_type_traicay->TypeID==$edit_product->TypeID)
+                                    <option selected value="{{$sub_type_traicay->SubType}}">{{$sub_type_traicay->SubType}} </option>
+                                    @else
+                                    <option value="{{$sub_type_traicay->SubType}}">{{$sub_type_traicay->SubType}} </option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_price">Đơn giá</label>
-                                <input type="text" class="form-control" name="product_price" id="product_price" placeholder="VNĐ" value="{{$edit_product->Price }}">
+                                <input type="number" class="form-control" name="product_price" id="product_price" placeholder="VNĐ" value="{{$edit_product->Price }}">
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_source">Nguồn gốc</label>
                                 <select class="custom-select" name="product_source" id="product_source" required>
                                     <option value="" selected>Nguồn gốc sản phẩm</option>
-                                    <option value="Sản phẩm của Brili Fresh">Sản phẩm của Brili Fresh</option>
-                                    <option value="Sản phẩm nhập khẩu">Sản phẩm nhập khẩu</option>
+                                    @foreach ($product_source as $product_source)
+                                    @if($product_source==$edit_product->Source)
+                                    <option selected value="{{$product_source}}">{{$product_source}} </option>
+                                    @else
+                                    <option value="{{$product_source}}">{{$product_source}} </option>
+                                    @endif
+                                    @endforeach
+                                    <!-- <option value="Sản phẩm của Brili Fresh">Sản phẩm của Brili Fresh</option>
+                                    <option value="Sản phẩm nhập khẩu">Sản phẩm nhập khẩu</option> -->
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_date">Ngày tạo</label>
-                                <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy" value="{{$edit_product->StartDate}}">
+                                <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy" value="{{$product_date}}" >
 
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_discription">Mô tả sản phẩm</label>
-                                <textarea type="text-area" class="form-control" name="product_discription" id="product_discription" placeholder="Mô tả ngắn gọn về sản phẩm mới của Brili Fresh" value="{{$edit_product->Des}}"> </textarea>
+                                <textarea type="text-area" class="form-control" name="product_discription" id="product_discription" placeholder="Mô tả ngắn gọn về sản phẩm mới của Brili Fresh">{{$edit_product->Des}} </textarea>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="unit">Đơn vị bán</label>
                                 <br>
                                 <label class="font-weight-semibold" for="unit_number">&nbsp &nbsp Số lượng</label>
-                                <input type="number" class="form-control" name="unit_number" id="unit_number" placeholder="1/100/... " >
+                                <input type="number" class="form-control" name="unit_number" id="unit_number" placeholder="1/100/... " value="{{$product_unit_number}}">
 
                                 <label class="font-weight-semibold" for="unit_count">&nbsp &nbsp Đơn vị tính</label>
                                 <select class="custom-select" name="unit_count" id="unit_count" required>
                                     <option value=selected>Chọn đơn vị</option>
-                                    <option value="Kg" selected>Kg</option>
-                                    <option value="Gam">Gam</option>
-                                    <option value="Hộp">Hộp</option>
-                                    <option value="Túi">Túi</option>
+                                    @foreach ($product_unit_unit as $product_unit_unit)
+                                    @if($product_unit_unit==$product_unit_unit_original)
+                                    <option selected value="{{$product_unit_unit}}">{{$product_unit_unit}} </option>
+                                    @else
+                                    <option value="{{$product_unit_unit}}">{{$product_unit_unit}} </option>
+                                    @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="m-b-15">
-                            <button type="submit" name="save-employee" class="btn btn-primary">
+                            <button type="submit" id="a" name="edit_product" class="btn btn-primary">
                                 <i class="anticon anticon-save"></i>
-                                <span>Thêm sản phẩm</span>
+                                <span>Sửa sản phẩm</span>
                             </button>
                             <a class="breadcrumb-item" href="{{URL::to('/all-products')}}"> &nbsp Quay lại</a>
                         </div>
                     </div>
                 </div>
             </div>
-
+            @endforeach
         </div>
     </div>
 </form>
-@endforeach
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="text/javascript">
-    var s1 = $("#sub1")
+     var s1 = $("#sub1")
     var t1 = $("#type1")
     var s2 = $("#sub2")
     var t2 = $("#type2")
@@ -183,7 +199,6 @@
             s2.hide()
             s3.hide()
             s1.show()
-
 
         } else if (maintype.find(":selected").val() === 'Thịt cá') {
             t2.prop("disabled", false);
@@ -243,10 +258,12 @@
         picReader3.readAsDataURL(file3);
     });
     $(document).ready(function() {
+        
         flatpickr("#product_date", {
             altInput: true,
             altFormat: " d/m/Y ",
             dateFormat: "m/d/Y",
+        
         });
         t2.prop("disabled", true);
         t3.prop("disabled", true);

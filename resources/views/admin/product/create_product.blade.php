@@ -1,23 +1,5 @@
 @extends('admin_layout')
 @section('admin_content')
-<!-- @{
-    ViewData["Title"] = "Create";
-
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
-
-    var data = new object[]{
-        new{
-            ten = "Sản phẩm của Brili Fresh",
-            giatri = "Sản phẩm của Brili Fresh"
-        },
-        new{
-            ten = "Sản phẩm nhập khẩu",
-            giatri = "Sản phẩm nhập khẩu"
-        }
-    };
-
-    var list = new SelectList(data, "giatri", "ten");
-} -->
 <div class="page-header">
     <h2 class="header-title">Brili Fresh</h2>
     <div class="header-sub-title">
@@ -32,6 +14,17 @@
 <form action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
     {{csrf_field()}}
     <h1>Thêm sản phẩm</h1>
+    <?php
+
+    use Illuminate\Support\Facades\Session;
+
+    $message_save_product_no_des = Session::get('message_save_product_no_des');
+    if ($message_save_product_no_des) {
+        echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $message_save_product_no_des . '</span>';
+        Session::put('message_save_product_no_des', null);
+    }
+
+     ?>
     <div class="row">
         <div class="col-md-12">
             <div class="text-danger"></div>
@@ -42,7 +35,7 @@
                     </div>
                 </div>
                 <div class="m-b-15" style="padding-left: 268px">
-                    <input type="file" id="image_submit" name="product_img_main" class="btn btn-primary" accept="image/gif, image/jpeg, image/png" style="display:none;" required />
+                    <input type="file" id="image_submit" name="product_img_main" class="btn btn-primary" accept="image/gif, image/jpeg, image/png" style="display:none;"  />
                     <label id="choose_image" for="image_submit" class="btn-primary btn"> <i class="anticon anticon-save"></i>&nbsp Ảnh đại diện</label>
                     <span class="text-danger"></span>
                 </div>
@@ -59,7 +52,7 @@
                     <div class="avatar avatar-image rounded" style="height: 140px; width: 140px"></div>
                 </div>
                 <div class="m-b-15" style="padding-left: 100px">
-                    <input type="file" id="image_submit_2" name="product_img_description[]" class="btn btn-primary" multiple accept="image/gif, image/jpeg, image/png" style="display: none" required />
+                    <input type="file" id="image_submit_2" name="product_img_description[]" class="btn btn-primary" multiple accept="image/gif, image/jpeg, image/png" style="display: none"  />
                     <label id="choose_image" for="image_submit_2" class="btn-primary btn"> <i class="anticon anticon-save"></i>&nbsp Ảnh chi tiết</label>
                     <span class="text-danger"></span>
                 </div>
@@ -71,11 +64,11 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_name">Tên sản phẩm</label>
-                                <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Tên">
+                                <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Tên" required>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_type">Danh mục</label>
-                                <select class="custom-select" name="product_type" id="Type_MainType">
+                                <select class="custom-select" name="product_type" id="Type_MainType" required>
                                     <option value="" disabled="true" selected>Chọn danh mục</option>
                                     @foreach ($main_type as $key =>$main_type)
                                     <option value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>
@@ -83,7 +76,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="sub1">
-                                <select class="custom-select" name="product_subtype" id="type1"">
+                                <select class="custom-select" name="product_subtype" id="type1" required>
                                     <option value="" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_raucu as $key =>$sub_type_raucu)
                                     <option value=" {{$sub_type_raucu->SubType}}">{{$sub_type_raucu->SubType}} </option>
@@ -91,7 +84,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="sub2">
-                                <select class="custom-select" name="product_subtype" id="type2">
+                                <select class="custom-select" name="product_subtype" id="type2" required>
                                     <option value="" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_thitca as $key =>$sub_type_thitca)
                                     <option value="{{$sub_type_thitca->SubType}}">{{$sub_type_thitca->SubType}} </option>
@@ -99,7 +92,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="sub3">
-                                <select class="custom-select" name="product_subtype" id="type3">
+                                <select class="custom-select" name="product_subtype" id="type3" required>
                                     <option value="" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_traicay as $key =>$sub_type_traicay)
                                     <option value="{{$sub_type_traicay->SubType}}">{{$sub_type_traicay->SubType}} </option>
@@ -108,11 +101,11 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_price">Đơn giá</label>
-                                <input type="text" class="form-control" name="product_price" id="product_price" placeholder="VNĐ">
+                                <input type="number" class="form-control" name="product_price" id="product_price" placeholder="VNĐ" required>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_source">Nguồn gốc</label>
-                                <select class="custom-select" name="product_source" id="product_source" required>
+                                <select class="custom-select" name="product_source" id="product_source" required="required">
                                     <option value="" selected>Nguồn gốc sản phẩm</option>
                                     <option value="Sản phẩm của Brili Fresh">Sản phẩm của Brili Fresh</option>
                                     <option value="Sản phẩm nhập khẩu">Sản phẩm nhập khẩu</option>
@@ -120,18 +113,18 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_date">Ngày tạo</label>
-                                <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy">
+                                <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy" required="required">
 
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_discription">Mô tả sản phẩm</label>
-                                <textarea type="text-area" class="form-control" name="product_discription" id="product_discription" placeholder="Mô tả ngắn gọn về sản phẩm mới của Brili Fresh"> </textarea>
+                                <textarea type="text-area" class="form-control" name="product_discription" id="product_discription" placeholder="Mô tả ngắn gọn về sản phẩm mới của Brili Fresh" required="required" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="unit">Đơn vị bán</label>
                                 <br>
                                 <label class="font-weight-semibold" for="unit_number">&nbsp &nbsp Số lượng</label>
-                                <input type="number" class="form-control" name="unit_number" id="unit_number" placeholder="1/100/... ">
+                                <input type="number" class="form-control" name="unit_number" id="unit_number" placeholder="1/100/... " required>
 
                                 <label class="font-weight-semibold" for="unit_count">&nbsp &nbsp Đơn vị tính</label>
                                 <select class="custom-select" name="unit_count" id="unit_count" required>
@@ -144,7 +137,7 @@
                             </div>
                         </div>
                         <div class="m-b-15">
-                            <button type="submit" name="save-employee" class="btn btn-primary">
+                            <button type="submit" name="save-product" class="btn btn-primary">
                                 <i class="anticon anticon-save"></i>
                                 <span>Thêm sản phẩm</span>
                             </button>
