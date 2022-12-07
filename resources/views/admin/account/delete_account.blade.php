@@ -6,58 +6,58 @@
           <nav class="breadcrumb breadcrumb-dash">
                <a href="{{URL::to('/dashboard')}}" class="breadcrumb-item"><i
                          class="anticon anticon-home m-r-5"></i>Trang chủ</a>
-               <a href="{{URL::to('/index-stock')}}" class="breadcrumb-item">Quản lý kho</a>
+               <a href="{{URL::to('/index-account')}}" class="breadcrumb-item">Quản lý cửa hàng</a>
                <span class="breadcrumb-item active">Xóa</span>
           </nav>
      </div>
 </div>
-<h1>Xóa thông tin kho</h1>
+<h1>Xóa tài khoản</h1>
 
-<h3>Bạn có chắc muốn xóa sản phẩm khỏi cửa hàng?</h3>
+<h3>Bạn có chắc muốn xóa tài khoản?</h3>
 <div>
-     @foreach($delete_stock as $key =>$stock)
+     @foreach($delete_account as $key =>$account)
      <hr />
+     <h4>Mã tài khoản: {{$account->UserID}}</h4>
      <dl class="row">
           <dt class="col-sm-2">
-               ID cửa hàng
+               Mã nhân viên
           </dt>
           <dd class="col-sm-10">
-               {{$stock->StoreID}}
+               {{$account->employee_empid}}
           </dd>
           <dt class="col-sm-2">
-               Địa chỉ
+               Họ và tên
           </dt>
           <dd class="col-sm-10">
-               {{$stock->Store_SpecificAddress}}, {{$stock->Store_Ward}}, {{$stock->Store_District}},
-               {{$stock->Store_City}}
+               {{$account->employee_LastName}} {{$account->employee_FirstName}}
           </dd>
           <dt class="col-sm-2">
-               ID sản phẩm
+               Tên đăng nhập
           </dt>
           <dd class="col-sm-10">
-               {{$stock->ProID}}
+               {{$account->UserName}}
           </dd>
           <dt class="col-sm-2">
-               Tên sản phẩm
+               Mật khẩu
           </dt>
           <dd class="col-sm-10">
-               {{$stock->Pro_ProName}}
+               {{$account->UserPassword}}
           </dd>
           <dt class="col-sm-2">
-               Số lượng
+               Loại tài khoản
           </dt>
           <dd class="col-sm-10">
-               {{$stock->Quantity}}
+               Nhân viên
           </dd>
-
      </dl>
 
-     <form action="/confirm-delete-stock/{{$stock->StoreID}}/{{$stock->ProID}}" method="post">
+     <form action="/confirm-delete-account/{{$account->UserID}}" method="post">
           {{csrf_field()}}
           <input type="submit" value="Xóa" class="btn btn-danger" />
-          <a style="margin-left:20px;" href="{{URL::to('/index-stock')}}" class="btn btn-success btn-tone m-r-5">Quay
+          <a style="margin-left:20px;" href="{{URL::to('/index-account')}}" class="btn btn-success btn-tone m-r-5">Quay
                lại Danh sách</a>
      </form>
+
      @endforeach
 </div>
 @endsection

@@ -72,3 +72,11 @@ Route::get('/edit-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@ed
 Route::post('/update-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@update_stock');
 Route::get('/delete-stock/{stock_id}/{pro_id}','App\Http\Controllers\AdminStock@delete_stock');
 Route::post('/confirm-delete-stock/{stock_id}/{pro_id}','App\Http\Controllers\AdminStock@confirm_delete_stock');
+
+
+
+//Quản lý tài khoản
+Route::get('/index-account/{user_id?}','App\Http\Controllers\AdminAccount@index_account');
+Route::get('/delete-account/{user_id}','App\Http\Controllers\AdminAccount@delete_account');
+Route::post('/confirm-delete-account/{user_id}','App\Http\Controllers\AdminAccount@confirm_delete_account');
+// Route::post('/confirm-delete-account/{user_id}','App\Http\Controllers\AdminAccount@confirm_delete_account');
