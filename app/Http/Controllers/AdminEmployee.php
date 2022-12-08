@@ -50,6 +50,7 @@ class AdminEmployee extends Controller
                 $data_user['UserPassword'] = md5($request->employee_pass);
                 $data_user['UserName'] = $request->employee_user;
                 $data_user['UserRole'] = 2;
+                $data_user['IsDeleted'] = 0;
                 DB::table('user')->insert($data_user);
 
                 $data = array();
@@ -62,6 +63,7 @@ class AdminEmployee extends Controller
                 $data['StoreID'] = $request->store_id;
                 $data['Phone'] = $request->phone;
                 $data['Email'] = $request->email;
+                $data['IsDeleted'] = 0;
                 DB::table('employee')->insert($data);
 
                 Session::put('add_employee_message', 'Thêm nhân viên thành công!');
