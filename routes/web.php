@@ -44,6 +44,7 @@ Route::get('/detail-employee/{employee_id}','App\Http\Controllers\AdminEmployee@
 Route::get('/edit-employee/{employee_id}','App\Http\Controllers\AdminEmployee@edit_employee');
 Route::post('/update-employee/{employee_id}','App\Http\Controllers\AdminEmployee@update_employee');
 Route::get('/delete-employee/{employee_id}','App\Http\Controllers\AdminEmployee@delete_employee');
+Route::post('/soft-delete-employee/{employee_id}','App\Http\Controllers\AdminEmployee@soft_delete_employee');
 
 //Quản lý cửa hàng
 Route::get('/index-store','App\Http\Controllers\AdminStore@index_store');
@@ -74,8 +75,6 @@ Route::get('/edit-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@ed
 Route::post('/update-stock/{store_id}/{pro_id}','App\Http\Controllers\AdminStock@update_stock');
 Route::get('/delete-stock/{stock_id}/{pro_id}','App\Http\Controllers\AdminStock@delete_stock');
 Route::post('/confirm-delete-stock/{stock_id}/{pro_id}','App\Http\Controllers\AdminStock@confirm_delete_stock');
-
-
 
 //Quản lý tài khoản
 Route::get('/index-account/{user_id?}','App\Http\Controllers\AdminAccount@index_account');
