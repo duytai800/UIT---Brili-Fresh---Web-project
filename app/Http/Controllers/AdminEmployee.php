@@ -109,7 +109,6 @@ class AdminEmployee extends Controller
             ->with('edit_employee', $edit_employee);
 
         return view('admin_layout')->with('admin.customer.edit_employee', $manage_edit_employee);
-        
     }
 
     public function update_employee(Request $request, $employee_id)
@@ -118,8 +117,7 @@ class AdminEmployee extends Controller
         $enddate = $request->enddate;
         if (is_null($startdate)) {
             $startdate = $request->startdate;
-        }
-        else{
+        } else {
             $startdate = explode("/", $startdate);
             $startdate = $startdate[1] . "-" . $startdate[0] . "-" . $startdate[2];
             $startdate = date('Y-m-d', strtotime($startdate));
@@ -127,12 +125,11 @@ class AdminEmployee extends Controller
 
         if (is_null($enddate)) {
             $enddate = $request->enddate;
-        }
-        else{
+        } else {
             $enddate = explode("/", $enddate);
             $enddate = $enddate[1] . "-" . $enddate[0] . "-" . $enddate[2];
             $enddate = date('Y-m-d', strtotime($enddate));
-        }      
+        }
 
         $data = array();
         $data['LastName'] = $request->employeeLastName;
@@ -151,10 +148,25 @@ class AdminEmployee extends Controller
 
     public function delete_employee($employee_id)
     {
+        //$manage_insert_store_id = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id);
+
+        $edit_employee = DB::table('employee')->where('empid', $employee_id)->get();
+        $insert_store_id = DB::table('store')->where('storeid', $edit_employee[0]->StoreID)->get();
+
+        $manage_edit_employee = view('admin.employee.delete_employee')
+            ->with('insert_store_id', $insert_store_id)
+            ->with('edit_employee', $edit_employee);
+
+
+        return view('admin_layout')->with('admin.customer.delete_employee', $manage_edit_employee);
+    }
+
+    public function soft_delete_employee($employee_id)
+    {
         $data = array();
         $data['IsDeleted'] = 1;
         DB::table('employee')->where('empid', $employee_id)->update($data);
-        Session::put('add_employee_message', 'Xoá thông tin nhân viên thành công!');
+        Session::put('delete_employee_message', 'Xoá thông tin nhân viên thành công!');
         return Redirect::to('all-employee');
     }
 }

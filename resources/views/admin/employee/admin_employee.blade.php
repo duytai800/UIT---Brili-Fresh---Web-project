@@ -22,6 +22,13 @@ if ($add_employee_message) {
     echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $add_employee_message . '</span>';
     Session::put('add_employee_message', null);
 }
+
+$delete_employee_message = Session::get('delete_employee_message');
+
+if ($delete_employee_message) {
+    echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $delete_employee_message . '</span>';
+    Session::put('delete_employee_message', null);
+}
 ?>
 <div class="card">
     <div class="card-body">
@@ -79,7 +86,7 @@ if ($add_employee_message) {
                             <a href="{{URL::to('/edit-employee/'.$employee->EmpID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right">
                                 <i class="anticon anticon-edit"></i>
                             </a>
-                            <a onclick="return confirm('Bạn có chắc muốn xoá thông tin nhân viên này?')" href="{{URL::to('/delete-employee/'.$employee->EmpID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
+                            <a href="{{URL::to('/delete-employee/'.$employee->EmpID)}}" class="btn btn-icon btn-hover btn-sm btn-rounded">
                                 <i class="anticon anticon-delete"></i>
                             </a>
                             <a href="{{URL::to('/detail-employee/'.$employee->EmpID)}}" style="padding: 12px 20px;">
