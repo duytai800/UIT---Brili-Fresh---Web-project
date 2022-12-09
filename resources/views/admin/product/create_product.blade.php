@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group" id="sub1">
                                 <select class="custom-select" name="product_subtype" id="type1" required>
-                                    <option value="" selected>Chọn loại sản phẩm</option>
+                                    <option value="" disabled="true" selected>Chọn loại sản phẩm</option>
                                     @foreach ($sub_type_raucu as $key =>$sub_type_raucu)
                                     <option value=" {{$sub_type_raucu->SubType}}">{{$sub_type_raucu->SubType}} </option>
                                     @endforeach

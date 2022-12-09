@@ -95,7 +95,6 @@ if ($message_no_des) {
                 </thead>
                 <tbody>
                     @foreach($all_products as $key =>$product)
-
                     <tr>
                         <td>{{$product->ProID}}</td>
                         <td>

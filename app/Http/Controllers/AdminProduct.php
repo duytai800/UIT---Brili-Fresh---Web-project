@@ -130,7 +130,6 @@ class AdminProduct extends Controller
             ->select('startdate')->where('product.proid', $product_id)
             ->distinct()->get();
         $product_date = $product_start_date[0]->startdate;
-
         $product_date = explode("-", $product_date);
         $product_date = $product_date[2] . "/" . $product_date[1] . "/" . $product_date[0];
 
@@ -214,7 +213,6 @@ class AdminProduct extends Controller
         //echo $type_id;
 
         $product_date = $request->product_date;
-
 
         $product_date = explode("/", $product_date);
         $product_date = $product_date[1] . "-" . $product_date[0] . "-" . $product_date[2];

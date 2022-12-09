@@ -81,3 +81,13 @@ Route::get('/index-account/{user_id?}','App\Http\Controllers\AdminAccount@index_
 Route::get('/delete-account/{user_id}','App\Http\Controllers\AdminAccount@delete_account');
 Route::post('/confirm-delete-account/{user_id}','App\Http\Controllers\AdminAccount@confirm_delete_account');
 // Route::post('/confirm-delete-account/{user_id}','App\Http\Controllers\AdminAccount@confirm_delete_account');
+
+//Quản lý khuyến mãi sản phẩm 
+Route::get('/all-discount-products','App\Http\Controllers\AdminDiscount@all_discount_products');
+Route::get('/create-discount-product','App\Http\Controllers\AdminDiscount@create_discount_product');
+Route::post('/save-discount-product','App\Http\Controllers\AdminDiscount@save_discount_product');
+Route::get('/edit-discount-product/{dis_id}','App\Http\Controllers\AdminDiscount@edit_discount_product');
+Route::post('/update-discount-product/{dis_id}','App\Http\Controllers\AdminDiscount@update_discount_product');
+Route::get('/delete-discount-product/{dis_id}','App\Http\Controllers\AdminDiscount@delete_discount_product');
+Route::post('/confirm-delete-discount-product/{dis_id}','App\Http\Controllers\AdminDiscount@confirm_delete_discount_product');
+

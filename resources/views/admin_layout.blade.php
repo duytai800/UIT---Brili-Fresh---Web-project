@@ -364,6 +364,31 @@
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
+                                             <i class="anticon anticon-pie-chart"></i>
+                                        </span>
+                                        <span class="title">Quản lý khuyến mãi</span>
+                                        <span class="arrow">
+                                             <i class="arrow-icon"></i>
+                                        </span>
+                                   </a>
+                                   <ul class="dropdown-menu">
+                                        <li>
+                                             <a href="{{URL::to('/all-discount-products')}}">Khuyến mãi sản phẩm</a>
+                                        </li>
+                                        <li>
+                                             <a href="{{URL::to('/index-account')}}">Khuyến mãi loại sản phẩm </a>
+                                        </li>
+                                        <li>
+                                             <a href="chartjs.html">Khuyến mãi hoá đơn</a>
+                                        </li>
+                                        <li>
+                                             <a href="chartjs.html">Khuyến mãi cửa hàng</a>
+                                        </li>
+                                   </ul>
+                              </li>
+                              <li class="nav-item dropdown">
+                                   <a class="dropdown-toggle" href="javascript:void(0);">
+                                        <span class="icon-holder">
                                              <i class="anticon anticon-lock"></i>
                                         </span>
                                         <span class="title">Authentication</span>
