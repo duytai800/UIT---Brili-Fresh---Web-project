@@ -151,7 +151,6 @@
     </div>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <script type="text/javascript">
     var s1 = $("#sub1")
     var t1 = $("#type1")

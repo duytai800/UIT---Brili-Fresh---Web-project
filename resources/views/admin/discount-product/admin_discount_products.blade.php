@@ -5,7 +5,7 @@
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
             <a href="{{URL::to('/dashboard')}}" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Trang chủ</a>
-            <a class="breadcrumb-item" href="{{URL::to('/all-discount-products')}}">Quản lý khuyến mãi sản phẩm</a>
+            <a class="breadcrumb-item" href="{{URL::to('/all-discount-typ')}}">Quản lý khuyến mãi sản phẩm</a>
             <span class="breadcrumb-item active">Danh sách sản phẩm khuyến mãi</span>
         </nav>
     </div>
@@ -19,6 +19,12 @@ $add_discount_product = Session::get('add_discount_product');
 if ($add_discount_product) {
     echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $add_discount_product . '</span>';
     Session::put('add_discount_product', null);
+}
+
+$add_discount_product_fail = Session::get('add_discount_product_fail');
+if ($add_discount_product_fail) {
+    echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $add_discount_product_fail . '</span>';
+    Session::put('add_discount_product_fail', null);
 }
 
 $edit_discount_product_message = Session::get('edit_discount_product_message');

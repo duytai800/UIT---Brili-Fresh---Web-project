@@ -13,18 +13,6 @@
 <h1>Thêm khuyến mãi sản phẩm</h1>
 <form action="{{URL::to('/save-discount-product')}}" method="post">
     {{csrf_field()}}
-
-    <?php
-
-    use Illuminate\Support\Facades\Session;
-
-    $add_employee_message_fail = Session::get('add_employee_message_fail');
-    if ($add_employee_message_fail) {
-        echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $add_employee_message_fail . '</span>';
-        Session::put('add_employee_message_fail', null);
-    }
-    ?>
-
     <div class="tab-content m-t-15">
         <div class="tab-pane fade show active" id="product-edit-basic">
             <div class="card">
@@ -68,10 +56,10 @@
         flatpickr("#startdate", {
             altInput: true,
             enableTime: true,
-            altFormat: " d/m/Y H:i ",
+            altFormat: "d/m/Y H:i",
             dateFormat: "d/m/Y H:i",
             minDate: 'today',
-            //maxDate: new Date().fp_incr(14)
+            maxDate: new Date().fp_incr(14)
         })
     });
 </script>

@@ -376,10 +376,10 @@
                                              <a href="{{URL::to('/all-discount-products')}}">Khuyến mãi sản phẩm</a>
                                         </li>
                                         <li>
-                                             <a href="{{URL::to('/index-account')}}">Khuyến mãi loại sản phẩm </a>
+                                             <a href="{{URL::to('/all-discount-types')}}">Khuyến mãi loại sản phẩm </a>
                                         </li>
                                         <li>
-                                             <a href="chartjs.html">Khuyến mãi hoá đơn</a>
+                                             <a href="{{URL::to('/all-discount-orders')}}">Khuyến mãi hoá đơn</a>
                                         </li>
                                         <li>
                                              <a href="chartjs.html">Khuyến mãi cửa hàng</a>
