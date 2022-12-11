@@ -382,7 +382,7 @@
                                              <a href="{{URL::to('/all-discount-orders')}}">Khuyến mãi hoá đơn</a>
                                         </li>
                                         <li>
-                                             <a href="chartjs.html">Khuyến mãi cửa hàng</a>
+                                             <a href="{{URL::to('/all-discount-stores')}}">Khuyến mãi cửa hàng</a>
                                         </li>
                                    </ul>
                               </li>

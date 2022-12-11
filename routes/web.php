@@ -102,3 +102,18 @@ Route::post('/confirm-delete-discount-type/{dis_id}','App\Http\Controllers\Admin
 
 //Quản lý khuyến mãi hoá đơn 
 Route::get('/all-discount-orders','App\Http\Controllers\AdminDiscount@all_discount_orders');
+Route::get('/create-discount-order','App\Http\Controllers\AdminDiscount@create_discount_order');
+Route::post('/save-discount-order','App\Http\Controllers\AdminDiscount@save_discount_order');
+Route::get('/edit-discount-order/{dis_id}','App\Http\Controllers\AdminDiscount@edit_discount_order');
+Route::post('/update-discount-order/{dis_id}','App\Http\Controllers\AdminDiscount@update_discount_order');
+Route::get('/delete-discount-order/{dis_id}','App\Http\Controllers\AdminDiscount@delete_discount_order');
+Route::post('/confirm-delete-discount-order/{dis_id}','App\Http\Controllers\AdminDiscount@confirm_delete_discount_order');
+
+//Quản lý khuyến mãi cửa hàng 
+Route::get('/all-discount-stores','App\Http\Controllers\AdminDiscount@all_discount_stores');
+Route::get('/create-discount-store','App\Http\Controllers\AdminDiscount@create_discount_store');
+Route::post('/save-discount-store','App\Http\Controllers\AdminDiscount@save_discount_store');
+Route::get('/edit-discount-store/{dis_id}','App\Http\Controllers\AdminDiscount@edit_discount_store');
+Route::post('/update-discount-store/{dis_id}','App\Http\Controllers\AdminDiscount@update_discount_store');
+Route::get('/delete-discount-store/{dis_id}','App\Http\Controllers\AdminDiscount@delete_discount_store');
+Route::post('/confirm-delete-discount-store/{dis_id}','App\Http\Controllers\AdminDiscount@confirm_delete_discount_store');

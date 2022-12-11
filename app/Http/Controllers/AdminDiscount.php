@@ -16,8 +16,8 @@ class AdminDiscount extends Controller
             ->join('product', 'product.proid', '=', 'discount_product.proid')
             ->where('product_image.imgdata', 'like', 'main%')
             ->select(
-                DB::raw('DATE_FORMAT(discount_product.startdate, "%d-%m-%Y %H:%m:%s") as startdate'),
-                DB::raw('DATE_FORMAT(discount_product.enddate, "%d-%m-%Y %H:%m:%s") as enddate'),
+                DB::raw('DATE_FORMAT(discount_product.startdate, "%d-%m-%Y %H:%i:%s") as startdate'),
+                DB::raw('DATE_FORMAT(discount_product.enddate, "%d-%m-%Y %H:%i:%s") as enddate'),
                 'discount_product.disid',
                 'product.proid',
                 'product.proname',
@@ -26,22 +26,6 @@ class AdminDiscount extends Controller
                 'discount_product.isdeleted'
             )
             ->orderBy('discount_product.disid', 'asc')->get();
-
-        // $start_date = DB::table('discount_product')->select('startdate')->orderBy('discount_product.disid', 'asc')->get()->toArray();
-        // $list_start_date = array();
-
-        // for ($i = 0; $i < count($start_date); $i++) {
-        //     $temp_start_date = $start_date[$i]->startdate;
-        //     echo $temp_start_date;
-        //     if ($temp_start_date) {
-        //         $temp_start_date_time = explode(" ", $temp_start_date);
-        //         $temp_start_date = explode("-", $temp_start_date_time[0]);
-        //         $temp_start_date = $temp_start_date[2] . "-" . $temp_start_date[1] . "-" . $temp_start_date[0] . " " . $temp_start_date_time[1];
-        //         array_push($list_start_date, $temp_start_date);
-        //     } else {
-        //         array_push($list_start_date, $temp_start_date);
-        //     }
-        // }
 
         $manage_all_discount_products = view('admin.discount-product.admin_discount_products')
             ->with('all_discount_products', $all_discount_products);
@@ -67,7 +51,6 @@ class AdminDiscount extends Controller
             $startdate = explode("/", $startdate[0]);
             $startdate = $startdate[2] . "-" . $startdate[1] . "-" . $startdate[0] . " " .  $start_time . ":" . "00";
             $startdate = date('Y-m-d H:i:s', strtotime($startdate));
-
 
             $enddate = $request->enddate;
             $enddate = explode(" ", $enddate);
@@ -100,8 +83,8 @@ class AdminDiscount extends Controller
             ->join('discount_product', 'product.proid', '=', 'discount_product.proid')
             ->where('discount_product.disid', $dis_id)
             ->select(
-                DB::raw('DATE_FORMAT(discount_product.startdate, "%d-%m-%Y %H:%m:%s") as StartDate'),
-                DB::raw('DATE_FORMAT(discount_product.enddate, "%d-%m-%Y %H:%m:%s") as EndDate'),
+                DB::raw('DATE_FORMAT(discount_product.startdate, "%d-%m-%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_product.enddate, "%d-%m-%Y %H:%i:%s") as EndDate'),
                 'discount_product.DisID',
                 'discount_product.ProID',
                 'product.ProName',
@@ -188,8 +171,8 @@ class AdminDiscount extends Controller
         $all_discount_types = DB::table('discount_type')
             ->join('type', 'discount_type.typeid', '=', 'type.typeid')
             ->select(
-                DB::raw('DATE_FORMAT(discount_type.startdate, "%d/%m/%Y %H:%m:%s") as StartDate'),
-                DB::raw('DATE_FORMAT(discount_type.enddate, "%d/%m/%Y %H:%m:%s") as EndDate'),
+                DB::raw('DATE_FORMAT(discount_type.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_type.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
                 'discount_type.DisID',
                 'discount_type.TypeID',
                 'Type.SubType',
@@ -269,8 +252,8 @@ class AdminDiscount extends Controller
         $edit_discount_type = DB::table('discount_type')
             ->join('type', 'discount_type.typeid', '=', 'type.typeid')
             ->select(
-                DB::raw('DATE_FORMAT(discount_type.startdate, "%d-%m-%Y %H:%m:%s") as StartDate'),
-                DB::raw('DATE_FORMAT(discount_type.enddate, "%d-%m-%Y %H:%m:%s") as EndDate'),
+                DB::raw('DATE_FORMAT(discount_type.startdate, "%d-%m-%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_type.enddate, "%d-%m-%Y %H:%i:%s") as EndDate'),
                 'discount_type.DisID',
                 'discount_type.TypeID',
                 'Type.SubType',
@@ -324,8 +307,8 @@ class AdminDiscount extends Controller
         $delete_discount_type = DB::table('discount_type')
             ->join('type', 'discount_type.typeid', '=', 'type.typeid')
             ->select(
-                DB::raw('DATE_FORMAT(discount_type.startdate, "%d-%m-%Y %H:%m:%s") as StartDate'),
-                DB::raw('DATE_FORMAT(discount_type.enddate, "%d-%m-%Y %H:%m:%s") as EndDate'),
+                DB::raw('DATE_FORMAT(discount_type.startdate, "%d-%m-%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_type.enddate, "%d-%m-%Y %H:%i:%s") as EndDate'),
                 'discount_type.DisID',
                 'discount_type.TypeID',
                 'Type.SubType',
@@ -360,22 +343,311 @@ class AdminDiscount extends Controller
         return Redirect::to('all-discount-types');
     }
 
+    public function all_discount_stores()
+    {
+        $all_discount_stores = DB::table('discount_store')
+            ->join('store', 'discount_store.storeid', '=', 'store.storeid')
+            ->select(
+                DB::raw('DATE_FORMAT(discount_store.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_store.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
+                'discount_store.DisID',
+                'discount_store.StoreID',
+                'discount_store.Value',
+                'store.SpecificAddress',
+                'store.District',
+                'store.City',
+                'store.Ward'
+            )
+            ->orderBy('discount_store.disid', 'asc')->get();
+        $manage_all_discount_stores = view('admin.discount-store.admin_discount_store')
+            ->with('all_discount_stores', $all_discount_stores);
+        return view('admin_layout')->with('admin.discount-store.admin_discount_store', $manage_all_discount_stores);
+    }
+
+    public function create_discount_store()
+    {
+        $discount_store = DB::table('store')->where('isDeleted', 0)
+            ->select('store.*')->get();
+        $manage_discount_store = view('admin.discount-store.create_discount_store')
+            ->with('discount_store', $discount_store);
+        return view('admin_layout')->with('admin.discount-store.create_discount_store', $manage_discount_store);
+    }
+
+    public function save_discount_store(Request $request)
+    {
+
+        $store_id = DB::table('discount_store')
+            ->select('storeid')->where('discount_store.storeid', $request->store_id)
+            ->get()->toArray();
+
+        if (empty($store_id)) {
+            $startdate = $request->startdate;
+            $startdate = explode(" ", $startdate);
+            $start_time = $startdate[1];
+            $startdate = explode("/", $startdate[0]);
+            $startdate = $startdate[2] . "-" . $startdate[1] . "-" . $startdate[0] . " " .  $start_time . ":" . "00";
+            $startdate = date('Y-m-d H:i:s', strtotime($startdate));
+
+            $enddate = $request->enddate;
+            $enddate = explode(" ", $enddate);
+            $end_time = $enddate[1];
+            $enddate = explode("/", $enddate[0]);
+            $enddate = $enddate[2] . "-" . $enddate[1] . "-" . $enddate[0] . " " .  $end_time . ":" . "00";
+            $enddate = date('Y-m-d H:i:s', strtotime($enddate));
+
+            $data = array();
+            $data['StoreID'] = $request->store_id;
+            $data['Value'] = $request->discount_value;
+            $data['StartDate'] = $startdate;
+            $data['EndDate'] = $enddate;
+
+            DB::table('discount_store')->insert($data);
+            Session::put('add_discount_store', 'Áp dụng khuyến mãi cho cửa hàng thành công!');
+            return Redirect::to('all-discount-stores');
+        } else {
+            Session::put('add_discount_store_fail', 'Cửa hàng này đã được áp dụng chương trình khuyến mãi!');
+            return Redirect::to('all-discount-stores');
+        }
+    }
+
+    public function edit_discount_store($dis_id)
+    {
+        $edit_discount_store = DB::table('discount_store')
+            ->join('store', 'discount_store.storeid', '=', 'store.storeid')
+            ->select(
+                DB::raw('DATE_FORMAT(discount_store.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_store.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
+                'discount_store.DisID',
+                'discount_store.StoreID',
+                'discount_store.Value',
+                'store.SpecificAddress',
+                'store.District',
+                'store.City',
+                'store.Ward'
+            )->where('discount_store.disid', $dis_id)
+            ->orderBy('discount_store.disid', 'asc')->get();
+        $manage_discount_store = view('admin.discount-store.edit_discount_store')
+            ->with('edit_discount_store', $edit_discount_store);
+        return view('admin_layout')->with('admin.discount-store.edit_discount_store', $manage_discount_store);
+    }
+
+    public function update_discount_store(Request $request, $dis_id)
+    {
+        $startdate = $request->startdate;
+        $enddate = $request->enddate;
+        if (is_null($startdate)) {
+            $startdate = $request->startdate;
+        } else {
+            $startdate = explode(" ", $startdate);
+            $start_time = $startdate[1];
+            $startdate = explode("/", $startdate[0]);
+            $startdate = $startdate[2] . "-" . $startdate[1] . "-" . $startdate[0] . " " .  $start_time . ":" . "00";
+            $startdate = date('Y-m-d H:i:s', strtotime($startdate));
+        }
+
+        if (is_null($enddate)) {
+            $enddate = $request->enddate;
+        } else {
+            $enddate = $request->enddate;
+            $enddate = explode(" ", $enddate);
+            $end_time = $enddate[1];
+            $enddate = explode("/", $enddate[0]);
+            $enddate = $enddate[2] . "-" . $enddate[1] . "-" . $enddate[0] . " " .  $end_time . ":" . "00";
+            $enddate = date('Y-m-d H:i:s', strtotime($enddate));
+        }
+
+        $data = array();
+        $data['Value'] = $request->discount_value;
+        $data['StartDate'] = $startdate;
+        $data['EndDate'] = $enddate;
+        DB::table('discount_store')->where('disid', $dis_id)->update($data);
+        Session::put('edit_discount_store_message', 'Sửa thông tin khuyến mãi thành công!');
+        return Redirect::to('all-discount-stores');
+    }
+
+    public function delete_discount_store($dis_id)
+    {
+        $delete_discount_store = DB::table('discount_store')
+            ->join('store', 'discount_store.storeid', '=', 'store.storeid')
+            ->select(
+                DB::raw('DATE_FORMAT(discount_store.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_store.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
+                'discount_store.DisID',
+                'discount_store.StoreID',
+                'discount_store.Value',
+                'store.SpecificAddress',
+                'store.District',
+                'store.City',
+                'store.Ward'
+            )->where('discount_store.disid', $dis_id)
+            ->orderBy('discount_store.disid', 'asc')->get();
+
+        $manage_discount_store = view('admin.discount-store.delete_discount_store')
+            ->with('delete_discount_store', $delete_discount_store);
+        return view('admin_layout')->with('admin.discount-store.delete_discount_store', $manage_discount_store);
+    }
+
+    public function confirm_delete_discount_store($dis_id)
+    {
+        DB::table('discount_store')->where('discount_store.disid', $dis_id)->delete();
+        Session::put('delete_discount_store_message', 'Xoá thông tin khuyến mãi thành công!');
+        return Redirect::to('all-discount-stores');
+    }
+
     public function all_discount_orders()
     {
         $all_discount_orders = DB::table('discount_order')
-            ->join('reward', 'discount_order.custype', '=', 'reward.custype')
             ->select(
-                DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%m:%s") as StartDate'),
-                DB::raw('DATE_FORMAT(discount_order.enddate, "%d/%m/%Y %H:%m:%s") as EndDate'),
+                DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_order.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
                 'discount_order.DisID',
                 'discount_order.DisCode',
                 'discount_order.MaxDis',
-                'reward.CusType',
+                'discount_order.CusType',
                 'discount_order.DisRate'
             )
             ->orderBy('discount_order.disid', 'asc')->get();
         $manage_all_discount_orders = view('admin.discount-order.admin_discount_order')
             ->with('all_discount_orders', $all_discount_orders);
         return view('admin_layout')->with('admin.discount-order.admin_discount_order', $manage_all_discount_orders);
+    }
+
+    public function create_discount_order()
+    {
+        $manage_all_discount_orders = view('admin.discount-order.create_discount_order');
+        return view('admin_layout')->with('admin.discount-order.create_discount_order', $manage_all_discount_orders);
+    }
+
+    public function save_discount_order(Request $request)
+    {
+        $code_discount_order = DB::table('discount_order')
+            ->select('discode')->where('discount_order.discode', $request->discode)
+            ->get()->toArray();
+
+        if (empty($code_discount_order)) {
+            $startdate = $request->startdate;
+            $startdate = explode(" ", $startdate);
+            $start_time = $startdate[1];
+            $startdate = explode("/", $startdate[0]);
+            $startdate = $startdate[2] . "-" . $startdate[1] . "-" . $startdate[0] . " " .  $start_time . ":" . "00";
+            $startdate = date('Y-m-d H:i:s', strtotime($startdate));
+
+            $enddate = $request->enddate;
+            $enddate = explode(" ", $enddate);
+            $end_time = $enddate[1];
+            $enddate = explode("/", $enddate[0]);
+            $enddate = $enddate[2] . "-" . $enddate[1] . "-" . $enddate[0] . " " .  $end_time . ":" . "00";
+            $enddate = date('Y-m-d H:i:s', strtotime($enddate));
+
+            if (is_null($request->discode)) {
+                $code = "BRILI-" . bin2hex(random_bytes(3));
+                $data = array();
+                $data['DisCode'] = $code;
+                $data['DisRate'] = $request->discount_value;
+                $data['MaxDis'] = $request->max_discount_value;
+                $data['StartDate'] = $startdate;
+                $data['EndDate'] = $enddate;
+                $data['CusType'] = $request->rank_customer;
+                DB::table('discount_order')->insert($data);
+                Session::put('add_discount_order_auto', 'Tự động tạo mã khuyến mãi thành công!');
+                return Redirect::to('all-discount-orders');
+            } else {
+                $data = array();
+                $data['DisCode'] = $request->discode;
+                $data['DisRate'] = $request->discount_value;
+                $data['MaxDis'] = $request->max_discount_value;
+                $data['StartDate'] = $startdate;
+                $data['EndDate'] = $enddate;
+                $data['CusType'] = $request->rank_customer;
+                DB::table('discount_order')->insert($data);
+                Session::put('add_discount_order', 'Tạo mã khuyến mãi thành công!');
+                return Redirect::to('all-discount-orders');
+            }
+        } else {
+            Session::put('add_discount_order_fail', 'Mã khuyến mãi này đã được tạo');
+            return Redirect::to('all-discount-orders');
+        }
+    }
+
+    public function edit_discount_order($dis_id)
+    {
+        $edit_discount_order = DB::table('discount_order')
+            ->select(
+                DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_order.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
+                'discount_order.DisID',
+                'discount_order.DisCode',
+                'discount_order.MaxDis',
+                'discount_order.CusType',
+                'discount_order.DisRate'
+            )->where('discount_order.disid', $dis_id)
+            ->orderBy('discount_order.disid', 'asc')->get();
+        $custype_original = $edit_discount_order[0]->CusType;
+        $manage_all_discount_orders = view('admin.discount-order.edit_discount_order')
+            ->with('custype_original', $custype_original)
+            ->with('all_discount_orders', $edit_discount_order);
+        return view('admin_layout')->with('admin.discount-order.edit_discount_order', $manage_all_discount_orders);
+    }
+
+    public function update_discount_order(Request $request, $dis_id)
+    {
+        $startdate = $request->startdate;
+        $enddate = $request->enddate;
+
+        if (is_null($startdate)) {
+            $startdate = $request->startdate;
+        } else {
+            $startdate = explode(" ", $startdate);
+            $start_time = $startdate[1];
+            $startdate = explode("/", $startdate[0]);
+            $startdate = $startdate[2] . "-" . $startdate[1] . "-" . $startdate[0] . " " .  $start_time . ":" . "00";
+            $startdate = date('Y-m-d H:i:s', strtotime($startdate));
+        }
+
+        if (is_null($enddate)) {
+            $enddate = $request->enddate;
+        } else {
+            $enddate = $request->enddate;
+            $enddate = explode(" ", $enddate);
+            $end_time = $enddate[1];
+            $enddate = explode("/", $enddate[0]);
+            $enddate = $enddate[2] . "-" . $enddate[1] . "-" . $enddate[0] . " " .  $end_time . ":" . "00";
+            $enddate = date('Y-m-d H:i:s', strtotime($enddate));
+        }
+
+        $data = array();
+        $data['DisCode'] = $request->discode;
+        $data['DisRate'] = $request->discount_value;
+        $data['MaxDis'] = $request->max_discount_value;
+        $data['StartDate'] = $startdate;
+        $data['EndDate'] = $enddate;
+        $data['CusType'] = $request->rank_customer;
+        DB::table('discount_order')->where('disid', $dis_id)->update($data);
+        Session::put('edit_discount_store_message', 'Sửa thông tin khuyến mãi thành công!');
+        return Redirect::to('all-discount-orders');
+    }
+
+    public function delete_discount_order($dis_id)
+    {
+        $delete_discount_order = DB::table('discount_order')
+            ->select(
+                DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
+                DB::raw('DATE_FORMAT(discount_order.enddate, "%d/%m/%Y %H:%i:%s") as EndDate'),
+                'discount_order.DisID',
+                'discount_order.DisCode',
+                'discount_order.MaxDis',
+                'discount_order.CusType',
+                'discount_order.DisRate'
+            )->where('discount_order.disid', $dis_id)
+            ->orderBy('discount_order.disid', 'asc')->get();
+        $manage_all_discount_orders = view('admin.discount-order.delete_discount_order')
+            ->with('all_discount_orders', $delete_discount_order);
+        return view('admin_layout')->with('admin.discount-order.delete_discount_order', $manage_all_discount_orders);
+    }
+
+    public function confirm_delete_discount_order(Request $request, $dis_id){
+        DB::table('discount_order')->where('discount_order.disid', $dis_id)->delete();
+        Session::put('delete_discount_order_message', 'Xoá thông tin khuyến mãi thành công!');
+        return Redirect::to('all-discount-orders');
     }
 }
