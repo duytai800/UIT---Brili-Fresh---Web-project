@@ -11,32 +11,61 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class AdminController extends Controller
 {
-    public function index(){
-        return view('admin_login');
+    public function index()
+    {
+        return view('login');
     }
 
-    public function show_dashboard(){
+    public function homepage(){
+
+        $user_roles=0;
+        $manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
+        $homefooter = view('share.homefooter');
+        return view('welcome')->with('share.homeheader', $manage_homeheader)->with('share.homefooter', $homefooter);
+    }
+
+    public function show_dashboard()
+    {
         return view('admin.dashboard');
     }
 
-    public function dashboard(Request $request){
-        $admin_email=$request->admin_username;
-        $admin_pass=md5($request->admin_pass);
-        $result = DB::table('user')->where('UserName',$admin_email)-> where('UserPassword',$admin_pass)->where('UserRole',2)->first();
+    public function process_role(Request $request)
+    {
+        $admin_email = $request->admin_username;
+        $admin_pass = md5($request->admin_pass);
+        $result = DB::table('user')->where('UserName', $admin_email)->where('UserPassword', $admin_pass)->get()->toArray();;
+        //         echo '<pre>';
+        // print_r($result);
+        // echo '</pre>';
         if($result){
-            Session::put('UserID',$result->UserID);
-            return Redirect::to('/dashboard');
-        }else{
-            Session::put('fail_message','Sai tài khoản hoặc mật khẩu!');
-            return Redirect::to('/admin');
+            $user_role = $result[0]->UserRole;
+            if ($user_role == 2) {
+                Session::put('UserID_employee', $result[0]->UserID);
+                return Redirect::to('/dashboard');
+            } elseif ($user_role == 3) {
+                Session::put('UserID_manager', $result[0]->UserID);
+                return Redirect::to('/dashboard');
+            } elseif ($user_role == 1) {
+                Session::put('UserID_client', $result[0]->UserID);
+                return Redirect::to('/client');
+    
+                // $manage_user_role=view('share.homeheader_login')
+                //     ->with('user_role', $user_role);
+                // return Redirect::to('/');
+    
+                //return view('welcome')->with('share.homeheader_login', $manage_user_role);
+            }
+        }
+        else {
+            Session::put('fail_message', 'Sai tài khoản hoặc mật khẩu!');
+            return Redirect::to('/login');
         }
     }
-    public function logout(){
-        Session::put('admin_username',null);
-        Session::put('admin_pass',null);
-        Session::put('fail_message',null);
-        return Redirect::to('/admin');
+    public function logout()
+    {
+        Session::put('admin_username', null);
+        Session::put('admin_pass', null);
+        Session::put('fail_message', null);
+        return Redirect::to('/login');
     }
-
-    
 }

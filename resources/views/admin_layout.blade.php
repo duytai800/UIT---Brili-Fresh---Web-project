@@ -10,8 +10,7 @@
      <link rel="shortcut icon" href="{{asset('public/backend/images/logo/BRILI-FRESH.png')}}">
 
      <!-- page css -->
-     <link href="{{asset('public/backend/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}"
-          rel="stylesheet">
+     <link href="{{asset('public/backend/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
      <link href="{{asset('public/backend/vendors/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet">
      <link href="{{asset('public/backend/bootstrap.min.css')}}" rel="stylesheet" />
      <link href="{{asset('public/backend/datepicker.css')}}" rel="stylesheet" />
@@ -35,8 +34,7 @@
                     <div class="logo logo-dark">
                          <a href="index.html">
                               <img src="{{asset('public/backend/images/logo/BRILI-75.png')}}" alt="Logo">
-                              <img class="logo-fold" src="{asset('public/backend/images/logo/logo-fold.png')}}"
-                                   alt="Logo">
+                              <img class="logo-fold" src="{asset('public/backend/images/logo/logo-fold.png')}}" alt="Logo">
                          </a>
                     </div>
                     <div class="logo logo-white">
@@ -69,8 +67,7 @@
                                         <i class="anticon anticon-bell notification-badge"></i>
                                    </a>
                                    <div class="dropdown-menu pop-notification">
-                                        <div
-                                             class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
+                                        <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
                                              <p class="text-dark font-weight-semibold m-b-0">
                                                   <i class="anticon anticon-bell"></i>
                                                   <span class="m-l-10">Notification</span>
@@ -81,8 +78,7 @@
                                         </div>
                                         <div class="relative">
                                              <div class="overflow-y-auto relative scrollable" style="max-height: 300px">
-                                                  <a href="javascript:void(0);"
-                                                       class="dropdown-item d-block p-15 border-bottom">
+                                                  <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
                                                        <div class="d-flex">
                                                             <div class="avatar avatar-blue avatar-icon">
                                                                  <i class="anticon anticon-mail"></i>
@@ -94,8 +90,7 @@
                                                             </div>
                                                        </div>
                                                   </a>
-                                                  <a href="javascript:void(0);"
-                                                       class="dropdown-item d-block p-15 border-bottom">
+                                                  <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
                                                        <div class="d-flex">
                                                             <div class="avatar avatar-cyan avatar-icon">
                                                                  <i class="anticon anticon-user-add"></i>
@@ -106,8 +101,7 @@
                                                             </div>
                                                        </div>
                                                   </a>
-                                                  <a href="javascript:void(0);"
-                                                       class="dropdown-item d-block p-15 border-bottom">
+                                                  <a href="javascript:void(0);" class="dropdown-item d-block p-15 border-bottom">
                                                        <div class="d-flex">
                                                             <div class="avatar avatar-red avatar-icon">
                                                                  <i class="anticon anticon-user-add"></i>
@@ -149,18 +143,18 @@
                                                        <p class="m-b-0 text-dark font-weight-semibold">
                                                             <?php
 
-                                                use Illuminate\Support\Facades\Session;
-                                                use Illuminate\Support\Facades\DB;
+                                                            use Illuminate\Support\Facades\Session;
+                                                            use Illuminate\Support\Facades\DB;
 
-                                                $UserID = Session::get('UserID');
+                                                            $UserID = Session::get('UserID_employee');
 
-                                                if ($UserID) {
-                                                    $result = DB::table('employee')->where('UserID', $UserID)->first();
-                                                    echo $result->LastName;
-                                                    echo ' ';
-                                                    echo $result->FirstName;
-                                                }
-                                                ?>
+                                                            if ($UserID) {
+                                                                 $result = DB::table('employee')->where('UserID', $UserID)->first();
+                                                                 echo $result->LastName;
+                                                                 echo ' ';
+                                                                 echo $result->FirstName;
+                                                            }
+                                                            ?>
                                                        </p>
                                                        <!-- <p class="m-b-0 opacity-07">UI/UX Desinger</p> -->
                                                   </div>
