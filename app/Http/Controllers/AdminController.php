@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
 
 session_start();
@@ -16,12 +17,20 @@ class AdminController extends Controller
         return view('login');
     }
 
-    public function homepage(){
-
-        $user_roles=0;
-        $manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
-        $homefooter = view('share.homefooter');
-        return view('welcome')->with('share.homeheader', $manage_homeheader)->with('share.homefooter', $homefooter);
+    public function homepage()
+    {
+        //$user_roles = 0;
+        //$manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('welcome')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter);
+        }else {
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('welcome')->with('share.homeheader', $homeheader)->with('share.homefooter', $homefooter);
+        } 
     }
 
     public function show_dashboard()
@@ -37,7 +46,7 @@ class AdminController extends Controller
         //         echo '<pre>';
         // print_r($result);
         // echo '</pre>';
-        if($result){
+        if ($result) {
             $user_role = $result[0]->UserRole;
             if ($user_role == 2) {
                 Session::put('UserID_employee', $result[0]->UserID);
@@ -47,16 +56,11 @@ class AdminController extends Controller
                 return Redirect::to('/dashboard');
             } elseif ($user_role == 1) {
                 Session::put('UserID_client', $result[0]->UserID);
-                return Redirect::to('/client');
-    
-                // $manage_user_role=view('share.homeheader_login')
-                //     ->with('user_role', $user_role);
-                // return Redirect::to('/');
-    
-                //return view('welcome')->with('share.homeheader_login', $manage_user_role);
+                return Redirect::to('/');
+                // Session::put('UserID_client', $result[0]->UserID);
+                // return redirect(url()->previous());
             }
-        }
-        else {
+        } else {
             Session::put('fail_message', 'Sai tài khoản hoặc mật khẩu!');
             return Redirect::to('/login');
         }

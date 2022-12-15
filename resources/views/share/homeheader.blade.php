@@ -34,16 +34,18 @@
             </ul>
             <div class="line">
             </div>
-            <div class="header__cart " style="margin-left: -32px;">
-                <a href="{{URL::to('/cart-info-check')}}">
+            <a href="{{URL::to('/cart-info-check')}}">
+                <div class="header__cart " style="margin-left: -32px;">
+
                     <i class="ti-shopping-cart"></i>
                     <div class="header__cart-number">
                         <p class="number-item">
                             9
                         </p>
                     </div>
-                </a>
-            </div>
+
+                </div>
+            </a>
         </div>
         <div style="width: 20px;"></div>
     </nav>

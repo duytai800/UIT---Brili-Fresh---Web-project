@@ -19,105 +19,133 @@ class ClientController extends Controller
         }   
     }
 
-    public function homepage_login()
-    {
-        $homeheader = view('share.homeheader_login');
-        $homefooter = view('share.homefooter');
-        return view('welcome_login')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter);
-    }
-
     public function index_fish_and_meat(){
         $this->AuthLogin();
-        return view('client.overview-product.index_fish_and_meat');
-    }
-
-    public function login_index_fish_and_meat(){
-        $this->AuthLogin();
-        return view('client.overview-product.login_index_fish_and_meat');
+        //Redirect::setIntendedUrl(url()->previous()); 
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_fish_and_meat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_fish_and_meat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer);
+        }  
     }
 
     public function index_beef_goat(){
-        return view('client.overview-product.index_beef_goat');
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_beef_goat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_beef_goat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer);
+        }  
     }
 
     public function detail_beef_goat(){
-        return view('client.overview-product.detail_beef_goat');
-
-    }
-
-    public function login_index_beef_goat(){
         $this->AuthLogin();
-        return view('client.overview-product.login_index_beef_goat');
-    }
-
-    public function login_detail_beef_goat(){
-        $this->AuthLogin();
-        return view('client.overview-product.login_detail_beef_goat');
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.detail_beef_goat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.detail_beef_goat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer);
+        }          
     }
 
     public function index_fruit(){
         $this->AuthLogin();
-        return view('client.overview-product.index_fruit');
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_fruit_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_fruit')->with('share.login_fruit_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.fruit_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_fruit')->with('share.fruit_header', $header)->with('share.homefooter', $footer);
+        }         
     }
 
     public function index_imported_fruit(){
         $this->AuthLogin();
-        return view('client.overview-product.index_imported_fruit');
-    }
-
-    public function index_vegetable(){
-        $this->AuthLogin();
-        return view('client.overview-product.index_vegetable');
-    }
-
-    public function index_leaf_vegetable(){
-        $this->AuthLogin();
-        return view('client.overview-product.index_leaf_vegetable');
-    }
-
-    public function detail_leaf_vegetable(){
-        $this->AuthLogin();
-        return view('client.overview-product.detail_leaf_vegetable');
-    }
-    
-    public function login_index_vegetable(){
-        $this->AuthLogin();
-        return view('client.overview-product.login_index_vegetable');
-    }
-
-    public function login_index_leaf_vegetable(){
-        $this->AuthLogin();
-        return view('client.overview-product.login_index_leaf_vegetable');
-    }
-
-    public function login_detail_leaf_vegetable(){
-        $this->AuthLogin();
-        return view('client.overview-product.login_detail_leaf_vegetable');
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_fruit_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_imported_fruit')->with('share.login_fruit_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.fruit_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_imported_fruit')->with('share.fruit_header', $header)->with('share.homefooter', $footer);
+        }       
     }
 
     public function detail_imported_fruit(){
         $this->AuthLogin();
-        return view('client.overview-product.detail_imported_fruit');
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_fruit_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.detail_imported_fruit')->with('share.login_fruit_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.fruit_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.detail_imported_fruit')->with('share.fruit_header', $header)->with('share.homefooter', $footer);
+        }    
+        
+    } 
+
+    public function index_vegetable(){
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_vegetable_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_vegetable')->with('share.login_vegetable_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.vegetable_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_vegetable')->with('share.vegetable_header', $header)->with('share.homefooter', $footer);
+        }      
     }
 
-    public function login_index_fruit(){
+    public function index_leaf_vegetable(){
         $this->AuthLogin();
-        return view('client.overview-product.login_index_fruit');
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_vegetable_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_leaf_vegetable')->with('share.login_vegetable_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.vegetable_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.index_leaf_vegetable')->with('share.vegetable_header', $header)->with('share.homefooter', $footer);
+        }  
     }
 
-    public function login_index_imported_fruit(){
+    public function detail_leaf_vegetable(){
         $this->AuthLogin();
-        return view('client.overview-product.login_index_imported_fruit');
-    }
-
-    public function login_detail_imported_fruit(){
-        $this->AuthLogin();
-        return view('client.overview-product.login_detail_imported_fruit');
-    }
-
-    public function cart_info(){
-        $this->AuthLogin();
-        return view('client.buy-and-pay.cart_info');
+        $UserID_client = Session::get('UserID_client');
+        if($UserID_client){
+            $header = view('share.login_vegetable_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.detail_leaf_vegetable')->with('share.login_vegetable_header', $header)->with('share.homefooter', $footer);
+        }else {           
+            $header = view('share.vegetable_header')->with('UserID_client', $UserID_client);
+            $footer = view('share.homefooter');
+            return view('client.overview-product.detail_leaf_vegetable')->with('share.vegetable_header', $header)->with('share.homefooter', $footer);
+        }  
+        
     }
 
 }

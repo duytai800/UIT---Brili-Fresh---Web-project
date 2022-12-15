@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('home_header_login')
+@section('home_header')
 <header class="header">
     <nav class="header__navbar">
         <div></div>
@@ -20,28 +20,32 @@
                     <ti class="arrow-list-item ti-angle-down"></ti>
                     <div class="row sub-nav">
                         <ul class="nav-list-type-item">
-                            <li class="type-item"><a  href="{{URL::to('/fish-&-meat')}}"  style="color: gray !important;">Thịt cá</a></li>
-                            <li class="type-item"><a  href="{{URL::to('/fruits')}}" style="color: gray !important;">Trái cây 4 mùa</a></li>
-                            <li class="type-item"><a  href="{{URL::to('/vegetables')}}" style="color: gray !important;">Rau củ</a> </li>
+                            <li class="type-item"><a href="{{URL::to('/fish-and-meat')}}" style="color: gray !important;">Thịt cá</a></li>
+                            <li class="type-item"><a href="{{URL::to('/fruit')}}" style="color: gray !important;">Trái cây 4 mùa</a></li>
+                            <li class="type-item"><a href="{{URL::to('/vegetable')}}" style="color: gray !important;">Rau củ</a> </li>
                         </ul>
                     </div>
                 </li>
                 <li class="header__navbar-item"><a href="#">Liên hệ</a></li>
             </ul>
-            <ul class="header__navbar-list " style="margin-right: -52px;" >
+            <ul class="header__navbar-list " style="margin-right: -52px;">
                 <li class="header__navbar-name">Võ Thanh Phương</li>
                 <li class="header__navbar-avt"><img src="~/HomeAssets/asset/image/logo.png" alt="" id="avartar_user"></li>
             </ul>
             <div class="line">
             </div>
-            <div class="header__cart " style="margin-left: -32px;">
-                <i class="ti-shopping-cart" ></i>
-                <div class="header__cart-number" >
-                    <p class="number-item">
-                        9
-                    </p>
+            <a href="{{URL::to('/cart-info-check')}}">
+                <div class="header__cart " style="margin-left: -32px;">
+
+                    <i class="ti-shopping-cart"></i>
+                    <div class="header__cart-number">
+                        <p class="number-item">
+                            9
+                        </p>
+                    </div>
+
                 </div>
-            </div>
+            </a>
         </div>
         <div style="width: 20px;"></div>
     </nav>

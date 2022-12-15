@@ -13,20 +13,9 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-
-// Route::get('/', function () {
-//     $user_roles=array();
-//     $homeheader = view('share.homeheader');
-//     $homefooter = view('share.homefooter');
-//     return view('welcome')->with('share.homeheader', $homeheader)
-//     ->with('share.homefooter', $homefooter)->with('user_roles', $user_roles);
-// });
-Route::get('/', 'App\Http\Controllers\AdminController@homepage');
-
 //Admin 
 //Laravel 8 goi Controller cần ghi địa chỉ đầy đủ
 //Màn hình đăng nhập admin
-
 
 //Quản lý khách hàng all-customers
 Route::get('/all-customers', 'App\Http\Controllers\AdminCustomer@all_customers');
@@ -115,6 +104,9 @@ Route::get('/delete-discount-store/{dis_id}', 'App\Http\Controllers\AdminDiscoun
 Route::post('/confirm-delete-discount-store/{dis_id}', 'App\Http\Controllers\AdminDiscount@confirm_delete_discount_store');
 
 
+
+Route::get('/', 'App\Http\Controllers\AdminController@homepage');
+
 Route::get('/login', 'App\Http\Controllers\AdminController@index');
 //Giao diện chính admin
 Route::get('/dashboard', 'App\Http\Controllers\AdminController@show_dashboard');
@@ -123,36 +115,20 @@ Route::post('/process-role', 'App\Http\Controllers\AdminController@process_role'
 //Đăng xuất admin
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
 
-//Client
-Route::get('/client', 'App\Http\Controllers\ClientController@homepage_login');
-
 //sản phẩm thịt cá
 Route::get('/fish-and-meat', 'App\Http\Controllers\ClientController@index_fish_and_meat');
 Route::get('/fish-and-meat/beef-goat', 'App\Http\Controllers\ClientController@index_beef_goat');
 Route::get('/fish-and-meat/beef-goat/detail-beef-goat', 'App\Http\Controllers\ClientController@detail_beef_goat');
-
-Route::get('/fish-&-meat', 'App\Http\Controllers\ClientController@login_index_fish_and_meat');
-Route::get('/fish-&-meat/beef-&-goat', 'App\Http\Controllers\ClientController@login_index_beef_goat');
-Route::get('/fish-&-meat/beef-&-goat/detail-beef-&-goat', 'App\Http\Controllers\ClientController@login_detail_beef_goat');
 
 //sản phẩm trái cây 4 mùa
 Route::get('/fruit', 'App\Http\Controllers\ClientController@index_fruit');
 Route::get('/fruit/imported-fruit', 'App\Http\Controllers\ClientController@index_imported_fruit');
 Route::get('/fruit/imported-fruit/detail-imported-fruit', 'App\Http\Controllers\ClientController@detail_imported_fruit');
 
-Route::get('/fruits', 'App\Http\Controllers\ClientController@login_index_fruit');
-Route::get('/fruits/imported-fruits', 'App\Http\Controllers\ClientController@login_index_imported_fruit');
-Route::get('/fruits/imported-fruits/detail-imported-fruits', 'App\Http\Controllers\ClientController@login_detail_imported_fruit');
-
-
 //sản phẩm rau củ
 Route::get('/vegetable', 'App\Http\Controllers\ClientController@index_vegetable');
 Route::get('/vegetable/vegetable', 'App\Http\Controllers\ClientController@index_leaf_vegetable');
 Route::get('/vegetable/vegetable/detail-vegetable', 'App\Http\Controllers\ClientController@detail_leaf_vegetable');
-
-Route::get('/vegetables', 'App\Http\Controllers\ClientController@login_index_vegetable');
-Route::get('/vegetables/vegetables', 'App\Http\Controllers\ClientController@login_index_leaf_vegetable');
-Route::get('/vegetables/vegetables/detail-vegetables', 'App\Http\Controllers\ClientController@login_detail_leaf_vegetable');
 
 //thanh toán
 Route::get('/cart-info-check', 'App\Http\Controllers\ClientBuyAndPay@cart_info_check');
