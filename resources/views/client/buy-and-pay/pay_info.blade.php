@@ -26,7 +26,7 @@ Layout = null;
 
 <body>
     <form class="thanhtoanform">
-        <!-- Header no login -->
+        <!-- Header login -->
         <div class="header">
             <header class="header">
                 <nav class="header__navbar">
@@ -79,7 +79,7 @@ Layout = null;
                 </nav>
             </header>
         </div>
-        <!-- Header no login -->
+        <!-- Header login -->
 
         <div class="content">
             <div class="content__title">

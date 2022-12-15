@@ -27,7 +27,7 @@ Layout = null;
 
 <body>
     <form action="" method="GET" class="thongtinnhanhangform">
-        <!-- Header no login -->
+        <!-- Header  login -->
         <div class="header">
             <header class="header">
                 <nav class="header__navbar">

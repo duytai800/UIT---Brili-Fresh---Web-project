@@ -24,7 +24,7 @@
 
 <body>
     <form action="" method="GET" class="thongtindonhangform">
-        <!-- Header no login -->
+        <!-- Header  -->
         <div class="header">
             <header class="header">
                 <nav class="header__navbar">
@@ -76,7 +76,7 @@
                 </nav>
             </header>
         </div>
-        <!-- Header no login -->
+        <!-- Header -->
 
         <!-- Content -->
         <div class="content">
