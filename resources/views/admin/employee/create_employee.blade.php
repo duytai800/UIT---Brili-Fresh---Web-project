@@ -10,20 +10,33 @@
         </nav>
     </div>
 </div>
+<hr />
 <form action="{{URL::to('/save-employee')}}" method="post">
     {{csrf_field()}}
     <h1>Thêm thông tin nhân viên</h1>
+
+    <?php
+
+    use Illuminate\Support\Facades\Session;
+
+    $add_employee_message_fail = Session::get('add_employee_message_fail');
+    if ($add_employee_message_fail) {
+        echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $add_employee_message_fail . '</span>';
+        Session::put('add_employee_message_fail', null);
+    }
+    ?>
+
     <div class="tab-content m-t-15">
         <div class="tab-pane fade show active" id="product-edit-basic">
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="employeeLastName">Họ</label>
-                        <input type="text" class="form-control" name="employeeLastName" id="employeeLastName" placeholder="Họ">
+                        <input type="text" class="form-control" name="employeeLastName" id="employeeLastName" placeholder="Họ" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="employeeFirstName">Tên</label>
-                        <input type="text" class="form-control" name="employeeFirstName" id="employeeFirstName" placeholder="Tên">
+                        <input type="text" class="form-control" name="employeeFirstName" id="employeeFirstName" placeholder="Tên" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="employeeGender">Giới tính</label>
@@ -59,24 +72,37 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="startdate">Ngày vào làm</label>
-                        <input type="date" class="form-control" name="startdate" id="startdate" placeholder="dd-mm-yyyy" min="01/01/1980" max="31/12/2030" value="">
+                        <input type="date" class="form-control" name="startdate" id="startdate" placeholder="dd/mm/yyyy" min="01/01/1980" max="31/12/2030" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="store_id">Cừa hàng làm việc</label>
                         <select class="custom-select" name="store_id" id="store_id" required>
                             <option value="" selected>Cửa hàng làm việc </option>
                             @foreach ($insert_store_id as $key =>$store_id)
-                            <option value="{{$store_id->StoreID}}">{{$store_id->StoreID}} </option>
+                            <option value="{{$store_id->StoreID}}">ID: {{$store_id->StoreID}}; &nbsp Địa chỉ: {{$store_id->SpecificAddress}}, {{$store_id->Ward}}, {{$store_id->District}}, {{$store_id->City}} </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
+                        <label class="font-weight-semibold" for="employee_user">Tên tài khoản</label>
+                        <input type="text" class="form-control" name="employee_user" id="employee_user" placeholder="Nhập tên tài khoản" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="employee_pass">Mật khẩu</label>
+                        <input type="password" class="form-control" name="employee_pass" id="employee_pass" placeholder="Nhập mật khẩu" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="employee_pass_confirm">Xác nhận lại mật khẩu</label>
+                        <input type="password" class="form-control" name="employee_pass_confirm" id="employee_pass_confirm" placeholder="Nhập lại mật khẩu" required>
+                    </div>
+                    <div class="form-group">
                         <label class="font-weight-semibold" for="phone">Số điện thoại</label>
-                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="0335586347">
+                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="0335586347" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="mail@gmail.com">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="mail@gmail.com" required>
                     </div>
                 </div>
                 <div class="m-b-15">
@@ -90,4 +116,13 @@
         </div>
     </div>
 </form>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+                flatpickr("#startdate", {
+                    altInput: true,
+                    altFormat: " d/m/Y ",
+                    dateFormat: "m/d/Y",
+                })});
+</script>
 @endsection

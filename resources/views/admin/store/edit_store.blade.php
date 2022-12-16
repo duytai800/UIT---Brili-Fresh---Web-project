@@ -44,14 +44,13 @@
         <label>Địa chỉ</label>
         <textarea class="form-control" id="specificAddress" name="specificAddress" placeholder="Số nhà/Tên đường/Tên tòa/...">{{$store->SpecificAddress}}</textarea>
     </div>
-    <button id="save-btn" type="submit" class="btn btn-primary">Lưu thông tin</button>
+    <div>
+        <button id="save-btn" type="submit" class="btn btn-primary">Lưu thông tin</button>
+        <a href="{{URL::to('/index-store')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
+    </div>
 </form>
 @endforeach
-<br>
-<br>
-<div>
-    <a href="{{URL::to('/index-store')}}" class="btn btn-success btn-tone m-r-5">Quay lại Danh sách</a>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script>
