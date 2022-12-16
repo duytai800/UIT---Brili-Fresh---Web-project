@@ -130,17 +130,16 @@
                                         if ($value_discount_product) {
                                             $beef_goat_product_price = $beef_goat_product_price * (1 - $value_discount_product);
                                             $beef_goat_product_price = number_format($beef_goat_product_price);
-                                            echo  $beef_goat_product_price. ' VNĐ' ;
+                                            echo  $beef_goat_product_price . ' VNĐ';
                                         } else {
                                             $beef_goat_product_price = number_format($beef_goat_product_price);
-                                            echo  $beef_goat_product_price. ' VNĐ' ;
+                                            echo  $beef_goat_product_price . ' VNĐ';
                                         }
                                         ?>
-
                                     </p>
                                 </div>
                                 <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
+                                    <button id="btn-buy" type="button" class="product-item-add-btn" name="add-to-cart">+</button>
                                 </div>
                             </div>
                             <div class="d-flex ">
@@ -152,7 +151,7 @@
                                         $beef_goat_product_price = $beef_goat_product->Price;
                                         if ($value_discount_product) {
                                             $beef_goat_product_price = number_format($beef_goat_product_price);
-                                            echo  $beef_goat_product_price ;
+                                            echo  $beef_goat_product_price;
                                         } else {
                                             echo " ";
                                         }
@@ -165,7 +164,7 @@
                                         <?php
                                         $value_discount_product = $beef_goat_product->value_discount_product;
                                         if ($value_discount_product) {
-                                            echo  '- ' . $value_discount_product . '%';
+                                            echo  '- ' . $value_discount_product * 100 . '%';
                                         } else echo " ";
                                         ?>
                                     </p>
@@ -199,6 +198,12 @@
     <!-- Foooter -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{asset('public/client/OverviewProductAssets/List/List.js')}}"></script>
+
+    <script type>
+        $(document).ready(function() {
+            swal("Good job!", "You clicked the button!", "success");
+        })
+    </script>
 </body>
 
 </html>

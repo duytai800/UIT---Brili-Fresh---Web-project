@@ -131,6 +131,6 @@ Route::get('/vegetable/vegetable', 'App\Http\Controllers\ClientController@index_
 Route::get('/vegetable/vegetable/detail-vegetable', 'App\Http\Controllers\ClientController@detail_leaf_vegetable');
 
 //thanh toán
-Route::get('/cart-info-check', 'App\Http\Controllers\ClientBuyAndPay@cart_info_check');
+Route::post('/save-cart', 'App\Http\Controllers\ClientBuyAndPay@save_cart');
 Route::post('/cart-info', 'App\Http\Controllers\ClientBuyAndPay@cart_info');
 
