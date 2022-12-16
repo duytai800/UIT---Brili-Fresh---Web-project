@@ -118,7 +118,7 @@ Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
 //sản phẩm thịt cá
 Route::get('/fish-and-meat', 'App\Http\Controllers\ClientController@index_fish_and_meat');
 Route::get('/fish-and-meat/beef-goat', 'App\Http\Controllers\ClientController@index_beef_goat');
-Route::get('/fish-and-meat/beef-goat/detail-beef-goat', 'App\Http\Controllers\ClientController@detail_beef_goat');
+Route::get('/fish-and-meat/beef-goat/{pro_id}', 'App\Http\Controllers\ClientController@detail_beef_goat');
 
 //sản phẩm trái cây 4 mùa
 Route::get('/fruit', 'App\Http\Controllers\ClientController@index_fruit');

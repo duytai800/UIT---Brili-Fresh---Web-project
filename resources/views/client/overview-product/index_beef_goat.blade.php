@@ -31,8 +31,8 @@
             <div class="location-bar" style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">Sản phẩm</a></li>
-                    <li class="breadcrumb-item"><a href="">Thịt cá</a></li>
-                    <li class="breadcrumb-item"><a href="">Bò dê</a></li>
+                    <li class="breadcrumb-item"><a href="{{URL::to('/fish-and-meat')}}">Thịt cá</a></li>
+                    <li class="breadcrumb-item"><a href="{{URL::to('/fish-and-meat/beef-goat')}}">Bò dê</a></li>
                 </ol>
             </div>
             <div class="products-content">
@@ -109,19 +109,35 @@
                     </div>
 
                     <div class="list-products col-9 row d-flex">
+                        @foreach($beef_goat_products as $key =>$beef_goat_product)
                         <div class="product-item col-3">
                             <div class="product-item-img">
-                                <!-- URL khi click mua sản phẩm là: fish-and-meat/beef-goat/id sản phẩm -->
-                                <a class="nav-link" href="{{URL::to('/fish-and-meat/beef-goat/detail-beef-goat')}}">
-                                    <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
+                                <a class="nav-link" href="{{URL::to('/fish-and-meat/beef-goat/' .$beef_goat_product->ProID)}}">
+                                    <img src="{{URL::to('../public/upload/product/'.$beef_goat_product->ImgData)}}" alt="" class="product-item-img-child" />
                                 </a>
                             </div>
+
                             <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
+                                <p class="product-item-tittle-child">{{$beef_goat_product->ProName}} ({{$beef_goat_product->Unit}})</p>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
+                                    <p class="product-item-price-child">
+                                        <!-- hiển thị giá sản phẩm sau bước tính giảm giá (nếu Có) -->
+                                        <?php
+                                        $value_discount_product = $beef_goat_product->value_discount_product;
+                                        $beef_goat_product_price = $beef_goat_product->Price;
+                                        if ($value_discount_product) {
+                                            $beef_goat_product_price = $beef_goat_product_price * (1 - $value_discount_product);
+                                            $beef_goat_product_price = number_format($beef_goat_product_price);
+                                            echo  $beef_goat_product_price. ' VNĐ' ;
+                                        } else {
+                                            $beef_goat_product_price = number_format($beef_goat_product_price);
+                                            echo  $beef_goat_product_price. ' VNĐ' ;
+                                        }
+                                        ?>
+
+                                    </p>
                                 </div>
                                 <div class="product-item-add">
                                     <button class="product-item-add-btn">+</button>
@@ -129,253 +145,35 @@
                             </div>
                             <div class="d-flex ">
                                 <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
+                                    <p class="product-item-price-dis-child">
+                                        <!-- Hiển thị giá gốc bị gạch ngang nếu có giảm giá -->
+                                        <?php
+                                        $value_discount_product = $beef_goat_product->value_discount_product;
+                                        $beef_goat_product_price = $beef_goat_product->Price;
+                                        if ($value_discount_product) {
+                                            $beef_goat_product_price = number_format($beef_goat_product_price);
+                                            echo  $beef_goat_product_price ;
+                                        } else {
+                                            echo " ";
+                                        }
+                                        ?>
+                                    </p>
                                 </div>
                                 <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
+                                    <p class="dis-rate-child">
+                                        <!-- Hiển thị % giảm giá nếu có -->
+                                        <?php
+                                        $value_discount_product = $beef_goat_product->value_discount_product;
+                                        if ($value_discount_product) {
+                                            echo  '- ' . $value_discount_product . '%';
+                                        } else echo " ";
+                                        ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item col-3">
-                            <div class="product-item-img">
-                                <img src="{{asset('public/client/ImageProduct/bouc.png')}}" alt="" class="product-item-img-child" />
-                            </div>
-                            <div class="product-item-tittle">
-                                <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="product-item-price">
-                                    <p class="product-item-price-child">99,000</p>
-                                </div>
-                                <div class="product-item-add">
-                                    <button class="product-item-add-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="d-flex ">
-                                <div class="product-item-price-dis">
-                                    <p class="product-item-price-dis-child">199,000</p>
-                                </div>
-                                <div class="dis-rate">
-                                    <p class="dis-rate-child">-20%</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
 
                     <div class="products-pagination d-flex justify-content-end">

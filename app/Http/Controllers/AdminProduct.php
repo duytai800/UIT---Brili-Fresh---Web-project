@@ -171,7 +171,7 @@ class AdminProduct extends Controller
         );
 
         $main_type = DB::table('type')
-            ->select('type.MainType', 'type.TypeID')
+            ->select('type.MainType')
             ->distinct()->get();
 
         $sub_type_thitca = DB::table('type')
@@ -205,7 +205,6 @@ class AdminProduct extends Controller
 
     public function update_product(Request $request, $product_id)
     {
-
         $type_id = DB::table('type')
             ->select('typeid')->where('type.subtype', $request->product_subtype)
             ->where('type.maintype', $request->product_type)->get()->toArray();
@@ -273,10 +272,10 @@ class AdminProduct extends Controller
                     $get_image_description[$i]->move('public/upload/product', $image_description);
                     $data_img_description['ImgData'] = $image_description;
                     DB::table('product_image')
-                        ->where('imgid', $id_img_des[$i]->ImgID)->update($data_img_description);
-                    Session::put('message_des', 'Sửa ảnh mô tả thành công.');
-                    return Redirect::to('all-products');
+                        ->where('imgid', $id_img_des[$i]->ImgID)->update($data_img_description);   
                 }
+                Session::put('message_des', 'Sửa ảnh mô tả thành công.');
+                    return Redirect::to('all-products');
             } else {
                 $bonus_img = $number_of_img_des_added - $number_of_img_des;
                 if ($bonus_img == 3) {
@@ -288,9 +287,9 @@ class AdminProduct extends Controller
                         $data_img_description['ImgData'] = $image_description;
                         $data_img_description['ProID'] = $product_id;
                         DB::table('product_image')->insert($data_img_description);
-                        Session::put('message_des', 'Đã thêm 3 ảnh mô tả sản phẩm.');
-                        return Redirect::to('all-products');
                     }
+                    Session::put('message_des', 'Đã thêm 3 ảnh mô tả sản phẩm.');
+                    return Redirect::to('all-products');
                 } elseif ($bonus_img == 2) {
                     if ($number_of_img_des == 0) {
                         foreach ($get_image_description as $get_image_description_detail) {
@@ -300,10 +299,10 @@ class AdminProduct extends Controller
                             $get_image_description_detail->move('public/upload/product', $image_description);
                             $data_img_description['ImgData'] = $image_description;
                             $data_img_description['ProID'] = $product_id;
-                            DB::table('product_image')->insert($data_img_description);
-                            Session::put('message_des', 'Đã thêm 2 ảnh mô tả sản phẩm.');
-                            return Redirect::to('all-products');
+                            DB::table('product_image')->insert($data_img_description);            
                         }
+                        Session::put('message_des', 'Đã thêm 2 ảnh mô tả sản phẩm.');
+                        return Redirect::to('all-products');
                     } elseif ($number_of_img_des == 1) {
                         for ($i = 0; $i < 1; $i++) {
                             $get_name_img_description = $get_image_description[$i]->getClientOriginalName();
@@ -463,7 +462,8 @@ class AdminProduct extends Controller
         return view('admin_layout')->with('admin.product.delete_product', $manage_detail_product);
     }
 
-    public function soft_delete_product($product_id){
+    public function soft_delete_product($product_id)
+    {
         $data = array();
         $data['IsDeleted'] = 1;
         DB::table('product')->where('proid', $product_id)->update($data);

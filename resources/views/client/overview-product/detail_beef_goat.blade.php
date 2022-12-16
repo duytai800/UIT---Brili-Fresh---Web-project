@@ -19,18 +19,19 @@
 <body>
     <!-- Header no login -->
     @yield('fish_and_meat_header')
-     <!-- Header no login -->
+    <!-- Header no login -->
 
     <!-- Content -->
+    @foreach($beef_goat_products as $key =>$beef_goat_product)
     <section class="directory mt-3">
         <nav class="navbar navbar-expand-xl navbar-light ">
             <div class="container-fluid ms-5">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                        <li class="breadcrumb-item"><a href="#">Thịt cá</a></li>
-                        <li class="breadcrumb-item"><a href="#">Thịt heo</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Ba rọi heo (Nhập khẩu)</li>
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{URL::to('/fish-and-meat')}}">Thịt cá</a></li>
+                        <li class="breadcrumb-item"><a href="{{URL::to('/fish-and-meat/beef-goat')}}">Bò dê</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{$beef_goat_product->ProName}}</li>
                     </ol>
                 </nav>
             </div>
@@ -41,25 +42,19 @@
             <div class="d-flex justify-content-between align-item-center mx-auto">
                 <div class="product-imgs justify-content-center aligns-items-center ms-0">
                     <div class="row product-img-main">
-                        <img src="{{asset('public/client/OverviewProductAssets/images/product-info/pngwing.png')}}" alt="" id="img-main">
+                        <img src="{{URL::to('../public/upload/product/'.$beef_goat_product->ImgData)}}" alt="" id="img-main">
                     </div>
                     <div class="product-img-album align-items-center">
                         <ul class="d-flex img-album-list">
                             <li class="">
-                                <img src="{{asset('public/client/OverviewProductAssets/images/product-info/p-album1.png')}}" alt="" id="img-album-1">
+                                <img src="{{URL::to('../public/upload/product/'.$des_img_0)}}" alt="" id="img-album-1">
                             </li>
                             <li class="">
-                                <img src="{{asset('public/client/OverviewProductAssets/images/product-info/p-album1.png')}}" alt="" id="img-album-2">
+                                <img src="{{URL::to('../public/upload/product/'.$des_img_1)}}" alt="" id="img-album-2">
                             </li>
                             <li class="">
-                                <img src="{{asset('public/client/OverviewProductAssets/images/product-info/p-album4.png')}}" alt="" id="img-album-3">
-
+                                <img src="{{URL::to('../public/upload/product/'.$des_img_2)}}" alt="" id="img-album-3">
                             </li>
-                            <li class="">
-                                <img src="{{asset('public/client/OverviewProductAssets/images/product-info/p-album4.png')}}" alt="" id="img-album-4">
-
-                            </li>
-
                         </ul>
                     </div>
                     <!-- <div class="recommended-eating">
@@ -106,7 +101,7 @@
                 </div>
                 <div class="product-info justify-content-center align-items-center">
                     <div class="product-info-title">
-                        Ba rọi heo (Nhập khẩu) 500g
+                        {{$beef_goat_product->ProName}} ({{$beef_goat_product->Unit}})
                     </div>
                     <div class="product-info-star d-flex justify-content-left align-items-left mb-auto ">
                         <div class="d-flex justify-content-between align-items-center">
@@ -120,22 +115,56 @@
                             (Xem&nbsp;<span comment-count> 143 </span>&nbsp;đánh giá)
                             &nbsp;<div class="mt-2" style="border-left:1px solid #8F8C8C;height:20px"></div>&nbsp;
                             &nbsp;Đã bán&nbsp;<span sold-count>5000</span>+
-
                         </div>
-
                     </div>
                     <div class="product-info-cost d-flex  align-items-center mt-3 me-auto">
                         <div class="product-info-cost-detail ps-4 pt-1 pb-2 me-auto justify-content-center align-items-center">
                             <div class="new-cost">
-                                <span value="80000">80.000 đ</span>
+                                <span value="80000">
+                                    <?php
+                                    $value_discount_product = $beef_goat_product->value_discount_product;
+                                    $beef_goat_product_price = $beef_goat_product->Price;
+                                    if ($value_discount_product) {
+                                        $beef_goat_product_price = $beef_goat_product_price * (1 - $value_discount_product);
+                                        //echo $beef_goat_product_price;
+                                        $beef_goat_product_price = number_format($beef_goat_product_price) ;
+                                        echo  $beef_goat_product_price . 'đ';
+                                    } else {
+                                        $beef_goat_product_price = number_format($beef_goat_product_price);
+                                        echo  $beef_goat_product_price . 'đ';
+                                    }
+                                    ?>
+                                </span>
                             </div>
 
                             <div class="old-dis-cost d-flex">
-                                <span class="old-cost me-2" value="100000">100.000đ</span>
-                                <span class="dis-cost" value="20">-20%</span>
+                                <span class="old-cost me-2" value="100000">
+                                    <?php
+                                    $value_discount_product = $beef_goat_product->value_discount_product;
+                                    $beef_goat_product_price = $beef_goat_product->Price;
+                                    if ($value_discount_product) {
+                                        $beef_goat_product_price = number_format($beef_goat_product_price) . " VNĐ";
+                                        echo  $beef_goat_product_price;
+                                    } else {
+                                        echo " ";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="dis-cost" value="20">
+                                    <?php
+                                    $value_discount_product = $beef_goat_product->value_discount_product * 100;
+                                    if ($value_discount_product) {
+                                        echo  '-' . $value_discount_product . '%';
+                                    } else echo " ";
+                                    ?>
+                                </span>
                             </div>
                         </div>
+
+
+
                         <div class="countdown-sale align-items-center justify-content-center me-2 ">
+                            @if ($beef_goat_product->value_discount_product)
                             <div class="info mx-2 my-auto">
                                 <span>Kết thúc sau</span>
                             </div>
@@ -161,6 +190,8 @@
                             <div class="info mx-2 my-auto">
                                 <span>Vừa mở bán</span>
                             </div>
+                            @else 
+                            @endif
 
                         </div>
                     </div>
@@ -171,15 +202,11 @@
                         <div class="col-xl-3 ">
                             <div class="input-group">
                                 <div class="input-group-btn justify-content-end align-items-center ">
-
                                     <button type="button" class="quantity-left-minus btn btn-default btn-number" data-type="minus" data-field="">
                                         <i class="fa fa-minus"></i>
-
                                     </button>
                                 </div>
-
                                 <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-
                                 <div class="input-group-btn">
                                     <button type="button" class="quantity-right-plus btn btn-default btn-number " data-type="plus" data-field="">
                                         <i class="fa fa-plus"></i>
@@ -203,86 +230,39 @@
                     </div>
 
                     <div class="cr-info mt-5">
-                        <div class="brand-info d-flex col-4">
-                            <span class="name brand-name me-auto">Thương hiệu:</span>
-                            <span id="content">Tberico</span>
-                        </div>
+                        <!-- <div class="brand-info d-flex col-4">
+                            <span class="name brand-name me-auto">Danh mục:</span>
+                            <span id="content">{{$beef_goat_product->Source}}</span>
+                        </div> -->
                         <div class="country d-flex col-4">
-                            <span class="name country-name me-auto">Xuất xứ:</span>
-                            <span id="content">Tây Ban Nha</span>
+                            <span class="name country-name me-auto">Danh mục:</span>
+                            <span id="content">{{$beef_goat_product->Source}}</span>
                         </div>
                     </div>
                     <div class="description mt-3 mb-auto">
                         <p class="description-title">
-                            Khách hàng được hoàn tiền 100%, không phải trả lại hàng nếu không hài lòng với chất lượng của sản phẩm tươi sống, đông lạnh này.<button class="more-desc">Xem thêm</button>
+                            Khách hàng được hoàn tiền 100%, không phải trả lại hàng nếu không hài lòng với chất lượng của sản phẩm này.
+
+                            Mô tả sản phẩm {{$beef_goat_product->ProName}}:
+                            <button class="more-desc">Xem ngay</button>
                         </p>
 
                         <p class="description-body">
-                            <li>Với sản phẩm tươi sống, trọng lượng thực tế có thể chênh lệch khoảng +/... /-10%</li>
+                            <li>Với sản phẩm tươi sống, trọng lượng thực tế có thể chênh lệch khoảng 10%</li>
                         </p>
                         <p class="description-title">
-                            Ba rọi iberico cuộn
-                        </p>
-                        <p class="description-body">
-                            Ba rọi iberico cuộn là phần thịt ba rọi được cắt theo miếng hình tứ giác, có nhiều mỡ, phần thịt nạc nằm xen giữa 2 lớp mỡ. Ba rọi iberico cuộn là phần thịt ngon của heo đen Iberico. Thịt heo Iberico được mệnh danh là Vua của các loại heo. Nếu như bạn đã được thưởng thức qua một lần thì sẽ khó mà quên được hương vị thơm ngon và mềm mại của chúng.
-                        </p>
-                        <p class="description-title">
-                            Nguồn gốc của giống heo đen Iberico Tây Ban Nha
-                        </p>
-                        <p class="description-body">
-                            Thịt heo Iberico được mệnh danh là Vua của các loại heo. Nếu như bạn đã được thưởng thức qua một lần thì sẽ khó mà quên được hương vị thơm ngon và mềm mại của chúng. Nguồn gốc của giống heo đen Iberico Tây Ban Nha Thịt heo đen Iberico có nguồn gốc từ việc thuần hóa, lai tạo giữa lợn rừng và lợn Địa Trung Hải. Giống heo này chủ yếu được tìm thấy tại vùng phía Nam của Tây Ban Nha và Bồ Đào Nha. Khác với các loại heo trắng khác, heo Iberico mang các đặc tính của loài heo rừng Địa Trung Hải. Với các đặc tính khỏe mạnh, chạy nhanh và có cấu trúc thịt chắc.
 
                         </p>
                         <p class="description-body">
-                            Có rất nhiều yếu tố liên quan đến việc chứng nhận nguồn gốc và xuất xứ của đùi heo Iberico. Điều này đảm bảo rằng những việc như nhân giống, nuôi dưỡng, chăm sóc và chế biến thịt heo Iberico đã được thực hiện theo các tiêu chuẩn chất lượng nghiêm ngặt nhất.
-                        </p>
-                        <p class="description-title">
-                            Tiêu chuẩn chăn nuôi heo Iberico
-                        </p>
-                        <p class="description-body">
-                            Heo Iberico được chăn nuôi tại trang trại lớn nằm ở vùng phía nam của Tây Ban Nha. Nơi này có những bãi cỏ xanh trải dài và rải rác các hàng cây dẻ sồi với thời tiết mát lạnh. Heo con sau khi được cai sữa sẽ được vỗ béo bằng lúa mạch và ngô trong vài tuần đầu. Sau đó sẽ được đưa vào quy trình nuôi theo tiêu chuẩn để có thể ra được chất lượng thịt cao nhất.
-
-                        </p>
-                        <p class="description-body">
-                            Trước khi đến giai đoạn giết mổ, heo Iberico được thả tự nhiên trong các trang trại lớn có đồng cỏ cây sồi. Heo tự kiếm ăn và hoạt động liên tục vì vậy heo có cơ chế chuyển hóa mỡ thành cơ. Đến cuối thời kỳ này, heo phải qua tuyển chọn cực kỳ khắt khe mới được đưa đi giết thịt.
-                        </p>
-                        <p class="description-title">
-                            Đặc điểm của giống heo đen Iberico
-                        </p>
-                        <p class="description-body">
-                            Để được gắn tem Iberico, heo phải đạt được các tiêu chuẩn sau:
-                        <ul>
-                            <li>Giống heo Iberico phải đạt trên 50% thuần chủng Iberico.</li>
-                            <li>Phải được cho ăn chế độ ăn bằng hạt dẻ sồi và ngũ cốc trước khi bị giết thịt.</li>
-                            <li>Heo được nuôi trong vòng 10-12 tháng và đạt cân nặng tối thiểu là 130-150kg.</li>
-                            <li>Trong 04 tháng cuối cùng, chúng phải tăng trưởng đạt ít nhất 46kg.</li>
-                        </ul>
-                        </p>
-                        <p class="description-title">
-                            Giá trị dinh dưỡng của thịt heo Iberico
-                        </p>
-                        <p class="description-body">Những con heo lấy thịt thông thường thường được nuôi bằng ngũ cốc, nhưng heo iberico được nuôi với chế độ ăn uống chất lượng hàng đầu với thức ăn chính là hạt dẻ sồi. Mỡ trong thịt heo có chứa axit béo không bão hòa Oleic.
-
-                        </p>
-                        <p class="description-body">
-                            Axit oleic còn được biết với tên quen thuộc là Omega-9: một loại axit béo không no đơn thể. Loại Omega này cơ thể có thể tự sản xuất được. Cũng như "họ hàng" nhà Omega, Omega-9 rất tốt cho tim mạch, giúp hạ huyết áp, giảm Cholesterol và triglyceride trong máu. Có thể đẩy lùi quá trình lão hóa của cơ thể.
-                        </p>
-                        <p class="description-body">
-                            Ngoài ra, trong thịt heo đen iberico còn chứa rất nhiều vitamin và khoáng chất như: Vitamin B, Vitamin B12, Selenium, Kẽm, Phốt pho, Sắ Những vitamin và khoáng chất này đóng vai trò thiết yếu trong các chức năng cơ thể khác nhau.
-
-                        </p>
-                        <p class="description-body">
-                            Giá sản phẩm trên BriliFresh đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).
+                            {{$beef_goat_product->Des}}
                             <button class="less-desc">Rút gọn</button>
                         </p>
 
                     </div>
-
-
-
                 </div>
             </div>
         </div>
+        @endforeach
     </section>
     <section class="items-recommended scaled-recommended justify-content-center align-items-center">
         <div class="container-fluid mt-5">
@@ -292,9 +272,8 @@
                         <p class="items-recommended-title col-2 pt-3 ms-3">
                             Gợi ý cho bạn
                         </p>
-
                         <div class="more-items text-center align-item-center me-3">
-                            <a href="#" class="p-more-item">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="{{URL::to('/fish-and-meat/beef-goat')}}" class="p-more-item">Xem thêm <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -304,130 +283,37 @@
         <div class="items-container mt-5 ms-3">
             <div class="d-flex justify-content-between align-items-center text-align-center ms-0 p-0 list-items">
                 <div class="list-products col-12 row d-flex" style="justify-content: space-evenly; margin: 0px;">
+                    @foreach($related_beef_goat_products as $key =>$related_beef_goat_product)
                     <div class="product-item col-2">
-                        <div class="product-item-img">
-                            <img src="{{asset('public/client/OverviewProductAssets/images/items/bongcai.png')}}" alt="" class="product-item-img-child" />
-                        </div>
-                        <div class="product-item-tittle">
-                            <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="product-item-price">
-                                <p class="product-item-price-child">99,000</p>
-                            </div>
-                            <div class="product-item-add">
-                                <button class="product-item-add-btn">+</button>
-                            </div>
-                        </div>
-                        <div class="d-flex ">
-                            <div class="product-item-price-dis">
-                                <p class="product-item-price-dis-child">199,000</p>
-                            </div>
-                            <div class="dis-rate">
-                                <p class="dis-rate-child">-20%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item col-2">
-                        <div class="product-item-img">
-                            <img src="{{asset('public/client/OverviewProductAssets/images/items/bongcai.png')}}" alt="" class="product-item-img-child" />
-                        </div>
-                        <div class="product-item-tittle">
-                            <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="product-item-price">
-                                <p class="product-item-price-child">99,000</p>
-                            </div>
-                            <div class="product-item-add">
-                                <button class="product-item-add-btn">+</button>
-                            </div>
-                        </div>
-                        <div class="d-flex ">
-                            <div class="product-item-price-dis">
-                                <p class="product-item-price-dis-child">199,000</p>
-                            </div>
-                            <div class="dis-rate">
-                                <p class="dis-rate-child">-20%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item col-2">
-                        <div class="product-item-img">
-                            <img src="{{asset('public/client/OverviewProductAssets/images/items/bongcai.png')}}" alt="" class="product-item-img-child" />
-                        </div>
-                        <div class="product-item-tittle">
-                            <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="product-item-price">
-                                <p class="product-item-price-child">99,000</p>
-                            </div>
-                            <div class="product-item-add">
-                                <button class="product-item-add-btn">+</button>
-                            </div>
-                        </div>
-                        <div class="d-flex ">
-                            <div class="product-item-price-dis">
-                                <p class="product-item-price-dis-child">199,000</p>
-                            </div>
-                            <div class="dis-rate">
-                                <p class="dis-rate-child">-20%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item col-2">
-                        <div class="product-item-img">
-                            <img src="{{asset('public/client/OverviewProductAssets/images/items/bongcai.png')}}" alt="" class="product-item-img-child" />
-                        </div>
-                        <div class="product-item-tittle">
-                            <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="product-item-price">
-                                <p class="product-item-price-child">99,000</p>
-                            </div>
-                            <div class="product-item-add">
-                                <button class="product-item-add-btn">+</button>
-                            </div>
-                        </div>
-                        <div class="d-flex ">
-                            <div class="product-item-price-dis">
-                                <p class="product-item-price-dis-child">199,000</p>
-                            </div>
-                            <div class="dis-rate">
-                                <p class="dis-rate-child">-20%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item col-2">
-                        <div class="product-item-img">
-                            <img src="{{asset('public/client/OverviewProductAssets/images/items/bongcai.png')}}" alt="" class="product-item-img-child" />
-                        </div>
-                        <div class="product-item-tittle">
-                            <p class="product-item-tittle-child">Thăn lưng bò mỹ (200g)</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="product-item-price">
-                                <p class="product-item-price-child">99,000</p>
-                            </div>
-                            <div class="product-item-add">
-                                <button class="product-item-add-btn">+</button>
-                            </div>
-                        </div>
-                        <div class="d-flex ">
-                            <div class="product-item-price-dis">
-                                <p class="product-item-price-dis-child">199,000</p>
-                            </div>
-                            <div class="dis-rate">
-                                <p class="dis-rate-child">-20%</p>
-                            </div>
-                        </div>
-                    </div>
 
+                        <div class="product-item-img">
+                            <img src="{{URL::to('../public/upload/product/'.$related_beef_goat_product->ImgData)}}" alt="" class="product-item-img-child" />
+                        </div>
+                        <div class="product-item-tittle">
+                            <p class="product-item-tittle-child">{{$related_beef_goat_product->ProName}} ({{$related_beef_goat_product->Unit}} )</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="product-item-price">
+                                <p class="product-item-price-child">99,000</p>
+                            </div>
+                            <div class="product-item-add">
+                                <button class="product-item-add-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="d-flex ">
+                            <div class="product-item-price-dis">
+                                <p class="product-item-price-dis-child">199,000</p>
+                            </div>
+                            <div class="dis-rate">
+                                <p class="dis-rate-child">-20%</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+
     </section>
     <div class="gap mt-5">
 
@@ -716,7 +602,7 @@
                                         <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt1.png')}}" alt="" id="comment-img-album-1">
                                     </li>
                                     <li class="ms-4">
-                                        <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt2.png')}}"  alt="" id="comment-img-album-2">
+                                        <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt2.png')}}" alt="" id="comment-img-album-2">
 
                                     </li>
 
@@ -776,7 +662,7 @@
                                         <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt1.png')}}" alt="" id="comment-img-album-1">
                                     </li>
                                     <li class="ms-4">
-                                        <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt2.png')}}"  alt="" id="comment-img-album-2">
+                                        <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt2.png')}}" alt="" id="comment-img-album-2">
 
                                     </li>
 
@@ -836,7 +722,7 @@
                                         <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt1.png')}}" alt="" id="comment-img-album-1">
                                     </li>
                                     <li class="ms-4">
-                                        <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt2.png')}}"  alt="" id="comment-img-album-2">
+                                        <img src="{{asset('public/client/OverviewProductAssets/images/comment/cmt2.png')}}" alt="" id="comment-img-album-2">
 
                                     </li>
 
@@ -883,7 +769,7 @@
     <!-- Content -->
 
     <!-- Footer -->
-   @yield('home_footer')
+    @yield('home_footer')
     <!-- Footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

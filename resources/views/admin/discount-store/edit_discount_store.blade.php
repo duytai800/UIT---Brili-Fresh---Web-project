@@ -25,7 +25,7 @@ ID cửa hàng: {{$edit_discount_store->StoreID}}
                 <div class="card-body">
                     <div class="form-group">
                         <label class="font-weight-semibold" for="discount_value">Phần trăm giảm giá</label>
-                        <input type="number" class="form-control" name="discount_value" id="discount_value" step=".1" placeholder="...%" min="0.05" max="0.7" value="{{$edit_discount_store->Value}}" >
+                        <input type="number" class="form-control" name="discount_value" id="discount_value" step=".05" placeholder="...%" min="0.05" max="0.7" value="{{$edit_discount_store->Value}}" >
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="startdate">Ngày bắt đầu</label>

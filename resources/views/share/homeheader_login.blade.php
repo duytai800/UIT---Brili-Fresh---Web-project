@@ -30,7 +30,7 @@
             </ul>
             <ul class="header__navbar-list " style="margin-right: -52px;">
                 <li class="header__navbar-name">Võ Thanh Phương</li>
-                <li class="header__navbar-avt"><img src="~/HomeAssets/asset/image/logo.png" alt="" id="avartar_user"></li>
+                <li class="header__navbar-avt"><img src="{{asset('public/client/HomeAssets/asset/image/logo.png')}}" alt="" id="avartar_user"></li>
             </ul>
             <div class="line">
             </div>

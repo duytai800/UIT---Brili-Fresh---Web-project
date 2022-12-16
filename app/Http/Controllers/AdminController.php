@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Redirect;
 session_start();
 class AdminController extends Controller
 {
+    public function AuthLogin()
+    {
+        $UserID_client = Session::get('UserID_employee');
+        $UserID_manager = Session::get('UserID_manager');
+        if ($UserID_client==2 or $UserID_manager==3 ) {
+            return Redirect::to('/dashboard');
+        } else {
+            return Redirect::to('/login');
+        }
+    }
+
     public function index()
     {
         return view('login');
@@ -22,19 +33,20 @@ class AdminController extends Controller
         //$user_roles = 0;
         //$manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
         $UserID_client = Session::get('UserID_client');
-        if($UserID_client){
+        if ($UserID_client) {
             $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
             return view('welcome')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter);
-        }else {
+        } else {
             $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
             return view('welcome')->with('share.homeheader', $homeheader)->with('share.homefooter', $homefooter);
-        } 
+        }
     }
 
     public function show_dashboard()
     {
+        $this->AuthLogin();
         return view('admin.dashboard');
     }
 

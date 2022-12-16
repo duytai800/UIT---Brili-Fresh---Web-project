@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="discount_value">Phần trăm giảm giá</label>
-                        <input type="number" class="form-control" name="discount_value" id="discount_value" step=".1" min="0.05" max="0.75"placeholder="...%" required>
+                        <input type="number" class="form-control" name="discount_value" id="discount_value" step=".05" min="0.05" max="0.75"placeholder="...%" required>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-semibold" for="startdate">Ngày bắt đầu</label>

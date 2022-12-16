@@ -70,7 +70,7 @@
                                 <select class="custom-select" name="product_type" id="Type_MainType">
                                     <option value="" disabled="true" selected>Chọn danh mục</option>
                                     @foreach ($main_type as $key =>$main_type)
-                                    @if($main_type->TypeID==$edit_product->TypeID)
+                                    @if($main_type->MainType==$edit_product->MainType)
                                     <option selected value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>
                                     @else
                                     <option value="{{$main_type->MainType}}">{{$main_type->MainType}} </option>

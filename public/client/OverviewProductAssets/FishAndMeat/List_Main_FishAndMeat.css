@@ -330,12 +330,14 @@ input[type="range"]::-moz-range-thumb
 
 .product-item-img-child
 {
-    width: 182px;
-    height: 182px;
+    width: 150px;
+    height: 150px;
+    padding-left: 0px;
 }
 
 .product-item-img
 {
+    padding-left: 10px;
     width: 182px;
     height: 182px;
 }
