@@ -100,8 +100,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label class="font-weight-semibold" for="product_price">Giá nhập hàng</label>
+                                <input type="number" class="form-control" name="product_original_price" id="product_price" min="1000" placeholder="VNĐ" required>
+                            </div>
+                            <div class="form-group">
                                 <label class="font-weight-semibold" for="product_price">Đơn giá</label>
-                                <input type="number" class="form-control" name="product_price" id="product_price" placeholder="VNĐ" required>
+                                <input type="number" class="form-control" name="product_price" id="product_price" min="1000" placeholder="VNĐ" required>
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_source">Nguồn gốc</label>
@@ -114,7 +118,6 @@
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_date">Ngày tạo</label>
                                 <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy" required="required">
-
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_discription">Mô tả sản phẩm</label>

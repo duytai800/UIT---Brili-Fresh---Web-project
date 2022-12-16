@@ -16,6 +16,7 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+
 $delete_product_message = Session::get('delete_product_message');
 if ($delete_product_message) {
     echo '<span style= "color: green"; text-align: center; font-size: 14px; >' . $delete_product_message . '</span>';
@@ -110,7 +111,7 @@ if ($message_no_des) {
                             </div>
                         </td>
                         <td>{{$product->Unit}}</td>
-                        <td>{{$product->Price}}</td>
+                        <td>{{number_format($product->Price)}} VNĐ</td>
                         <td>{{$product->Source}}</td>
 
                         <?php {

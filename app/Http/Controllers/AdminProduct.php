@@ -73,6 +73,7 @@ class AdminProduct extends Controller
         $data = array();
         $data['ProID'] = $pro_id;
         $data['ProName'] = $request->product_name;
+        $data['OriginalPrice'] = $request->product_original_price;
         $data['Price'] = $request->product_price;
         $data['TypeID'] = $type_id;
         $data['Source'] = $request->product_source;
@@ -223,6 +224,7 @@ class AdminProduct extends Controller
 
         $data['ProName'] = $request->product_name;
         $data['Price'] = $request->product_price;
+        $data['OriginalPrice'] = $request->product_original_price;
         $data['TypeID'] = $type_id;
         $data['Source'] = $request->product_source;
         $data['StartDate'] = $product_date;

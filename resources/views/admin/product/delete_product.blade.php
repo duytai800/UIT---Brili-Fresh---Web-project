@@ -41,15 +41,24 @@
             {{$type_detail_product[0]->SubType}}
         </dd>
         <dt class="col-sm-2">
+            Giá nhập
+        </dt>
+        <dd class="col-sm-10">
+            <div class="price">
+                <span class="main">
+                    {{number_format($detail_product->OriginalPrice)}} VNĐ
+                </span>
+            </div>
+        </dd>
+        <dt class="col-sm-2">
             Giá bán
         </dt>
         <dd class="col-sm-10">
             <div class="price">
                 <span class="main">
-                    {{$detail_product->Price}} VNĐ
+                    {{number_format($detail_product->Price)}} VNĐ
                 </span>
             </div>
-
         </dd>
         <dt class="col-sm-2">
             Nguồn gốc

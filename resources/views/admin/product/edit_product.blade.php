@@ -115,8 +115,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label class="font-weight-semibold" for="product_price">Giá nhập hàng</label>
+                                <input type="number" class="form-control" name="product_original_price" id="product_price" min="1000" placeholder="VNĐ" value="{{$edit_product->OriginalPrice }}">
+                            </div>
+                            <div class="form-group">
                                 <label class="font-weight-semibold" for="product_price">Đơn giá</label>
-                                <input type="number" class="form-control" name="product_price" id="product_price" placeholder="VNĐ" value="{{$edit_product->Price }}">
+                                <input type="number" class="form-control" name="product_price" id="product_price" placeholder="VNĐ" min="1000" value="{{$edit_product->Price }}">
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_source">Nguồn gốc</label>

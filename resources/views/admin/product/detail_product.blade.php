@@ -111,27 +111,33 @@
                     <div class="table-responsive">
                         <table class="product-info-table m-t-20">
                             <tbody>
-                                <tr>
-                                    <td>Đơn giá:</td>
-                                    <td class="text-dark font-weight-semibold">{{$detail_product->Price}}</td>
-                                </tr>
+
                                 <tr>
                                     <td>Danh mục:</td>
                                     <td class="text-dark font-weight-semibold">{{$type_detail_product[0]->MainType}}</td>
                                 </tr>
                                 <tr>
-                                    <td>ID tài khoản:</td>
+                                    <td>Loại:</td>
                                     <td class="text-dark font-weight-semibold">{{$type_detail_product[0]->SubType}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Giá nhập hàng:</td>
+                                    <td class="text-dark font-weight-semibold">{{number_format($detail_product->OriginalPrice)}}  VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td>Đơn giá:</td>
+                                    <td class="text-dark font-weight-semibold">{{number_format($detail_product->Price)}} VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày nhập</td>
+                                    <td class="text-dark font-weight-semibold">{{$detail_product->StartDate}}</td>
                                 </tr>
 
                                 <tr>
                                     <td>Nguồn:</td>
                                     <td class="text-dark font-weight-semibold">{{$detail_product->Source}}</td>
                                 </tr>
-                                <tr>
-                                    <td>Ngày nhập</td>
-                                    <td class="text-dark font-weight-semibold">{{$detail_product->StartDate}}</td>
-                                </tr>
+        
                                 <tr>
                                     <td>Đơn vị tính</td>
                                     <td class="text-dark font-weight-semibold">{{$detail_product->Unit}}</td>
