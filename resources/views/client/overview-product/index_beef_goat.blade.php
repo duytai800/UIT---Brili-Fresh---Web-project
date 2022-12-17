@@ -129,18 +129,30 @@
                                         $beef_goat_product_price = $beef_goat_product->Price;
                                         if ($value_discount_product) {
                                             $beef_goat_product_price = $beef_goat_product_price * (1 - $value_discount_product);
-                                            $beef_goat_product_price = number_format($beef_goat_product_price);
-                                            echo  $beef_goat_product_price . ' VNĐ';
+                                            // $beef_goat_product_price = ($beef_goat_product_price);
+                                            echo  number_format($beef_goat_product_price) . ' VNĐ';
                                         } else {
-                                            $beef_goat_product_price = number_format($beef_goat_product_price);
-                                            echo  $beef_goat_product_price . ' VNĐ';
+                                            // $beef_goat_product_price = number_format($beef_goat_product_price);
+                                            echo  number_format($beef_goat_product_price)  . ' VNĐ';
                                         }
                                         ?>
                                     </p>
                                 </div>
-                                <div class="product-item-add">
-                                    <button id="btn-buy" type="button" class="product-item-add-btn" name="add-to-cart">+</button>
-                                </div>
+                                <form>
+                                    {{csrf_field()}}
+                                    <div class="product-item-add">
+                                        <input type="hidden" value="{{$beef_goat_product->ProID}}" class="product_id_{{$beef_goat_product->ProID}}">
+                                        <input type="hidden" value="{{$beef_goat_product->ProName}}" class="product_name_{{$beef_goat_product->ProID}}">
+                                        <input type="hidden" value="{{$beef_goat_product->ImgData}}" class="product_image_{{$beef_goat_product->ProID}}">
+                                        <input type="hidden" value="{{$beef_goat_product_price}}" class="product_price_{{$beef_goat_product->ProID}}">
+                                        <input type="hidden" value="{{$beef_goat_product->Unit}}" class="product_unit_{{$beef_goat_product->ProID}}">
+                                        
+                                        <input type="hidden" value="1" class="product_quantity_{{$beef_goat_product->ProID}}">
+                                        <!-- data-id_product: data là từ khoá; id_product là tên của data -->
+                                        <button id="btn-buy" type="button" class="product-item-add-btn" name="add-to-cart" data-id_product="{{$beef_goat_product->ProID}}">+</button>
+                                    </div>
+                                </form>
+
                             </div>
                             <div class="d-flex ">
                                 <div class="product-item-price-dis">
@@ -201,8 +213,48 @@
 
     <script type>
         $(document).ready(function() {
-            swal("Good job!", "You clicked the button!", "success");
-        })
+            $('.product-item-add-btn').click(function() {
+                var id = $(this).data('id_product');
+                var product_id = $('.product_id_' + id).val();
+                var product_name = $('.product_name_' + id).val();
+                var product_image = $('.product_image_' + id).val();
+                var product_price = $('.product_price_' + id).val();
+                var product_quantity = $('.product_quantity_' + id).val();
+                var product_unit = $('.product_unit_' + id).val();
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "{{route('add_cart_ajax')}}",
+                    method: 'POST',
+                    data: {
+                        product_id: product_id,
+                        product_name: product_name,
+                        product_image: product_image,
+                        product_price: product_price,
+                        product_quantity: product_quantity,
+                        product_unit: product_unit,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        // alert(data);
+                        swal({
+                                title: "Đã thêm sản phẩm vào giỏ hàng",
+                                text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                showCancelButton: true,
+                                cancelButtonText: "Xem tiếp",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Đi đến giỏ hàng",
+                                closeOnConfirm: false
+                            },
+                            function() {
+                                window.location.href = "{{url('/show-cart')}}";
+                            });
+
+                    }
+
+                });
+            });
+        });
     </script>
 </body>
 

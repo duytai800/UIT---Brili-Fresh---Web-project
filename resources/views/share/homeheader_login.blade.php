@@ -34,7 +34,7 @@
             </ul>
             <div class="line">
             </div>
-            <a href="{{URL::to('/save-cart')}}">
+            <a href="{{URL::to('/show-cart')}}">
                 <div class="header__cart " style="margin-left: -32px;">
 
                     <i class="ti-shopping-cart"></i>

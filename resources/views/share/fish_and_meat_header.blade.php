@@ -43,16 +43,19 @@
                     </div>
                     <!-- <div class="vr mt-2"></div> -->
                     <div class="mt-2 " style="border-left:1px solid #8F8C8C;height:25px"></div>
-                    <div class="d-flex nav-item mt-2 ms-3 align-item-center justify-content-center" style="margin-top: 0px !important;">
-                        <div class="i_cart_shoping">
-                            <i class="fa-solid fa-cart-shopping"></i>
+                    <a href="{{URL::to('/show-cart')}}">
+                        <div class="d-flex nav-item mt-2 ms-3 align-item-center justify-content-center" style="margin-top: 0px !important;">
+                            <div class="i_cart_shoping">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-item">
-                        <div class="nav-item count_product align-item-right ms-2 mt-2">
-                            <p class="bought_product pe-1">0</p>
+                        <div class="nav-item">
+                            <div class="nav-item count_product align-item-right ms-2 mt-2">
+                                <p class="bought_product pe-1">0</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
 
                 </div>
             </div>

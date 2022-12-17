@@ -69,6 +69,7 @@ class AdminController extends Controller
             } elseif ($user_role == 1) {
                 Session::put('UserID_client', $result[0]->UserID);
                 return Redirect::to('/');
+                //return redirect()->previous();
                 // Session::put('UserID_client', $result[0]->UserID);
                 // return redirect(url()->previous());
             }
