@@ -220,41 +220,43 @@
                 }
                 if (index > -1) {
                     var type_client = <?php echo json_encode($type_client->toArray())  ?>;
-                    if (type_client[0]['rewardid'] === list_coupon[index]['CusType']) {
-                        var StartDate = list_coupon[index]['StartDate'];
-                        var StartDate = new Date(list_coupon[index]['StartDate']);
-                        var EndDate = new Date(list_coupon[index]['EndDate']);
-                        var nowdate = new Date();
-                        if (nowdate > StartDate && nowdate < EndDate) {
-                            $(".content__coupon-message").hide();
-                            //Bỏ ẩn
-                            $(".content__discount").show();
-                            $(".content__discount-value").show();
-                            var discount_price = list_coupon[index]['DisRate'];
+                    if (type_client === undefined || type_client.length == 0) {
+                        $(".content__coupon-message").show();
+                    } else {
+                        if (type_client[0]['rewardid'] == list_coupon[index]['CusType']) {
+                            var StartDate = list_coupon[index]['StartDate'];
+                            var StartDate = new Date(list_coupon[index]['StartDate']);
+                            var EndDate = new Date(list_coupon[index]['EndDate']);
+                            var nowdate = new Date();
+                            if (nowdate > StartDate && nowdate < EndDate) {
+                                $(".content__coupon-message").hide();
+                                //Bỏ ẩn
+                                $(".content__discount").show();
+                                $(".content__discount-value").show();
+                                var discount_price = list_coupon[index]['DisRate'];
 
-                            $(".content__discount-value").html(list_coupon[index]['DisRate']);
-                            var $discountPercent = $(".content__discount-value").text();
-                            //Tính số tiền được giảm
-                            $discount = $subtotal * $discountPercent;
-                            var MaxDis = list_coupon[index]['MaxDis'];
-                            if ($discount > MaxDis) {
-                                $discount = MaxDis;
+                                $(".content__discount-value").html(list_coupon[index]['DisRate']);
+                                var $discountPercent = $(".content__discount-value").text();
+                                //Tính số tiền được giảm
+                                $discount = $subtotal * $discountPercent;
+                                var MaxDis = list_coupon[index]['MaxDis'];
+                                if ($discount > MaxDis) {
+                                    $discount = MaxDis;
+                                }
+
+                                //Tính "Tổng tiền"
+                                $total = $subtotal - $discount;
+                                //Chuyển "Giảm giá" từ dạng số sang dạng tiền tệ
+                                $(".content__discount-value").html("- " + Number($discount).toLocaleString('en') + " ₫");
+                                //Chuyển "Tổng tiền" từ dạng số sang dạng tiền tệ
+                                $(".content__total-value").html(Number($total).toLocaleString('en') + " ₫");
+                            } else {
+                                $(".content__coupon-message").show();
                             }
-
-                            //Tính "Tổng tiền"
-                            $total = $subtotal - $discount;
-                            //Chuyển "Giảm giá" từ dạng số sang dạng tiền tệ
-                            $(".content__discount-value").html("- " + Number($discount).toLocaleString('en') + " ₫");
-                            //Chuyển "Tổng tiền" từ dạng số sang dạng tiền tệ
-                            $(".content__total-value").html(Number($total).toLocaleString('en') + " ₫");
                         } else {
                             $(".content__coupon-message").show();
                         }
-
-                    } else {
-                        $(".content__coupon-message").show();
                     }
-
                 } else {
                     $(".content__coupon-message").show();
                 }

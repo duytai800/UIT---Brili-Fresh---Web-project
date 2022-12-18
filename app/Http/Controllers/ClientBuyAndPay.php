@@ -145,47 +145,59 @@ class ClientBuyAndPay extends Controller
         }
     }
 
-    public function check_coupon(Request $request)
-    {
-        $data = $request->all();
-        $coupon = DB::table('discount_order')->where('discode', $data['coupon'])
-            ->first();
-        if ($coupon) {
-            $coupon_session = Session::get('coupon');
-            if ($coupon_session) {
-                $is_available = 0;
-                if ($is_available == 0) {
-                    $cou[] = array(
-                        'DisCode' => $coupon->DisCode,
-                        'DisRate' => $coupon->DisRate,
-                        'MaxDis' => $coupon->MaxDis,
-                        'CusType' => $coupon->CusType,
-                    );
-                    Session::put('coupon', $cou);
-                }
-            } else {
-                $cou[] = array(
-                    'DisCode' => $coupon->DisCode,
-                    'DisRate' => $coupon->DisRate,
-                    'MaxDis' => $coupon->MaxDis,
-                    'CusType' => $coupon->CusType,
-                );
-                Session::put('coupon', $cou);
-            }
-            Session::save();
-            return redirect()->back();
-        }
-    }
+    // public function check_coupon(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $coupon = DB::table('discount_order')->where('discode', $data['coupon'])
+    //         ->first();
+    //     if ($coupon) {
+    //         $coupon_session = Session::get('coupon');
+    //         if ($coupon_session) {
+    //             $is_available = 0;
+    //             if ($is_available == 0) {
+    //                 $cou[] = array(
+    //                     'DisCode' => $coupon->DisCode,
+    //                     'DisRate' => $coupon->DisRate,
+    //                     'MaxDis' => $coupon->MaxDis,
+    //                     'CusType' => $coupon->CusType,
+    //                 );
+    //                 Session::put('coupon', $cou);
+    //             }
+    //         } else {
+    //             $cou[] = array(
+    //                 'DisCode' => $coupon->DisCode,
+    //                 'DisRate' => $coupon->DisRate,
+    //                 'MaxDis' => $coupon->MaxDis,
+    //                 'CusType' => $coupon->CusType,
+    //             );
+    //             Session::put('coupon', $cou);
+    //         }
+    //         Session::save();
+    //         return redirect()->back();
+    //     }
+    // }
 
     public function delivery_info()
     {
         $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
-
         if ($UserID_client) {
+            $client_address_default = DB::table('address')
+                //->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+                ->join('customer', 'customer.cusid', '=', 'address.cusid')
+                ->where('customer.userid', $UserID_client)->where('address.default', 1)
+                ->get();
+            $client_address = DB::table('address')
+                //->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+                ->join('customer', 'customer.cusid', '=', 'address.cusid')
+                ->where('customer.userid', $UserID_client)->where('address.default', 0)
+                ->get();
+
             $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
-            return view('client.buy-and-pay.delivery_info')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader);
+            return view('client.buy-and-pay.delivery_info_login')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
+            ->with('client_address_default', $client_address_default)
+            ->with('client_address', $client_address);
         } else {
             $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
