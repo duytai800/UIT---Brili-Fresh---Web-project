@@ -218,7 +218,7 @@
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-appstore"></i>
+                                        <i class="anticon anticon-hdd"></i>
                                         </span>
                                         <span class="title">Quản lý sản phẩm</span>
                                         <span class="arrow">
@@ -232,46 +232,17 @@
                                    </ul>
                               </li>
                               <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="javascript:void(0);">
+                                   <a  href="{{URL::to('/index-order')}}">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-build"></i>
+                                        <i class="anticon anticon-snippets"></i>
                                         </span>
-                                        <span class="title">Quản lý đặt hàng</span>
-                                        <span class="arrow">
-                                             <i class="arrow-icon"></i>
-                                        </span>
+                                        <span class="title">Quản lý đơn hàng</span>
                                    </a>
-                                   <ul class="dropdown-menu">
-                                        <li>
-                                             <a href="avatar.html">Avatar</a>
-                                        </li>
-                                        <li>
-                                             <a href="alert.html">Alert</a>
-                                        </li>
-                                        <li>
-                                             <a href="badge.html">Badge</a>
-                                        </li>
-                                        <li>
-                                             <a href="buttons.html">Buttons</a>
-                                        </li>
-                                        <li>
-                                             <a href="cards.html">Cards</a>
-                                        </li>
-                                        <li>
-                                             <a href="icons.html">Icons</a>
-                                        </li>
-                                        <li>
-                                             <a href="lists.html">Lists</a>
-                                        </li>
-                                        <li>
-                                             <a href="typography.html">Typography</a>
-                                        </li>
-                                   </ul>
                               </li>
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-hdd"></i>
+                                        <i class="anticon anticon-team"></i>
                                         </span>
                                         <span class="title">Quản lý khách hàng</span>
                                         <span class="arrow">
@@ -288,7 +259,7 @@
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-form"></i>
+                                        <i class="anticon anticon-form"></i>
                                         </span>
                                         <span class="title">Quản lý nhân viên</span>
                                         <span class="arrow">
@@ -304,7 +275,7 @@
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-table"></i>
+                                        <i class="anticon anticon-tool"></i>
                                         </span>
                                         <span class="title">Quản lý hệ thống</span>
                                         <span class="arrow">
@@ -321,28 +292,17 @@
                                    </ul>
                               </li>
                               <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="javascript:void(0);">
+                                   <a class="dropdown-toggle" href="{{URL::to('/index-statistic')}}">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-pie-chart"></i>
+                                        <i class="anticon anticon-pie-chart"></i>
                                         </span>
                                         <span class="title">Thống kê, báo cáo</span>
-                                        <span class="arrow">
-                                             <i class="arrow-icon"></i>
-                                        </span>
                                    </a>
-                                   <ul class="dropdown-menu">
-                                        <li>
-                                             <a href="chartist.html">Chartist</a>
-                                        </li>
-                                        <li>
-                                             <a href="chartjs.html">ChartJs</a>
-                                        </li>
-                                   </ul>
                               </li>
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="{{URL::to('/index-store')}}">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-file"></i>
+                                        <i class="anticon anticon-shop"></i>
                                         </span>
                                         <span class="title">Quản lý cửa hàng</span>
                                    </a>
@@ -350,7 +310,7 @@
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="{{URL::to('/index-stock')}}">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-file"></i>
+                                        <i class="anticon anticon-appstore"></i>
                                         </span>
                                         <span class="title">Quản lý kho</span>
                                    </a>
@@ -358,7 +318,7 @@
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                             <i class="anticon anticon-pie-chart"></i>
+                                        <i class="anticon anticon-gift"></i>
                                         </span>
                                         <span class="title">Quản lý khuyến mãi</span>
                                         <span class="arrow">

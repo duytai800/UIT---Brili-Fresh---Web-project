@@ -10,9 +10,8 @@ use Illuminate\Http\Request;
 
 class AdminStock extends Controller
 {
-    public function index_stock(?int $store_id = null)
+    public function index_stock()
     {
-        if (is_null($store_id)){
             $index_stock = DB::table('stock')->join('store','stock.storeid','=','store.storeid')
             ->join('product','stock.proid','=','product.proid')->where('store.isdeleted', 0)->where('product.isdeleted', 0)
             ->select('stock.*', 'store.SpecificAddress as Store_SpecificAddress',
@@ -20,17 +19,7 @@ class AdminStock extends Controller
             'store.District as Store_District',
             'store.City as Store_City',
             'product.ProName as Pro_ProName')->get();
-        }
-        else {
-            $index_stock = DB::table('stock')->join('store','stock.storeid','=','store.storeid')
-            ->join('product','stock.proid','=','product.proid')->where('store.isdeleted', 0)->where('product.isdeleted', 0)->where('stock.storeid', $store_id)
-            ->select('stock.*', 'store.SpecificAddress as Store_SpecificAddress',
-            'store.Ward as Store_Ward',
-            'store.District as Store_District',
-            'store.City as Store_City',
-            'product.ProName as Pro_ProName')->get();
-        }
-        
+       
         $insert_store_id = DB::table('store')->where('store.isdeleted', 0)->get();
         $manager_index_stock = view('admin.stock.index_stock')->with('index_stock', $index_stock)->with('insert_store_id', $insert_store_id);
         return view('admin_layout')->with('admin.stock.index_stock', $manager_index_stock);

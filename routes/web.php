@@ -52,7 +52,7 @@ Route::get('/delete-product/{product_id}', 'App\Http\Controllers\AdminProduct@de
 Route::post('/soft-delete-product/{product_id}', 'App\Http\Controllers\AdminProduct@soft_delete_product');
 
 //Quản lý kho
-Route::get('/index-stock/{store_id?}', 'App\Http\Controllers\AdminStock@index_stock');
+Route::get('/index-stock', 'App\Http\Controllers\AdminStock@index_stock');
 Route::get('/create-stock/{store_id?}', 'App\Http\Controllers\AdminStock@create_stock');
 Route::post('/save-stock', 'App\Http\Controllers\AdminStock@save_stock');
 Route::get('/detail-stock/{store_id}/{pro_id}', 'App\Http\Controllers\AdminStock@detail_stock');
@@ -60,6 +60,15 @@ Route::get('/edit-stock/{store_id}/{pro_id}', 'App\Http\Controllers\AdminStock@e
 Route::post('/update-stock/{store_id}/{pro_id}', 'App\Http\Controllers\AdminStock@update_stock');
 Route::get('/delete-stock/{stock_id}/{pro_id}', 'App\Http\Controllers\AdminStock@delete_stock');
 Route::post('/confirm-delete-stock/{stock_id}/{pro_id}', 'App\Http\Controllers\AdminStock@confirm_delete_stock');
+
+//Quản lý hóa đơn
+Route::get('/index-order', 'App\Http\Controllers\AdminOrder@index_order');
+Route::get('/detail-order/{order_id}', 'App\Http\Controllers\AdminOrder@detail_order');
+Route::get('/edit-order/{order_id}', 'App\Http\Controllers\AdminOrder@edit_order');
+Route::post('/update-order/{order_id}', 'App\Http\Controllers\AdminOrder@update_order');
+
+//Thống kê, báo cáo
+Route::get('/index-statistic/{year?}', 'App\Http\Controllers\AdminStatistic@index_statistic');
 
 //Quản lý tài khoản
 Route::get('/index-account/{user_id?}', 'App\Http\Controllers\AdminAccount@index_account');

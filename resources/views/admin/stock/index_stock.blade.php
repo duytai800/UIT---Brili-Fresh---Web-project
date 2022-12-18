@@ -17,15 +17,22 @@
                <div class="col-lg-8">
                     <div class="d-md-flex">
                          <div class="m-b-10 m-r-15">
-                              <h3>ID cửa hàng</h3>
-                              <select id="store" class="form-control" asp-items="ViewBag.StoreId"
-                                   onChange="search(this);">
-                                   <option value="" selected>Tất cả cửa hàng</option>
+                         <b>Mã cửa hàng</b>
+                              <select id="store" class="form-control">
+                                   <option value="" selected>Tất cả</option>
                                    @foreach ($insert_store_id as $key =>$store_id)
                                    <option value="{{$store_id->StoreID}}">{{$store_id->StoreID}} </option>
                                    @endforeach
                               </select>
                          </div>
+                         <div class="m-b-10 m-r-15" style="margin-left: 12px">
+                        <b>Tình trạng tồn kho</b>
+                        <select id="status" class="form-control" >
+                            <option value="" selected>Tất cả</option>
+                            <option value="1">Còn hàng</option>
+                            <option value="2">Hết hàng</option>
+                        </select>
+                    </div>
                     </div>
                </div>
                <div class="col-lg-4 text-right">
@@ -64,7 +71,7 @@
                     <tbody>
                          @foreach($index_stock as $key =>$stock)
                          <tr class="rowitem">
-                              <td>{{$stock->StoreID}}</td>
+                              <td  class="storeId" >{{$stock->StoreID}}</td>
                               <td>{{$stock->Store_SpecificAddress}}, {{$stock->Store_Ward}}, {{$stock->Store_District}},
                                    {{$stock->Store_City}}</td>
 
@@ -95,25 +102,25 @@
 
 
 <script>
-function search(a) {
-     window.location.href = "/index.php/index-stock/" + a.options[a.selectedIndex].value;
-}
-
+$('#store, #status').change(function(){
+        var a = $('#store').val();
+        var b = $('#status').val();
+        $(".rowitem").show();
+        for (var i = 0; i < $(".storeId").length; i++) {
+            var c = $(".storeId")[i].innerText;
+            var d = $(".quantity")[i].innerText;
+            if (((a!=c)&&a!="") || ((b==1) && (d==0)) || ((b==2) && (d!=0))) {
+                $(".rowitem")[i].style.display = 'none';
+            }
+        }
+    })
 
 $('#createbtn').click(function() {
      var a = $('#store').val();
      window.location.href = "/index.php/create-stock/" + a;
 })
 
-$(document).ready(function() {
-     var path = location.pathname;
-     path = path.replace('/index.php/index-stock/', '');
-     $('#store option[value=' + path + ']').attr('selected', true);
-
-
-})
 for (var i = 0; i < $('.quantity').length; i++) {
-     //alert($('.quantity')[i].innerHTML);
      if ($('.quantity')[i].innerHTML == 0) {
           $('.rowitem')[i].style.backgroundColor = "#ffa8a8";
           $('.rowitem')[i].style.color = "#FFFFFF";
