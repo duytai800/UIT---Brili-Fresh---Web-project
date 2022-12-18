@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientBuyAndPay;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 /*
@@ -115,7 +116,6 @@ Route::post('/confirm-delete-discount-store/{dis_id}', 'App\Http\Controllers\Adm
 
 
 Route::get('/', 'App\Http\Controllers\AdminController@homepage');
-
 Route::get('/login', 'App\Http\Controllers\AdminController@index');
 //Giao diện chính admin
 Route::get('/dashboard', 'App\Http\Controllers\AdminController@show_dashboard');
@@ -139,7 +139,13 @@ Route::get('/vegetable', 'App\Http\Controllers\ClientController@index_vegetable'
 Route::get('/vegetable/vegetable', 'App\Http\Controllers\ClientController@index_leaf_vegetable');
 Route::get('/vegetable/vegetable/detail-vegetable', 'App\Http\Controllers\ClientController@detail_leaf_vegetable');
 
-//thanh toán
-Route::get('/cart-info-check', 'App\Http\Controllers\ClientBuyAndPay@cart_info_check');
-Route::post('/cart-info', 'App\Http\Controllers\ClientBuyAndPay@cart_info');
+//giỏ hàng 
+Route::post('/add-cart-ajax', [ClientBuyAndPay::class, 'add_cart_ajax'])->name('add_cart_ajax'); 
+Route::get('/show-cart', 'App\Http\Controllers\ClientBuyAndPay@show_cart');
+Route::get('/delete-cart/{session_id}', 'App\Http\Controllers\ClientBuyAndPay@delete_cart');
+Route::post('/save-cart', 'App\Http\Controllers\ClientBuyAndPay@save_cart');
+Route::get('/cart-info', 'App\Http\Controllers\ClientBuyAndPay@cart_info');
+Route::get('/check-coupon', 'App\Http\Controllers\ClientBuyAndPay@check_coupon');
+Route::get('/delivery-info', 'App\Http\Controllers\ClientBuyAndPay@delivery_info');
+Route::post('/pay-info', 'App\Http\Controllers\ClientBuyAndPay@pay_info');
 

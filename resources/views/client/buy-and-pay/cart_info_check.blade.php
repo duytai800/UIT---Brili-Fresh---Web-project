@@ -23,7 +23,8 @@
 </head>
 
 <body>
-    <form action="{{URL::to('/cart-info/')}}" method="post" class="giohangform">
+    <form action="{{URL::to('/cart-info')}}" method="get" class="giohangform">
+        {{ csrf_field() }}
         <!-- Header no login -->
         @yield('home_header')
         <!-- Header no login -->
@@ -36,6 +37,15 @@
                 </h3>
             </div>
 
+            @if(session()->has('delete_cart'))
+            <div class="alert alert-success">
+                {{ session()->get('delete_cart') }}
+            </div>
+            @elseif (session ()->has('delete_cart_fail'))
+            <div class="alert alert-danger">
+                {{ session()->get('delete_cart_fail') }}
+            </div>
+            @endif
             <div class="content__description">
                 <div class="content__header">
                     <div class="container">
@@ -44,44 +54,45 @@
                                 <input type="checkbox" class="content__select-all">
                             </div>
                             <div class="col-md-4">
-                                <span style="margin-left: 20px"><b>Tất cả (<span id="numPro"></span> sản phẩm)</b></span>
+                                <span style="margin-left: 20px"><b>Tất cả ( <span id="numPro"></span> sản phẩm)</b></span>
                             </div>
                             <div class="col-md-2">Đơn giá</div>
                             <div class="col-md-2">Số lượng</div>
                             <div class="col-md-2">Thành tiền</div>
                             <div class="col-md-1">
                                 <button type="button" class="content__remove-all">
-                                    <img src="./assets/icons/trash.png" class="content__remove-img"></img>
+                                    <img src="{{asset('public/client/assets/icons/trash.png')}}" class="content__remove-img"></img>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="content__empty">
                     <span class="content__empty-message" align="center">Không có sản phẩm nào trong giỏ.</span>
                 </div>
 
                 <div class="content__data">
                     <div class="container">
+                        @if (Session::get('cart'))
+                        @foreach(Session::get('cart') as $key => $cart)
                         <div class="row">
                             <div class="col-sm-1">
                                 <input type="checkbox" class="content__select">
                             </div>
                             <div class="col-md-4">
                                 <div class="content__pro-info">
-                                    <img class="content__pro-image" src="./assets/images/baroi500g.jpg"></img>
-                                    <span class="content__pro-name">Ba rọi heo (Nhập khẩu) - 500g</span>
+                                    <img class="content__pro-image" src="{{URL::to('../public/upload/product/'.$cart['product_image'])}}"></img>
+                                    <span class="content__pro-name">{{$cart['product_name']}} ({{$cart['product_unit']}})</span>
                                 </div>
 
                             </div>
                             <div class="col-md-2">
-                                <span class="content__unit-price">80000</span>
+                                <span class="content__unit-price">{{$cart['product_price']}}</span>
                             </div>
                             <div class="col-md-2">
                                 <div class="content__quantity-info">
                                     <span class="content__minus">-</span>
-                                    <input class="content__quantity" type="text" value="1" />
+                                    <input class="content__quantity" type="text" name="cart_quantity[{{$cart['session_id']}}]" value="{{$cart['product_quantity']}}" />
                                     <span class="content__plus">+</span>
                                 </div>
                             </div>
@@ -90,41 +101,14 @@
                             </div>
                             <div class="col-md-1">
                                 <button type="button" class="content__remove">
-                                    <img src="./assets/icons/trash.png" class="content__remove-img"></img>
+                                    <a href="{{URL::to('/delete-cart/'.$cart['session_id'])}}">
+                                        <img src="{{asset('public/client/assets/icons/trash.png')}}"  class="content__remove-img"></img>
+                                    </a>
                                 </button>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm-1">
-                                <input type="checkbox" class="content__select">
-                            </div>
-                            <div class="col-md-4">
-                                <div class="content__pro-info">
-                                    <img class="content__pro-image" src="./assets/images/DuahauruotdoLongAn-1kg.jpg"></img>
-                                    <span class="content__pro-name">Dưa hấu ruột đỏ Long An - 1kg</span>
-                                </div>
-
-                            </div>
-                            <div class="col-md-2">
-                                <span class="content__unit-price">38000</span>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="content__quantity-info">
-                                    <span class="content__minus">-</span>
-                                    <input class="content__quantity" type="text" value="1" />
-                                    <span class="content__plus">+</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="content__amount"></span>
-                            </div>
-                            <div class="col-md-1">
-                                <button type="button" class="content__remove">
-                                    <img src="/assets/icons/trash.png" class="content__remove-img"></img>
-                                </button>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endif
                     </div>
                 </div>
 
@@ -135,7 +119,7 @@
             </div>
 
             <div class="content__order">
-                <input class="content__order-button" type="submit" value="TIẾN HÀNH ĐẶT HÀNG">
+                <input class="content__order-button" type="submit" href="{{URL::to('/cart-info')}}" value="TIẾN HÀNH ĐẶT HÀNG">
             </div>
         </div>
         <!-- Content -->
