@@ -417,9 +417,10 @@
      <script src="{{asset('public/backend/vendors/datatables/jquery.dataTables.min.js')}}"></script>
      <script src="{{asset('public/backend/vendors/datatables/dataTables.bootstrap.min.js')}}"></script>
      <script src="{{asset('public/backend/js/pages/dashboard-e-commerce.js')}}"></script>
+     <script src="{{asset('public/backend/js/pages/dashboard-default.js')}}"></script>
+     <script src="{{asset('public/backend/js/pages/dashboard-crm.js')}}"></script>
      <script src="{{asset('public/backend/js/pages/e-commerce-order-list.js')}}"></script>
      <script src="{{asset('public/backend/js/jquery-1.11.1.min.js')}}"></script>
-
      <!-- Core JS -->
      <script src="{{asset('public/backend/js/app.min.js')}}"></script>
 
