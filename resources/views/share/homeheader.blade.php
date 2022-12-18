@@ -29,14 +29,13 @@
                 <li class="header__navbar-item"><a href="#">Liên hệ</a></li>
             </ul>
             <ul class="header__navbar-list " style="margin-right: -52px;">
-                <li class="header__navbar-register">Đăng ký /</li>
+                <li class="header__navbar-register"><a href="{{URL::to('/registration')}}">Đăng ký /</a></li>
                 <li class="header__navbar-login"> <a href="{{URL::to('/login')}}">Đăng nhập</a></li>
             </ul>
             <div class="line">
             </div>
             <a href="{{URL::to('/show-cart')}}" method="post">
                 <div class="header__cart " style="margin-left: -32px;">
-
                     <i class="ti-shopping-cart"></i>
                     <div class="header__cart-number">
                         <p class="number-item">

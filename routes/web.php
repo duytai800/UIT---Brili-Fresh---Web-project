@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientBuyAndPay;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -117,6 +118,9 @@ Route::post('/confirm-delete-discount-store/{dis_id}', 'App\Http\Controllers\Adm
 
 Route::get('/', 'App\Http\Controllers\AdminController@homepage');
 Route::get('/login', 'App\Http\Controllers\AdminController@index');
+Route::get('/registration', 'App\Http\Controllers\AdminController@registration');
+Route::post('/registration-validation', [ClientController::class, 'registration_validation'])->name('registration_validation'); 
+
 //Giao diện chính admin
 Route::get('/dashboard', 'App\Http\Controllers\AdminController@show_dashboard');
 //Giao diện chính admin

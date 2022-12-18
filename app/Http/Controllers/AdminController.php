@@ -78,6 +78,14 @@ class AdminController extends Controller
             return Redirect::to('/login');
         }
     }
+
+    public function registration(){
+        return view('registration');
+    }
+
+
+
+
     public function logout()
     {
         Session::put('admin_username', null);

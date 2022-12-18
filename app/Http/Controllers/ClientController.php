@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    
     public function AuthLogin()
     {
         $UserID_client = Session::get('UserID_client');
@@ -18,6 +19,11 @@ class ClientController extends Controller
         } else {
             return Redirect::to('/');
         }
+    }
+
+    public function registration_validation(Request $request){
+        $data = $request->all();
+        print_r($data);
     }
 
     public function index_fish_and_meat()
