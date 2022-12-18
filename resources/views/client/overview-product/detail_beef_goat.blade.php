@@ -127,7 +127,7 @@
                                     if ($value_discount_product) {
                                         $beef_goat_product_price = $beef_goat_product_price * (1 - $value_discount_product);
                                         //echo $beef_goat_product_price;
-                                        $beef_goat_product_price = number_format($beef_goat_product_price) ;
+                                        $beef_goat_product_price = number_format($beef_goat_product_price);
                                         echo  $beef_goat_product_price . 'đ';
                                     } else {
                                         $beef_goat_product_price = number_format($beef_goat_product_price);
@@ -161,8 +161,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="countdown-sale align-items-center justify-content-center me-2 ">
                             @if ($beef_goat_product->value_discount_product)
                             <div class="info mx-2 my-auto">
@@ -190,7 +188,7 @@
                             <div class="info mx-2 my-auto">
                                 <span>Vừa mở bán</span>
                             </div>
-                            @else 
+                            @else
                             @endif
 
                         </div>
@@ -198,36 +196,44 @@
                     <div class="c-title mt-3">
                         <span>Số lượng</span>
                     </div>
-                    <div class="row product-quantity ">
-                        <div class="col-xl-3 ">
-                            <div class="input-group">
-                                <div class="input-group-btn justify-content-end align-items-center ">
-                                    <button type="button" class="quantity-left-minus btn btn-default btn-number" data-type="minus" data-field="">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                                <div class="input-group-btn">
-                                    <button type="button" class="quantity-right-plus btn btn-default btn-number " data-type="plus" data-field="">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
+                    <form action="{{URL::to('/save-cart')}}" method="post">
+                        {{csrf_field()}}
+                        <div class="row product-quantity ">
+                            <div class="col-xl-3 ">
+                                <div class="input-group">
+                                    <div class="input-group-btn justify-content-end align-items-center ">
+                                        <button type="button" class="quantity-left-minus btn btn-default btn-number" data-type="minus" data-field="">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+
+                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="quantity-right-plus btn btn-default btn-number " data-type="plus" data-field="">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex mt-4">
+                        <div class="d-flex mt-4">
 
-                        <div class="btn-buy me-2">
-                            <input type="button" id="btn-buy" value="CHỌN MUA"></input>
+                            <div class="btn-buy me-2">
+                                <input type="hidden" name="pro_id_hidden" value="{{$beef_goat_product->ProID}}">
+                                <!-- <input type="submit" id="btn-buy" value="CHỌN MUA"></input> -->
+                                <button id="btn-buy" type="button" name="add-to-cart">CHỌN MUA</button>
+                            </div>
+
+
+                            <div class="btn-chat me-4">
+
+                                <input type="button" id="btn-chat" value="CHAT"></input>
+
+                            </div>
+
                         </div>
-                        <div class="btn-chat me-4">
-
-                            <input type="button" id="btn-chat" value="CHAT"></input>
-
-                        </div>
-
-                    </div>
+                    </form>
 
                     <div class="cr-info mt-5">
                         <!-- <div class="brand-info d-flex col-4">
@@ -264,6 +270,9 @@
         </div>
         @endforeach
     </section>
+
+
+    <!-- Gợi ý cho bạn -->
     <section class="items-recommended scaled-recommended justify-content-center align-items-center">
         <div class="container-fluid mt-5">
             <div class="row justify-content-center text-align-center scale-container">
@@ -285,16 +294,33 @@
                 <div class="list-products col-12 row d-flex" style="justify-content: space-evenly; margin: 0px;">
                     @foreach($related_beef_goat_products as $key =>$related_beef_goat_product)
                     <div class="product-item col-2">
+                        <a class="nav-link" href="{{URL::to('/fish-and-meat/beef-goat/' .$related_beef_goat_product->ProID)}}">
 
-                        <div class="product-item-img">
-                            <img src="{{URL::to('../public/upload/product/'.$related_beef_goat_product->ImgData)}}" alt="" class="product-item-img-child" />
-                        </div>
+                            <div class="product-item-img">
+                                <img src="{{URL::to('../public/upload/product/'.$related_beef_goat_product->ImgData)}}" alt="" class="product-item-img-child" />
+                            </div>
+                        </a>
+
                         <div class="product-item-tittle">
                             <p class="product-item-tittle-child">{{$related_beef_goat_product->ProName}} ({{$related_beef_goat_product->Unit}} )</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="product-item-price">
-                                <p class="product-item-price-child">99,000</p>
+                                <p class="product-item-price-child">
+                                    <!-- hiển thị giá sản phẩm sau bước tính giảm giá (nếu Có) -->
+                                    <?php
+                                    $value_discount_product = $related_beef_goat_product->value_discount_product;
+                                    $beef_goat_product_price = $related_beef_goat_product->Price;
+                                    if ($value_discount_product) {
+                                        $beef_goat_product_price = $beef_goat_product_price * (1 - $value_discount_product);
+                                        $beef_goat_product_price = number_format($beef_goat_product_price);
+                                        echo  $beef_goat_product_price . ' VNĐ';
+                                    } else {
+                                        $beef_goat_product_price = number_format($beef_goat_product_price);
+                                        echo  $beef_goat_product_price . ' VNĐ';
+                                    }
+                                    ?>
+                                </p>
                             </div>
                             <div class="product-item-add">
                                 <button class="product-item-add-btn">+</button>
@@ -302,10 +328,29 @@
                         </div>
                         <div class="d-flex ">
                             <div class="product-item-price-dis">
-                                <p class="product-item-price-dis-child">199,000</p>
+                                <p class="product-item-price-dis-child">
+                                    <!-- Hiển thị giá gốc bị gạch ngang nếu có giảm giá -->
+                                    <?php
+                                    $value_discount_product = $related_beef_goat_product->value_discount_product;
+                                    $beef_goat_product_price = $related_beef_goat_product->Price;
+                                    if ($value_discount_product) {
+                                        $beef_goat_product_price = number_format($beef_goat_product_price);
+                                        echo  $beef_goat_product_price;
+                                    } else {
+                                        echo " ";
+                                    }
+                                    ?>
+                                </p>
                             </div>
                             <div class="dis-rate">
-                                <p class="dis-rate-child">-20%</p>
+                                <p class="dis-rate-child">
+                                    <?php
+                                    $value_discount_product = $related_beef_goat_product->value_discount_product;
+                                    if ($value_discount_product) {
+                                        echo  '- ' . $value_discount_product * 100 . '%';
+                                    } else echo " ";
+                                    ?>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -316,7 +361,9 @@
 
     </section>
     <div class="gap mt-5">
+        <!-- Gợi ý cho bạn -->
 
+        <!-- Nhận xét khách hàng -->
     </div>
     <section class="comments scaled-comments">
         <div class="container-fluid mt-5">
@@ -775,6 +822,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="{{asset('public/client/Overviewproductassets\fishandmeat\detailfishandmeat.js')}}"></script>
+
+
+
 </body>
 
 </html>
