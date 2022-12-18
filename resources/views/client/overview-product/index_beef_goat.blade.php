@@ -146,7 +146,7 @@
                                         <input type="hidden" value="{{$beef_goat_product->ImgData}}" class="product_image_{{$beef_goat_product->ProID}}">
                                         <input type="hidden" value="{{$beef_goat_product_price}}" class="product_price_{{$beef_goat_product->ProID}}">
                                         <input type="hidden" value="{{$beef_goat_product->Unit}}" class="product_unit_{{$beef_goat_product->ProID}}">
-                                        
+
                                         <input type="hidden" value="1" class="product_quantity_{{$beef_goat_product->ProID}}">
                                         <!-- data-id_product: data là từ khoá; id_product là tên của data -->
                                         <button id="btn-buy" type="button" class="product-item-add-btn" name="add-to-cart" data-id_product="{{$beef_goat_product->ProID}}">+</button>

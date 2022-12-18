@@ -120,5 +120,4 @@
 <link rel="stylesheet" href="{{asset('public/client/sweet-alert/sweetalert.css')}}">
 <script src="{{asset('public/client/sweet-alert/sweetalert.js')}}"></script>
 
-
 @endsection

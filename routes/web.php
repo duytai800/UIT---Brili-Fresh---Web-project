@@ -134,9 +134,9 @@ Route::get('/vegetable/vegetable/detail-vegetable', 'App\Http\Controllers\Client
 Route::post('/add-cart-ajax', [ClientBuyAndPay::class, 'add_cart_ajax'])->name('add_cart_ajax'); 
 Route::get('/show-cart', 'App\Http\Controllers\ClientBuyAndPay@show_cart');
 Route::get('/delete-cart/{session_id}', 'App\Http\Controllers\ClientBuyAndPay@delete_cart');
-
-
-
 Route::post('/save-cart', 'App\Http\Controllers\ClientBuyAndPay@save_cart');
-Route::post('/cart-info', 'App\Http\Controllers\ClientBuyAndPay@cart_info');
+Route::get('/cart-info', 'App\Http\Controllers\ClientBuyAndPay@cart_info');
+Route::get('/check-coupon', 'App\Http\Controllers\ClientBuyAndPay@check_coupon');
+Route::get('/delivery-info', 'App\Http\Controllers\ClientBuyAndPay@delivery_info');
+Route::post('/pay-info', 'App\Http\Controllers\ClientBuyAndPay@pay_info');
 

@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Redis;
+
 
 class ClientBuyAndPay extends Controller
 {
@@ -33,6 +32,15 @@ class ClientBuyAndPay extends Controller
             foreach ($cart as $key => $val) {
                 if ($val['product_id'] == $data['product_id']) {
                     $is_available++;
+                    $cart[$key] = array(
+                        'session_id' => $session_id,
+                        'product_id' => $val['product_id'],
+                        'product_name' => $val['product_name'],
+                        'product_image' => $val['product_image'],
+                        'product_price' => $val['product_price'],
+                        'product_quantity' => $val['product_quantity'] + $data['product_quantity'],
+                        'product_unit' => $val['product_unit'],
+                    );
                 }
             }
             if ($is_available == 0) {
@@ -76,7 +84,7 @@ class ClientBuyAndPay extends Controller
         if ($UserID_client) {
             $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
-            return view('client.buy-and-pay.cart_info_check')->with('share.homeheader_login', $homefooter)->with('share.homeheader_login', $homeheader)
+            return view('client.buy-and-pay.cart_info_check')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
                 ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
                 ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)
                 ->with('meta_desc', $meta_desc);
@@ -100,7 +108,104 @@ class ClientBuyAndPay extends Controller
                 }
             }
             Session::put('cart', $cart);
-            return redirect()->back()->with('delete_cart','Đã bỏ một sản phẩm ra khỏi giỏ hàng');
+            return redirect()->back()->with('delete_cart', 'Đã bỏ một sản phẩm ra khỏi giỏ hàng');
         } else return  redirect()->back()->with('delete_cart_fail', 'Chưa thể bỏ sản phẩm này ra khỏi giỏ hàng');
+    }
+
+    public function cart_info(Request $request)
+    {
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+
+        $type_client = DB::table('customer')->where('userid', $UserID_client)->select('customer.rewardid')->get();
+
+        //seo
+        $meta_desc = "Giỏ hàng của bạn";
+        $meta_keywords = "Gió hàng";
+        $meta_title = "Giỏ hàng";
+        $url_canonical = $request->url();
+
+        $coupon = DB::table('discount_order')->get();
+
+        if ($UserID_client) {
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+
+            return view('client.buy-and-pay.cart_info', compact('coupon'))->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
+                ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
+                ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)->with('type_client', $type_client)
+                ->with('meta_desc', $meta_desc);
+        } else {
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('client.buy-and-pay.cart_info', compact('coupon'))->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader)
+                ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
+                ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)->with('type_client', $type_client)
+                ->with('meta_desc', $meta_desc);
+        }
+    }
+
+    public function check_coupon(Request $request)
+    {
+        $data = $request->all();
+        $coupon = DB::table('discount_order')->where('discode', $data['coupon'])
+            ->first();
+        if ($coupon) {
+            $coupon_session = Session::get('coupon');
+            if ($coupon_session) {
+                $is_available = 0;
+                if ($is_available == 0) {
+                    $cou[] = array(
+                        'DisCode' => $coupon->DisCode,
+                        'DisRate' => $coupon->DisRate,
+                        'MaxDis' => $coupon->MaxDis,
+                        'CusType' => $coupon->CusType,
+                    );
+                    Session::put('coupon', $cou);
+                }
+            } else {
+                $cou[] = array(
+                    'DisCode' => $coupon->DisCode,
+                    'DisRate' => $coupon->DisRate,
+                    'MaxDis' => $coupon->MaxDis,
+                    'CusType' => $coupon->CusType,
+                );
+                Session::put('coupon', $cou);
+            }
+            Session::save();
+            return redirect()->back();
+        }
+    }
+
+    public function delivery_info()
+    {
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+
+        if ($UserID_client) {
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('client.buy-and-pay.delivery_info')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader);
+        } else {
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('client.buy-and-pay.delivery_info')->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader);
+        }
+    }
+
+    public function pay_info()
+    {
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+
+        if ($UserID_client) {
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('client.buy-and-pay.pay_info')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader);
+        } else {
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homefooter = view('share.homefooter');
+            return view('client.buy-and-pay.pay_info')->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader);
+        }
     }
 }

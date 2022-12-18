@@ -23,7 +23,8 @@
 </head>
 
 <body>
-    <form action="{{URL::to('/cart-info/')}}" method="post" class="giohangform">
+    <form action="{{URL::to('/cart-info')}}" method="get" class="giohangform">
+        {{ csrf_field() }}
         <!-- Header no login -->
         @yield('home_header')
         <!-- Header no login -->
@@ -60,7 +61,7 @@
                             <div class="col-md-2">Thành tiền</div>
                             <div class="col-md-1">
                                 <button type="button" class="content__remove-all">
-                                    <img src="./assets/icons/trash.png" class="content__remove-img"></img>
+                                    <img src="{{asset('public/client/assets/icons/trash.png')}}" class="content__remove-img"></img>
                                 </button>
                             </div>
                         </div>
@@ -91,7 +92,7 @@
                             <div class="col-md-2">
                                 <div class="content__quantity-info">
                                     <span class="content__minus">-</span>
-                                    <input class="content__quantity" type="text" name="cart_quantity[{{$cart['session_id']}}]"value="1" />
+                                    <input class="content__quantity" type="text" name="cart_quantity[{{$cart['session_id']}}]" value="{{$cart['product_quantity']}}" />
                                     <span class="content__plus">+</span>
                                 </div>
                             </div>
@@ -100,8 +101,8 @@
                             </div>
                             <div class="col-md-1">
                                 <button type="button" class="content__remove">
-                                    <a  href="{{URL::to('/delete-cart/'.$cart['session_id'])}}" >
-                                        <img src="{{asset('./assets/icons/trash.png')}}" class="content__remove-img"></img>
+                                    <a href="{{URL::to('/delete-cart/'.$cart['session_id'])}}">
+                                        <img src="{{asset('public/client/assets/icons/trash.png')}}"  class="content__remove-img"></img>
                                     </a>
                                 </button>
                             </div>
@@ -118,7 +119,7 @@
             </div>
 
             <div class="content__order">
-                <input class="content__order-button" type="submit" value="TIẾN HÀNH ĐẶT HÀNG">
+                <input class="content__order-button" type="submit" href="{{URL::to('/cart-info')}}" value="TIẾN HÀNH ĐẶT HÀNG">
             </div>
         </div>
         <!-- Content -->
