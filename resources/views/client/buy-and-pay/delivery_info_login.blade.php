@@ -46,6 +46,8 @@
                     <div class="row">
                         <div class="content__address-list">
                             @foreach ($client_address_default as $key=>$client_address_default)
+                            <input type="hidden" value="{{$client_address_default->AddID}}" class="client_address_delivery">
+
                             <span class="content__fullname">{{$client_address_default->LastName}} {{$client_address_default->FirstName}}</span>
                             <span class="content__default"></span>
                             <br>
@@ -67,14 +69,14 @@
                                     <input type="radio" class="content__address-change-button" name="addressButton" id="addressButton1" checked>
                                     <label for="addressButton1" class="content__address-change-name">Giao đến địa chỉ này</label>
                                 </label>
-                                <button type="button" id="addressEditButton1" class="content__address-edit-button">
+                                <!-- <button type="button" id="addressEditButton1" class="content__address-edit-button">
                                     <img src="{{asset('public/client/assets/icons/Edit.png')}}">
                                     Sửa
                                 </button>
                                 <button type="button" class="content__address-remove-button">
                                     <img src="{{asset('public/client/assets/icons/Remove.png')}}">
                                     Xóa
-                                </button>
+                                </button> -->
                             </div>
                             @endforeach
                         </div>
@@ -107,18 +109,18 @@
                                     <input type="radio" class="content__address-change-button" name="addressButton" id="{{$client_address->AddID}}">
                                     <label for="{{$client_address->AddID}}" class="content__address-change-name">Giao đến địa chỉ này</label>
                                 </label>
-                                <button type="button" id="addressEditButton2" class="content__address-edit-button">
+                                <!-- <button type="button" id="addressEditButton2" class="content__address-edit-button">
                                     <img src="{{asset('public/client/assets/icons/Edit.png')}}">
                                     Sửa
-                                </button>
-                                <button type="button" class="content__address-default-button">
+                                </button> -->
+                                <!-- <button type="button" class="content__address-default-button">
                                     <img src="{{asset('public/client/assets/icons/Default.png')}}">
                                     Mặc định
                                 </button>
                                 <button type="button" class="content__address-remove-button">
                                     <img src="{{asset('public/client/assets/icons/Remove.png')}}">
                                     Xóa
-                                </button>
+                                </button> -->
                             </div> 
                         </div>
                         @endforeach

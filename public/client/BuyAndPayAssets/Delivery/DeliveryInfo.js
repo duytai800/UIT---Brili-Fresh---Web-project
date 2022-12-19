@@ -31,6 +31,8 @@ $(document).ready(function () {
         return /^\d*$/.test(value);    // Allow digits only, using a RegExp
     }, "Số điện thoại phải là số");
 
+
+
     //Combobox địa chỉ
     var citis = document.getElementById("city");
     var districts = document.getElementById("district");
@@ -87,8 +89,6 @@ $(document).ready(function () {
         $("input").prop('required', true);
         $("select").prop('required', true);
 
-
-
         var isFullFill = 1;
         if ($("#fullname").is(':invalid')) {
             $("#fullname-message").show();
@@ -125,7 +125,12 @@ $(document).ready(function () {
             sessionStorage.setItem("WARD", $ward);
             sessionStorage.setItem("DISTRICT", $district);
             sessionStorage.setItem("CITY", $city);
+
+           
+            sessionStorage.setItem("DELIVERY", client_address_delivery);
         }
+
+
     });
 
     //Bỏ thông báo yêu cầu điền/chọn
