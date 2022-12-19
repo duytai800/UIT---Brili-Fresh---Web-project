@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17egcferpgzkcm0j0feq1ycjuyawdz9kutv1ejvuaoz8pdnh/0nzxmu6bbxwaaxqoi9pqxnrwqlcdb027hgv9a==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yhknp1/awr+yx26cb1y0cjvqumvea2pfzt1c9lls4prq5notzfwbhbig+x9g9eyw/8m0/4oxnx8pxj6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <link rel="stylesheet" href="{{asset('public/client/HomeAssets/asset/fonts/themify-icons/themify-icons.css')}}">
     <link rel="stylesheet" href="{{asset('public/client/HomeAssets/homeheadermain.css')}}" />
     <link rel="stylesheet" href="{{asset('public/client/HomeAssets/HomeFooter.css')}}" />
@@ -23,6 +23,8 @@
 
 <body>
     <form class="thanhtoanform">
+        {{ csrf_field() }}
+
         <!-- Header login -->
         @yield('home_header')
         <!-- Header login -->
@@ -79,40 +81,40 @@
                                 <br>
                                 <div class="content__payment-methods">
                                     <label class="content__payment-method">
-                                        <input type="radio" name="payment-method" id="payment-method-button1" checked="checked">
+                                        <input type="radio" name="payment-method" id="payment-method-button1" value="1" checked="checked">
                                         <img src="{{asset('public/client/assets/icons/tienmat.png')}}">
                                         <label for="payment-method-button1" class="content__payment-name">Thanh toán tiền mặt khi nhận hàng</label>
                                     </label>
                                     <br>
                                     <label class="content__payment-method">
-                                        <input type="radio" name="payment-method" id="payment-method-button2">
+                                        <input type="radio" name="payment-method" id="payment-method-button2" value="2">
                                         <img src="{{asset('public/client/assets/icons/vidientu.png')}}">
                                         <label for="payment-method-button2" class="content__payment-name">Thanh toán bằng ví điện tử</label>
                                         <br>
                                         <label id="E-wallet-message">Vui lòng chọn ví điện tử!</label>
                                         <div class="content__E-wallets">
                                             <label class="content__E-wallet">
-                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" id="E-wallet-button1">
+                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" value="21" id="E-wallet-button1" checked="checked">
                                                 <img class="content__E-wallet-image" src="{{asset('public/client/assets/icons/ViMoMo.png')}}">
                                                 <label class="content__E-wallet-name" for="E-wallet-button1">Ví MoMo</label>
                                             </label>
                                             <label class="content__E-wallet">
-                                                <input type="radio" class="content__E-wallet-button"" name=" E-wallet" id="E-wallet-button2">
+                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" value="22" id="E-wallet-button2">
                                                 <img class="content__E-wallet-image" src="{{asset('public/client/assets/icons/VNPAY.png')}}">
                                                 <label class="content__E-wallet-name" for="E-wallet-button2">VNPAY</label>
                                             </label>
                                             <label class="content__E-wallet">
-                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" id="E-wallet-button3">
+                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" value="23" id="E-wallet-button3">
                                                 <img class="content__E-wallet-image" src="{{asset('public/client/assets/icons/ZaloPay.png')}}">
                                                 <label class="content__E-wallet-name" for="E-wallet-button3">ZaloPay</label>
                                             </label>
                                             <label class="content__E-wallet">
-                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" id="E-wallet-button4">
+                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" value="24" id="E-wallet-button4">
                                                 <img class="content__E-wallet-image" src="{{asset('public/client/assets/icons/VinID.png')}}">
                                                 <label class="content__E-wallet-name" for="E-wallet-button4">VinID</label>
                                             </label>
                                             <label class="content__E-wallet">
-                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" id="E-wallet-button5">
+                                                <input type="radio" class="content__E-wallet-button" name="E-wallet" value="25" id="E-wallet-button5">
                                                 <img class="content__E-wallet-image" src="{{asset('public/client/assets/icons/ViMoca.png')}}">
                                                 <label class="content__E-wallet-name" for="E-wallet-button5">Ví Moca</label>
                                             </label>
@@ -121,13 +123,13 @@
                                     </label>
                                     <br>
                                     <label class="content__payment-method">
-                                        <input type="radio" name="payment-method" id="payment-method-button3">
+                                        <input type="radio" name="payment-method" id="payment-method-button3" value="3">
                                         <img src="{{asset('public/client/assets/icons/thequocte.png')}}">
                                         <label for="payment-method-button3" class="content__payment-name">Thanh toán bằng thẻ quốc tế Visa, Master, JCB</label>
                                     </label>
                                     <br>
                                     <label class="content__payment-method">
-                                        <input type="radio" name="payment-method" id="payment-method-button4">
+                                        <input type="radio" name="payment-method" id="payment-method-button4" value="4">
                                         <img src="{{asset('public/client/assets/icons/theatm.png')}}">
                                         <label for="payment-method-button4" class="content__payment-name">Thẻ ATM nội địa/Internet Banking (Hỗ trợ Internet Banking)</label>
                                     </label>
@@ -157,7 +159,6 @@
                                         <span id="city"></span>
                                         <span>, Việt Nam.</span>
                                     </div>
-
                                 </div>
                             </div>
                             <br>
@@ -214,7 +215,8 @@
                                     </table>
                                     <br>
                                     <div class="content__submit">
-                                        <input type="submit" value="Đặt hàng" id="order-button">
+                                        <!-- <input type="submit" value="Đặt hàng" id="order-button"> -->
+                                        <button id="order-button" type="button" value="Đặt hàng" class="confirrm-order" name="add-to-cart">Đặt hàng</button>
                                     </div>
                                 </div>
                             </div>
@@ -238,6 +240,97 @@
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script type="text/javascript" src="{{asset('public/client/BuyAndPayAssets/PayInfo/PayInfo.js')}}"></script>
+    <script type>
+        $(document).ready(function() {
+            $('.confirrm-order').click(function() {
+
+                var delivery_method = document.querySelector('input[name="delivery-method"]:checked').value;
+                var payment_method = document.querySelector('input[name="payment-method"]:checked').value;
+                if (payment_method == 2) {
+                    var payment_method_videntu = document.querySelector('input[name="E-wallet"]:checked').value;
+                    payment_method = payment_method_videntu;
+                } else {
+                    payment_method = document.querySelector('input[name="payment-method"]:checked').value;
+                }
+
+                var subtotal = document.getElementById('subtotal').innerText;
+                subtotal = subtotal.split(" ");
+                subtotal = subtotal[0];
+                subtotal = subtotal.split(",");
+                subtotal = subtotal[0] + subtotal[1];
+
+                var total = document.getElementById('total').innerText;
+                var total = total.split(" ");
+                total = total[0];
+                total = total.split(",");
+                total = total[0] + total[1];
+                var OrderDate = new Date();
+                var curr_date = OrderDate.getDate();
+
+                var curr_month = OrderDate.getMonth() + 1;
+
+                var curr_year = OrderDate.getFullYear();
+                var seconds = OrderDate.getSeconds();
+                var minutes = OrderDate.getMinutes();
+                var hour = OrderDate.getHours();
+                OrderDate = curr_year + "-" + curr_month + "-" + curr_date + " " + hour + ":" + minutes + ":" + seconds;
+
+                var specificAddress = document.getElementById('specificAddress').innerText;
+                var ward = document.getElementById('ward').innerText;
+                var district = document.getElementById('district').innerText;
+                var city = document.getElementById('city').innerText;
+
+                var disid = sessionStorage.getItem("DISID");
+
+                var product_image = JSON.parse(sessionStorage.getItem("PROIMAGE"));
+                var product_name = JSON.parse(sessionStorage.getItem("PRONAME"));
+                var product_unit_price = JSON.parse(sessionStorage.getItem("UNITPRICE"));
+                var product_quantity = JSON.parse(sessionStorage.getItem("QUANTITY"));
+                
+
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "{{route('pay_info_ajax')}}",
+                    method: 'POST',
+                    data: {
+                        delivery_method: delivery_method,
+                        payment_method: payment_method,
+                        subtotal: subtotal,
+                        total: total,
+                        OrderDate: OrderDate,
+                        specificAddress: specificAddress,
+                        ward: ward,
+                        district: district,
+                        city: city,
+                        disid: disid,
+                        product_image: product_image,
+                        product_name: product_name,
+                        product_unit_price: product_unit_price,
+                        product_quantity: product_quantity,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        alert(data);
+                        // swal({
+                        //         title: "Đã thêm sản phẩm vào giỏ hàng",
+                        //         text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                        //         showCancelButton: true,
+                        //         cancelButtonText: "Xem tiếp",
+                        //         confirmButtonClass: "btn-success",
+                        //         confirmButtonText: "Đi đến giỏ hàng",
+                        //         closeOnConfirm: false
+                        //     },
+                        //     function() {
+                        //         window.location.href = "{{url('/show-cart')}}";
+                        //     });
+
+                    }
+
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

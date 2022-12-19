@@ -73,7 +73,6 @@ class ClientBuyAndPay extends Controller
 
     public function show_cart(Request $request)
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         //seo
         $meta_desc = "Giỏ hàng của bạn";
@@ -114,7 +113,6 @@ class ClientBuyAndPay extends Controller
 
     public function cart_info(Request $request)
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
 
         $type_client = DB::table('customer')->where('userid', $UserID_client)->select('customer.rewardid')->get();
@@ -179,7 +177,6 @@ class ClientBuyAndPay extends Controller
 
     public function delivery_info()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $client_address_default = DB::table('address')
@@ -196,8 +193,8 @@ class ClientBuyAndPay extends Controller
             $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.delivery_info_login')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
-            ->with('client_address_default', $client_address_default)
-            ->with('client_address', $client_address);
+                ->with('client_address_default', $client_address_default)
+                ->with('client_address', $client_address);
         } else {
             $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
@@ -207,7 +204,6 @@ class ClientBuyAndPay extends Controller
 
     public function pay_info()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
 
         if ($UserID_client) {
@@ -218,6 +214,84 @@ class ClientBuyAndPay extends Controller
             $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.pay_info')->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader);
+        }
+    }
+
+    public function pay_info_ajax(Request $request)
+    {
+        $data = $request->all();
+        //print_r($data);
+
+        $id_transport = DB::table('transport')->max('transid') + 1;
+        $id_order = DB::table('order')->max('orderid') + 1;
+        $data_insert_transport = array();
+        $tranport_type =  $data['delivery_method'];
+        $data_insert_transport['Type'] = $tranport_type;
+        $data_insert_transport['Status'] = 1;
+        $data_insert_transport['TransID'] = $id_transport;
+        if ($tranport_type == 1) {
+            $data_insert_transport['Fee'] = 14000;
+        } else {
+            $data_insert_transport['Fee'] = 30000;
+        }
+        DB::table('transport')->insert($data_insert_transport);
+
+        $UserID_client = Session::get('UserID_client');
+        $data_insert_order = array();
+
+        if ($UserID_client) {
+            $cus_id = DB::table('customer')->select('cusid')
+                ->where('userid', $UserID_client)
+                ->get()->toArray();
+            $cus_id = $cus_id[0]->cusid;
+            $data_insert_order['CusID'] = $cus_id;
+        }
+
+        $add_id = DB::table('address')->select('addid')->where('city', $data['city'])
+            ->where('district', $data['district'])
+            ->where('ward', $data['ward'])
+            ->where('specificaddress', $data['specificAddress'])->get()->toArray();
+
+        if ($add_id) {
+            $add_id = $add_id[0]->addid;
+            $data_insert_order['AddID'] =  $add_id;
+        }
+        $data_insert_order['OrderDate'] = $data['OrderDate'];
+        $data_insert_order['TransID'] = $id_transport;
+        $data_insert_order['OrderTotal'] = $data['total'];
+        $data_insert_order['DisID'] = $data['disid'];
+        $data_insert_order['OrderID'] = $id_order;
+
+        $data_insert_order['SubTotal'] = $data['subtotal'];
+        $data_insert_order['PayBy'] = $data['payment_method'];
+        DB::table('order')->insert($data_insert_order);
+
+        $data_insert_order_detail = array();
+        $row = count($data['product_image']);
+
+        for ($i = 0; $i < $row; $i++) {
+            //$data_insert_order_detail = array();
+            echo "ok";
+            $product_image = $data['product_image'][$i];
+            $product_image = explode("/", $product_image);
+            $product_image = $product_image[7];
+            $pro_id = DB::table('product_image')->select('proid')->where('imgdata', $product_image)
+                ->get()->toArray();
+            $pro_id = $pro_id[0]->proid;
+            $product_quantity = $data['product_quantity'][$i];
+            $product_unit_price = $data['product_unit_price'][$i];
+            $product_unit_price = explode(" ", $product_unit_price);
+            $product_unit_price = explode(",", $product_unit_price[0]);
+            $product_unit_price = $product_unit_price[0] . $product_unit_price[1];
+
+            $data_insert_order_detail['OrderID'] = $id_order;
+            $data_insert_order_detail['ProID'] = $pro_id;
+            $data_insert_order_detail['Quantity'] = $product_quantity;
+            $data_insert_order_detail['Price'] = $product_unit_price;
+            // echo '<pre>';
+            // print_r($data_insert_order_detail);
+            // echo '</pre>';
+            DB::table('order_details')->insert($data_insert_order_detail);
         }
     }
 }
