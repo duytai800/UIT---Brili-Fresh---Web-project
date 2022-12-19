@@ -250,6 +250,8 @@
                                 $(".content__discount-value").html("- " + Number($discount).toLocaleString('en') + " ₫");
                                 //Chuyển "Tổng tiền" từ dạng số sang dạng tiền tệ
                                 $(".content__total-value").html(Number($total).toLocaleString('en') + " ₫");
+
+                                sessionStorage.setItem("DISID", list_coupon[index]['DisID']);
                             } else {
                                 $(".content__coupon-message").show();
                             }
