@@ -16,7 +16,7 @@ class AdminController extends Controller
     {
         $UserID_client = Session::get('UserID_employee');
         $UserID_manager = Session::get('UserID_manager');
-        if ($UserID_client==2 or $UserID_manager==3 ) {
+        if ($UserID_client == 2 or $UserID_manager == 3) {
             return Redirect::to('/dashboard');
         } else {
             return Redirect::to('/login');
@@ -34,9 +34,17 @@ class AdminController extends Controller
         //$manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client);
+            $customer = DB::table('customer')
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+            // echo '<pre>';
+            // print_r($customer);
+            // echo '</pre>';
+
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
             $homefooter = view('share.homefooter');
-            return view('welcome')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter);
+            return view('welcome')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter)
+            ;
         } else {
             $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
             $homefooter = view('share.homefooter');

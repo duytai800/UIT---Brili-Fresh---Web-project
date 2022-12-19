@@ -29,14 +29,19 @@
                 <li class="header__navbar-item"><a href="#">Liên hệ</a></li>
             </ul>
             <ul class="header__navbar-list " style="margin-right: -52px;">
-                <li class="header__navbar-name">Võ Thanh Phương</li>
-                <li class="header__navbar-avt"><img src="{{asset('public/client/HomeAssets/asset/image/logo.png')}}" alt="" id="avartar_user"></li>
+                <a href="{{URL::to('/account-info')}}" method="get">
+
+                    @foreach ($customer as $key => $customer)
+                    <li class="header__navbar-name">{{$customer->LastName}} {{$customer->FirstName}} </li>
+                    <li class="header__navbar-avt"><img src="{{asset('/public/client/avatar/'. $customer->Avatar )}}" alt="" id="avartar_user"></li>
+
+                    @endforeach
+                </a>
             </ul>
             <div class="line">
             </div>
             <a href="{{URL::to('/show-cart')}}" method="post">
                 <div class="header__cart " style="margin-left: -32px;">
-
                     <i class="ti-shopping-cart"></i>
                     <div class="header__cart-number">
                         <p class="number-item">

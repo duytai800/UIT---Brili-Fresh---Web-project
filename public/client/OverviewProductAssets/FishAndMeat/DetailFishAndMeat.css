@@ -327,7 +327,7 @@ input[placeholder="Tìm kiếm thực phẩm"] {
     width: 648px;
     height: 96px;
 
-    background: url("../../OverviewProductAssets/images/product-info/bg-orange.png");
+    background: url("/OverviewProductAssets/images/product-info/bg-orange.png");
     border-radius: 12px;
 }
 
@@ -1274,8 +1274,8 @@ input[placeholder="Tìm kiếm thực phẩm"] {
 }
 
 .product-item-img-child {
-    width: 160px;
-    height: 160px;
+    width: 182px;
+    height: 182px;
 }
 
 .product-item-img {

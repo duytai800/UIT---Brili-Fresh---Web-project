@@ -377,6 +377,7 @@ $(document).ready(function () {
         }
     })
 
+
     //Chọn thêm địa chỉ khác
     $("#addAddress").click(function () {
         $("#addresstable").show();

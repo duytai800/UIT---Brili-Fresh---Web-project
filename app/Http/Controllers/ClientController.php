@@ -42,7 +42,7 @@ class ClientController extends Controller
         $UserID_client = Session::get('UserID_client');
 
         $beef_goat_products = DB::table('product')
-            ->select('product.*', 'product_image.*', 'type.*','discount_product.value as value_discount_product','discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->select('product.*', 'product_image.*', 'type.*', 'discount_product.value as value_discount_product', 'discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
             ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
@@ -52,7 +52,7 @@ class ClientController extends Controller
             ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
             ->where('type.typeid', 5)->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
-            
+
 
         if ($UserID_client) {
             $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
@@ -65,8 +65,6 @@ class ClientController extends Controller
             $footer = view('share.homefooter');
             return view('client.overview-product.index_beef_goat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer)
                 ->with('beef_goat_products', $beef_goat_products);
-
-            
         }
     }
 
@@ -76,36 +74,36 @@ class ClientController extends Controller
         $UserID_client = Session::get('UserID_client');
 
         $beef_goat_products = DB::table('product')
-        ->select('product.*', 'product_image.*', 'type.*','discount_product.value as value_discount_product','discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
-        ->join('product_image', 'product.proid', '=', 'product_image.proid')
-        ->join('type', 'product.typeid', '=', 'type.typeid')
-        ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
-        ->leftjoin('discount_product', 'product.proid', '=', 'discount_product.proid')
-        ->leftjoin('discount_type', 'product.typeid', '=', 'discount_type.typeid')
+            ->select('product.*', 'product_image.*', 'type.*', 'discount_product.value as value_discount_product', 'discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->join('product_image', 'product.proid', '=', 'product_image.proid')
+            ->join('type', 'product.typeid', '=', 'type.typeid')
+            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
+            ->leftjoin('discount_product', 'product.proid', '=', 'discount_product.proid')
+            ->leftjoin('discount_type', 'product.typeid', '=', 'discount_type.typeid')
 
-        ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
-        ->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
-        ->where('product.proid',$pro_id )
-        ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
+            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
+            ->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
+            ->where('product.proid', $pro_id)
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
 
         $related_beef_goat_products = DB::table('product')
-        ->select('product.*', 'product_image.*', 'type.*','discount_product.value as value_discount_product','discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
-        ->join('product_image', 'product.proid', '=', 'product_image.proid')
-        ->join('type', 'product.typeid', '=', 'type.typeid')
-        ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
-        ->leftjoin('discount_product', 'product.proid', '=', 'discount_product.proid')
-        ->leftjoin('discount_type', 'product.typeid', '=', 'discount_type.typeid')
-        ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
-        ->where('type.typeid', 5)->whereNotIn('product.proid', [$pro_id])->whereRaw('stock.quantity >0')
-        ->orderBy('product.proid', 'asc')->distinct('product.proid')->get()->random(5);
+            ->select('product.*', 'product_image.*', 'type.*', 'discount_product.value as value_discount_product', 'discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->join('product_image', 'product.proid', '=', 'product_image.proid')
+            ->join('type', 'product.typeid', '=', 'type.typeid')
+            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
+            ->leftjoin('discount_product', 'product.proid', '=', 'discount_product.proid')
+            ->leftjoin('discount_type', 'product.typeid', '=', 'discount_type.typeid')
+            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
+            ->where('type.typeid', 5)->whereNotIn('product.proid', [$pro_id])->whereRaw('stock.quantity >0')
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')->get()->random(5);
 
         // echo '<pre>';
         // print_r($related_beef_goat_products);
         // echo '</pre>';
 
         $des_img = DB::table('product_image')
-        ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $pro_id)
-        ->distinct()->get()->toArray();
+            ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $pro_id)
+            ->distinct()->get()->toArray();
 
         if (count($des_img) == 3) {
             $des_img_0 = $des_img[0]->ImgData;
@@ -129,24 +127,24 @@ class ClientController extends Controller
             $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
             $footer = view('share.homefooter');
             return view('client.overview-product.detail_beef_goat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer)
-            ->with('des_img', $des_img)
-            ->with('des_img_0', $des_img_0)
-            ->with('des_img_1', $des_img_1)
-            ->with('des_img_2', $des_img_2)
-            ->with('des_img_2', $des_img_2)
-            ->with('related_beef_goat_products', $related_beef_goat_products)
-            ->with('beef_goat_products', $beef_goat_products);
+                ->with('des_img', $des_img)
+                ->with('des_img_0', $des_img_0)
+                ->with('des_img_1', $des_img_1)
+                ->with('des_img_2', $des_img_2)
+                ->with('des_img_2', $des_img_2)
+                ->with('related_beef_goat_products', $related_beef_goat_products)
+                ->with('beef_goat_products', $beef_goat_products);
         } else {
             $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
             $footer = view('share.homefooter');
             return view('client.overview-product.detail_beef_goat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer)
-            ->with('des_img', $des_img)
-            ->with('des_img_0', $des_img_0)
-            ->with('des_img_1', $des_img_1)
-            ->with('des_img_2', $des_img_2)
-            ->with('related_beef_goat_products', $related_beef_goat_products)
-            ->with('beef_goat_products', $beef_goat_products);
-         }
+                ->with('des_img', $des_img)
+                ->with('des_img_0', $des_img_0)
+                ->with('des_img_1', $des_img_1)
+                ->with('des_img_2', $des_img_2)
+                ->with('related_beef_goat_products', $related_beef_goat_products)
+                ->with('beef_goat_products', $beef_goat_products);
+        }
     }
 
     public function index_fruit()
