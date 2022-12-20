@@ -66,9 +66,9 @@
                             <input type="password" name="confirm_password" id="confirm-password" />
                         </div>
                     </div>
-                    @if(session()->has('delete_cart'))
+                    @if(session()->has('succes_change_password'))
                     <div class="alert alert-success">
-                        {{ session()->get('delete_cart') }}
+                        {{ session()->get('succes_change_password') }}
                     </div>
                     @elseif (session ()->has('error_change_password'))
                     <div class="alert alert-danger">
@@ -79,7 +79,6 @@
                         <input type="submit" value="Xác nhận" id="btn-validate" formmethod="post">
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
-                    <!-- <span class="text-danger">@TempData["msg"]</span> -->
                 </form>
             </div>
         </div>
