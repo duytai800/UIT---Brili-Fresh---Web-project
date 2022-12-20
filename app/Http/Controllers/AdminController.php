@@ -17,7 +17,7 @@ class AdminController extends Controller
         $UserID_client = Session::get('UserID_employee');
         $UserID_manager = Session::get('UserID_manager');
         if ($UserID_client == 2 or $UserID_manager == 3) {
-            return Redirect::to('/dashboard');
+            //return Redirect::to('/dashboard');
         } else {
             return Redirect::to('/login');
         }
