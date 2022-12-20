@@ -91,4 +91,48 @@ class ClientMyAccount extends Controller
         DB::table('user')->where('userid', $UserID_client)->update($data);
         return redirect()->back()->with('succes_change_password', 'Thay đổi mật khẩu thành công!');
     }
+
+    public function confirm_change_info(Request $request){
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+        $data = array();
+
+        $data['LastName'] = $request->LastName;
+        $data['FirstName'] = $request->FirstName;
+        $data['Email'] = $request->Email;
+        $data['Gender'] = $request->gender;
+        //DB::table('customer')->where('userid', $UserID_client)->update($data);
+
+        $get_image_main= $request->file('Photo');
+        if ($get_image_main) {
+            $get_name_img = $get_image_main->getClientOriginalName();
+            $name_img = current(explode('.', $get_name_img));
+            $image_main = 'user' . $UserID_client.'-' . $name_img . rand(0, 999) . '.' . $get_image_main->getClientOriginalExtension();
+            $get_image_main->move('public/client/avatar', $image_main);
+            $data_img['Avatar'] = $image_main;
+            DB::table('user')->where('userid', $UserID_client)->update($data_img);
+        }
+        return redirect()->back()->with('succes_change_info', 'Cập nhật thông tin thành công!');
+    }
+
+    public function manage_address(){
+        $this->AuthLogin();
+        $UserID_client = Session::get('UserID_client');
+        $customer = DB::table('customer')
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+        $homefooter = view('share.homefooter');
+        $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);
+
+        $customer_address = DB::table('customer')
+        ->join('user', 'user.userid', '=', 'customer.userid')
+        ->join('address', 'address.cusid', '=', 'customer.cusid')
+        ->where('customer.userid', $UserID_client)->get()->toArray();
+
+        return view('client.my-account.manage_address')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter)
+            ->with('share.sub_nav_my_account', $sub_nav_my_account)
+            ->with('customer_address', $customer_address);
+    }
+
 }

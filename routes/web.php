@@ -152,8 +152,10 @@ Route::post('/pay-info-ajax', [ClientBuyAndPay::class, 'pay_info_ajax'])->name('
 
 //tài khoản của tôi 
 Route::get('/account-info', 'App\Http\Controllers\ClientMyAccount@account_info');
-Route::get('/change-password', 'App\Http\Controllers\ClientMyAccount@change_password');
-Route::post('/confirm-change-password', 'App\Http\Controllers\ClientMyAccount@confirm_change_password');
+Route::get('/account-info/change-password', 'App\Http\Controllers\ClientMyAccount@change_password');
+Route::post('/account-info/confirm-change-password', 'App\Http\Controllers\ClientMyAccount@confirm_change_password');
+Route::post('/account-info/confirm-change-info', 'App\Http\Controllers\ClientMyAccount@confirm_change_info');
+Route::get('/account-info/manage-address', 'App\Http\Controllers\ClientMyAccount@manage_address');
 
 
 

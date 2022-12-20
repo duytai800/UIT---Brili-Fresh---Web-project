@@ -47,11 +47,11 @@
             <!-- End SlideBar -->
 
             <div class="col-12 col-xl-9 container-right">
-            @foreach ($customer as $key => $customer)
+                @foreach ($customer as $key => $customer)
 
                 <div class="heading-right">Thông tin tài khoản</div>
-                <form action="~/MyAccount/EditAccount/@Model.CusId" method="post" name="update-info-cus" class="row form-info-cus" enctype="multipart/form-data">
-
+                <form action="{{URL::to('/account-info/confirm-change-info')}}" method="post" name="update-info-cus" class="row form-info-cus" enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     <div class="col-12 col-xl-7 container-fluid" style="padding: 24px 0 0 32px; background-color: #fff">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -66,7 +66,7 @@
                         </div>
                         <div class="input_field">
                             <label for="first-name"> Tên </label>
-                            <input type="text"  name="FirstName" value="{{$customer->FirstName}}" />
+                            <input type="text" name="FirstName" value="{{$customer->FirstName}}" />
                         </div>
                         <div class="input_field">
                             <label for="phone"> Số điện thoại </label>
@@ -79,25 +79,61 @@
                                 <span name="email">@Model.Email</span>
                                 <a class="change-email-btn">Thay đổi</a>
                             </div> -->
-                            <input type="email"  name="Email" value="{{$customer->Email}}" />
+                            <input type="email" name="Email" value="{{$customer->Email}}" />
 
                         </div>
+                        <div class="input_field">
+                            <label for="Username"> Giới tính </label>
+                            @if ($customer->Gender == 1)
 
+                            <div class="radio-group">
+                                <input type="radio" name="gender" value="1" id="male" checked><label for="male">Nam</label>
+                                <input type="radio" name="gender" value="2" id="female"><label for="female">Nữ</label>
+                                <input type="radio" name="gender" value="3" id="other"><label for="other">Khác</label>
+                            </div>
+
+                            @elseif ($customer->Gender == 2)
+
+                            <div class="radio-group">
+                                <input type="radio" name="gender" value="1" id="male"><label for="male">Nam</label>
+                                <input type="radio" name="gender" value="2" id="female" checked><label for="female">Nữ</label>
+                                <input type="radio" name="gender" value="3" id="other"><label for="other">Khác</label>
+                            </div>
+
+                            @elseif ($customer->Gender == 3)
+
+                            <div class="radio-group">
+                                <input type="radio" name="gender" value="1" id="male"><label for="male">Nam</label>
+                                <input type="radio" name="gender" value="2" id="female"><label for="female">Nữ</label>
+                                <input type="radio" name="gender" value="3" id="other" checked><label for="other">Khác</label>
+                            </div>
+
+                            @endif
+                        </div>
                         <div class="input_field">
                             <label for="password"> Mật khẩu </label>
-                            <a class="change-pw-btn" href="{{URL::to('/change-password')}}" >Đổi mật khẩu</a>
+                            <a class="change-pw-btn" href="{{URL::to('/account-info/change-password')}}">Đổi mật khẩu</a>
                         </div>
+                        @if(session()->has('succes_change_info'))
+                        <div class="alert alert-success">
+                            {{ session()->get('succes_change_info') }}
+                        </div>
+                        @elseif (session ()->has('error_change_password'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error_change_password') }}
+                        </div>
+                        @endif
                         <input id="save-btn" class="btn-shared" name="save-btn" type="submit" value="Lưu" />
 
                     </div>
 
                     <div class="avatar-alt col-12 col-xl-5 container-fluid">
                         <div class="avatar-choice">
-                            <img id="frame"src="{{asset('/public/client/avatar/'. $customer->Avatar )}}"  alt="">
+                            <img id="frame" src="{{asset('/public/client/avatar/'. $customer->Avatar )}}" alt="">
                         </div>
                         <label class="choose-img-btn btn-shared">
                             <span>Chọn ảnh</span>
-                            <input type="file" name="Photo" onchange="preview()">
+                            <input type="file" name="Photo"  accept="image/gif, image/jpeg, image/png" onchange="preview()">
                         </label>
                     </div>
                 </form>

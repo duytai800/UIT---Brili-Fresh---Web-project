@@ -215,7 +215,7 @@
                                     </table>
                                     <br>
                                     <div class="content__submit">
-                                        <!-- <input type="submit" value="Đặt hàng" id="order-button"> -->
+                                        <!-- <input type="submit" value="Đặt hàng" id="order-button" class="confirrm-order" > -->
                                         <button id="order-button" type="button" value="Đặt hàng" class="confirrm-order" name="add-to-cart">Đặt hàng</button>
                                     </div>
                                 </div>

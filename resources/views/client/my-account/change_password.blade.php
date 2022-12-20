@@ -34,7 +34,7 @@
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{URL::to('/')}}">Trang chủ</a></li>
-                                <li class="breadcrumb-item"><a href="#">Thông tin tài khoản</a></li>
+                                <li class="breadcrumb-item"><a href="{{URL::to('/account-info')}}">Thông tin tài khoản</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Đổi mật khẩu</li>
                             </ol>
                         </nav>
@@ -47,7 +47,7 @@
 
             <div class="col-12 col-xl-9 container-right">
                 <div class="heading-right">Đổi mật khẩu</div>
-                <form action="{{URL::to('/confirm-change-password')}}" method="post" class="form-change-password">
+                <form action="{{URL::to('/account-info/confirm-change-password')}}" method="post" class="form-change-password">
                     {{ csrf_field() }}
 
                     <div class="form-header">Đổi mật khẩu</div>

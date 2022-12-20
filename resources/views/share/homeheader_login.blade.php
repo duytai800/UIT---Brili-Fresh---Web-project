@@ -34,7 +34,6 @@
                     @foreach ($customer as $key => $customer)
                     <li class="header__navbar-name">{{$customer->LastName}} {{$customer->FirstName}} </li>
                     <li class="header__navbar-avt"><img src="{{asset('/public/client/avatar/'. $customer->Avatar )}}" alt="" id="avartar_user"></li>
-
                     @endforeach
                 </a>
             </ul>
