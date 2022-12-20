@@ -26,19 +26,17 @@
 <body>
     <!-- Begin header -->
     @yield('home_header')
-
     <!-- End header -->
 
     <!-- Begin content -->
     <div class="container">
         <div class="row">
-
             <section class="directory mt-3">
                 <nav class="navbar navbar-expand-xl navbar-light ">
                     <div class="container-fluid">
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                <li class="breadcrumb-item"><a href="{{URL::to('/')}}">Trang chủ</a></li>
                                 <li class="breadcrumb-item active" id="ManageAddress" aria-current="page">Sổ địa chỉ</li>
                             </ol>
                         </nav>
@@ -62,8 +60,8 @@
                                 {{$address->SpecificAddress}}
                             </div>
                             <div class="right-first-row">
-                                <a class="js-edit-address" >Cập nhật</a>
-                                <a class="js-delete-address" >Xóa</a>
+                                <a class="js-edit-address" onclick="showEditAddress( '{{$address->AddID}} ')">Cập nhật</a>
+                                <a class="js-delete-address" onclick="showDeleteAddress('{{$address->AddID}} ')" >Xóa</a>
                             </div>
                         </div>
 
@@ -75,20 +73,14 @@
                                 <span class="third-row">Mặc định</span>
                             @else
                              <button class="btn-shared right-second-row" >Chọn làm mặc định</button>
-                             @endif
-  
+                            @endif
                         </div>
-  
                     </div>
                 @endforeach
-
-
             </div>
             <!-- End Content -->
         </div>
     </div>
-
-
 
     <!-- Begin Modal Edit Address-->
     <div class="modal js-modal-edit">
