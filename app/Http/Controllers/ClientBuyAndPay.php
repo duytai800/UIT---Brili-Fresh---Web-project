@@ -11,8 +11,6 @@ use Illuminate\Http\Request;
 
 class ClientBuyAndPay extends Controller
 {
-
-
     public function add_cart_ajax(Request $request)
     {
         $data = $request->all();

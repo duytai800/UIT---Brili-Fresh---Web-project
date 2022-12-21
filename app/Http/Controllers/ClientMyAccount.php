@@ -174,6 +174,10 @@ class ClientMyAccount extends Controller
         // print_r($customer_order_detail);
         // echo '</pre>';
 
+        // echo '<pre>';
+        // print_r($customer_order);
+        // echo '</pre>';
+
         $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
         $homefooter = view('share.homefooter');
         $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);

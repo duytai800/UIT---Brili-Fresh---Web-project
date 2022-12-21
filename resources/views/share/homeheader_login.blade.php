@@ -7,10 +7,7 @@
             <img src="{{asset('public/client/HomeAssets/asset/image/logo.png')}}" alt="" class="header__navbar-logo" />
             <h2 class="header__navbar-tittle"><span style="color: #118129; font-weight: 600;">Brili</span><span style="color: #14df41; font-weight: 600;">Fresh</span></h2>
             <div class="location_container">
-                <div class="direction ms-3 me-3 d-flex">
-                    <i class="ti-location-pin" style="font-size:20px !important;padding-right: 8px;padding-bottom: 16px;"></i>
-                    <p class="direction-detail" style="margin-top: 5px;">Chọn cửa hàng: 17 Trần Khắc Chân... <a href="" class="">Thay đổi</a> </p>
-                </div>
+ 
             </div>
             <ul class="header__navbar-list">
                 <li class="header__navbar-item"><a href="#">Trang chủ</a></li>

@@ -118,6 +118,7 @@ Route::get('/', 'App\Http\Controllers\AdminController@homepage');
 Route::get('/login', 'App\Http\Controllers\AdminController@index');
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
 
+
 //Giao diện chính admin
 Route::get('/dashboard', 'App\Http\Controllers\AdminController@show_dashboard');
 //Giao diện chính admin
