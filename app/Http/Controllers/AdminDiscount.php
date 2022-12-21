@@ -29,7 +29,7 @@ class AdminDiscount extends Controller
 
         $manage_all_discount_products = view('admin.discount-product.admin_discount_products')
             ->with('all_discount_products', $all_discount_products);
-        return view('admin_layout')->with('admin.discount-product.admin_discount_products', $manage_all_discount_products);
+        return view('admin_layout_manager')->with('admin.discount-product.admin_discount_products', $manage_all_discount_products);
     }
 
     public function create_discount_product()
@@ -38,7 +38,7 @@ class AdminDiscount extends Controller
             ->where('product.isdeleted', 0)->orderBy('product.proid', 'asc')->get();
         $manage_discount_product = view('admin.discount-product.create_discount_product')
             ->with('products', $products);
-        return view('admin_layout')->with('admin.discount-product.create_discount_product', $manage_discount_product);
+        return view('admin_layout_manager')->with('admin.discount-product.create_discount_product', $manage_discount_product);
     }
 
     public function save_discount_product(Request $request)
@@ -94,7 +94,7 @@ class AdminDiscount extends Controller
         $manage_discount_product = view('admin.discount-product.edit_discount_product')
             //->with('discount_product', $discount_product)
             ->with('product', $product);
-        return view('admin_layout')->with('admin.discount-product.edit_discount_product', $manage_discount_product);
+        return view('admin_layout_manager')->with('admin.discount-product.edit_discount_product', $manage_discount_product);
     }
 
     public function update_discount_product(Request $request, $did_id)
@@ -154,7 +154,7 @@ class AdminDiscount extends Controller
             ->with('startdate', $startdate)
             ->with('enddate', $enddate)
             ->with('product', $product);
-        return view('admin_layout')->with('admin.discount-product.delete_discount_product', $manage_discount_product);
+        return view('admin_layout_manager')->with('admin.discount-product.delete_discount_product', $manage_discount_product);
     }
 
     public function confirm_delete_discount_product($dis_id)
@@ -509,13 +509,13 @@ class AdminDiscount extends Controller
             ->orderBy('discount_order.disid', 'asc')->get();
         $manage_all_discount_orders = view('admin.discount-order.admin_discount_order')
             ->with('all_discount_orders', $all_discount_orders);
-        return view('admin_layout')->with('admin.discount-order.admin_discount_order', $manage_all_discount_orders);
+        return view('admin_layout_manager')->with('admin.discount-order.admin_discount_order', $manage_all_discount_orders);
     }
 
     public function create_discount_order()
     {
         $manage_all_discount_orders = view('admin.discount-order.create_discount_order');
-        return view('admin_layout')->with('admin.discount-order.create_discount_order', $manage_all_discount_orders);
+        return view('admin_layout_manager')->with('admin.discount-order.create_discount_order', $manage_all_discount_orders);
     }
 
     public function save_discount_order(Request $request)
@@ -586,7 +586,7 @@ class AdminDiscount extends Controller
         $manage_all_discount_orders = view('admin.discount-order.edit_discount_order')
             ->with('custype_original', $custype_original)
             ->with('all_discount_orders', $edit_discount_order);
-        return view('admin_layout')->with('admin.discount-order.edit_discount_order', $manage_all_discount_orders);
+        return view('admin_layout_manager')->with('admin.discount-order.edit_discount_order', $manage_all_discount_orders);
     }
 
     public function update_discount_order(Request $request, $dis_id)
@@ -642,7 +642,7 @@ class AdminDiscount extends Controller
             ->orderBy('discount_order.disid', 'asc')->get();
         $manage_all_discount_orders = view('admin.discount-order.delete_discount_order')
             ->with('all_discount_orders', $delete_discount_order);
-        return view('admin_layout')->with('admin.discount-order.delete_discount_order', $manage_all_discount_orders);
+        return view('admin_layout_manager')->with('admin.discount-order.delete_discount_order', $manage_all_discount_orders);
     }
 
     public function confirm_delete_discount_order(Request $request, $dis_id)

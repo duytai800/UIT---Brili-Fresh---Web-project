@@ -18,14 +18,14 @@ class AdminEmployee extends Controller
              'store.IsDeleted as store_isdeleted', DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate'))
             ->where('employee.IsDeleted', 0)->get();
         $manager_all_employee = view('admin.employee.admin_employee')->with('all_employee', $all_employee);
-        return view('admin_layout')->with('admin.employee.admin_employee', $manager_all_employee);
+        return view('admin_layout_manager')->with('admin.employee.admin_employee', $manager_all_employee);
     }
 
     public function create_employee()
     {
         $insert_store_id = DB::table('store')->get();
         $manage_insert_store_id = view('admin.employee.create_employee')->with('insert_store_id', $insert_store_id);
-        return view('admin_layout')->with('admin.employee.create_employee', $manage_insert_store_id);
+        return view('admin_layout_manager')->with('admin.employee.create_employee', $manage_insert_store_id);
     }
 
     public function save_employee(Request $request)
@@ -96,7 +96,7 @@ class AdminEmployee extends Controller
         $manage_detail_employee = view('admin.employee.detail_employee')
             ->with('detail_employee', $detail_employee)
             ->with('startdate', $startdate);
-        return view('admin_layout')->with('admin.customer.detail_employee', $manage_detail_employee);
+        return view('admin_layout_manager')->with('admin.customer.detail_employee', $manage_detail_employee);
     }
 
     public function edit_employee($employee_id)
@@ -110,7 +110,7 @@ class AdminEmployee extends Controller
         $manage_edit_employee = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id)
             ->with('edit_employee', $edit_employee);
 
-        return view('admin_layout')->with('admin.customer.edit_employee', $manage_edit_employee);
+        return view('admin_layout_manager')->with('admin.customer.edit_employee', $manage_edit_employee);
     }
 
     public function update_employee(Request $request, $employee_id)
@@ -160,7 +160,7 @@ class AdminEmployee extends Controller
             ->with('edit_employee', $edit_employee);
 
 
-        return view('admin_layout')->with('admin.customer.delete_employee', $manage_edit_employee);
+        return view('admin_layout_manager')->with('admin.customer.delete_employee', $manage_edit_employee);
     }
 
     public function soft_delete_employee($employee_id)

@@ -70,16 +70,14 @@ class AdminController extends Controller
             $user_role = $result[0]->UserRole;
             if ($user_role == 2) {
                 Session::put('UserID_employee', $result[0]->UserID);
-                return Redirect::to('/dashboard');
+                return Redirect::to('/all-products');
+                //return view('admin_layout');
             } elseif ($user_role == 3) {
                 Session::put('UserID_manager', $result[0]->UserID);
-                return Redirect::to('/dashboard');
+                return Redirect::to('/index-statistic');
             } elseif ($user_role == 1) {
                 Session::put('UserID_client', $result[0]->UserID);
-                return Redirect::to('/');
-                //return redirect()->previous();
-                // Session::put('UserID_client', $result[0]->UserID);
-                // return redirect(url()->previous());
+                return Redirect::to('');
             }
         } else {
             Session::put('fail_message', 'Sai tài khoản hoặc mật khẩu!');

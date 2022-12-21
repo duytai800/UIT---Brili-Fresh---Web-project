@@ -114,7 +114,6 @@ Route::get('/delete-discount-store/{dis_id}', 'App\Http\Controllers\AdminDiscoun
 Route::post('/confirm-delete-discount-store/{dis_id}', 'App\Http\Controllers\AdminDiscount@confirm_delete_discount_store');
 
 
-
 Route::get('/', 'App\Http\Controllers\AdminController@homepage');
 Route::get('/login', 'App\Http\Controllers\AdminController@index');
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout');

@@ -25,7 +25,7 @@ class AdminAccount extends Controller
             )->get();
         $manager_index_account = view('admin.account.index_account')->with('index_account', $index_account);
 
-        return view('admin_layout')->with('admin.store.index_account', $manager_index_account);
+        return view('admin_layout_manager')->with('admin.store.index_account', $manager_index_account);
     }
 
     public function delete_account($user_id)
@@ -44,7 +44,7 @@ class AdminAccount extends Controller
             )->get();
         $manage_delete_account = view('admin.account.delete_account')
             ->with('delete_account', $delete_account);
-        return view('admin_layout')->with('admin.account.delete_account', $manage_delete_account);
+        return view('admin_layout_manager')->with('admin.account.delete_account', $manage_delete_account);
     }
 
     public function confirm_delete_account($user_id)

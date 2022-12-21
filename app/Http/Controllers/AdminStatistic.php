@@ -102,7 +102,7 @@ class AdminStatistic extends Controller
         ->with('topProStockLeft', $topProStockLeft)
         ->with('yyyy', $yyyy)
         ;
-        return view('admin_layout')->with('admin.statistic.index_statistic', $manager_index_statistic);
+        return view('admin_layout_manager')->with('admin.statistic.index_statistic', $manager_index_statistic);
     }
 
     public function RevenueStatistic()

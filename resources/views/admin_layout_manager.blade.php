@@ -130,14 +130,14 @@
                               <li class="dropdown dropdown-animated scale-left">
                                    <div class="pointer" data-toggle="dropdown">
                                         <div class="avatar avatar-image  m-h-10 m-r-15">
-                                             <img  src="{{asset('public/backend/images/logo/BRILI-75.png')}}" alt="">
+                                             <img src="{{asset('public/backend/images/logo/BRILI-75.png')}}" alt="">
                                         </div>
                                    </div>
                                    <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
                                         <div class="p-h-20 p-b-15 m-b-10 border-bottom">
                                              <div class="d-flex m-r-50">
                                                   <div class="avatar avatar-lg avatar-image">
-                                                       <img  src="{{asset('public/backend/images/logo/BRILI-75.png')}}" alt="">
+                                                       <img src="{{asset('public/backend/images/logo/BRILI-75.png')}}" alt="">
                                                   </div>
                                                   <div class="m-l-10">
                                                        <p class="m-b-0 text-dark font-weight-semibold">
@@ -207,51 +207,28 @@
                <div class="side-nav">
                     <div class="side-nav-inner">
                          <ul class="side-nav-menu scrollable">
-                              <!-- <li class="nav-item dropdown">
+                              <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="{{URL::to('/index-statistic')}}">
                                         <span class="icon-holder">
-                                        <i class="anticon anticon-pie-chart"></i>
+                                             <i class="anticon anticon-pie-chart"></i>
                                         </span>
                                         <span class="title">Thống kê, báo cáo</span>
                                    </a>
-                              </li> -->
-                              <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="{{URL::to('/all-products')}}">
-                                        <span class="icon-holder">
-                                        <i class="anticon anticon-hdd"></i>
-                                        </span>
-                                        <span class="title">Quản lý sản phẩm</span>
-                                   </a>
                               </li>
+
                               <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="{{URL::to('/index-order')}}">
-                                        <span class="icon-holder">
-                                        <i class="anticon anticon-snippets"></i>
-                                        </span>
-                                        <span class="title">Quản lý đơn hàng</span>
-                                   </a>
-                              </li>
-                              <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="{{URL::to('/all-customers')}}">
-                                        <span class="icon-holder">
-                                        <i class="anticon anticon-team"></i>
-                                        </span>
-                                        <span class="title">Quản lý khách hàng</span>
-                                   </a>
-                              </li>
-                              <!-- <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="{{URL::to('/all-employee')}}">
                                         <span class="icon-holder">
-                                        <i class="anticon anticon-form"></i>
+                                             <i class="anticon anticon-form"></i>
                                         </span>
                                         <span class="title">Quản lý nhân viên</span>
                                    </a>
-                              </li> -->
-<!-- 
+                              </li>
+
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
-                                        <i class="anticon anticon-tool"></i>
+                                             <i class="anticon anticon-tool"></i>
                                         </span>
                                         <span class="title">Quản lý hệ thống</span>
                                         <span class="arrow">
@@ -262,27 +239,10 @@
                                         <li>
                                              <a href="{{URL::to('/index-account')}}">Quản lý tài khoản</a>
                                         </li>
-                                        
+
                                    </ul>
-                              </li> -->
-                              
-                              <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="{{URL::to('/index-store')}}">
-                                        <span class="icon-holder">
-                                        <i class="anticon anticon-shop"></i>
-                                        </span>
-                                        <span class="title">Quản lý cửa hàng</span>
-                                   </a>
                               </li>
                               <li class="nav-item dropdown">
-                                   <a class="dropdown-toggle" href="{{URL::to('/index-stock')}}">
-                                        <span class="icon-holder">
-                                        <i class="anticon anticon-appstore"></i>
-                                        </span>
-                                        <span class="title">Quản lý kho</span>
-                                   </a>
-                              </li>
-                              <!-- <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
                                         <i class="anticon anticon-gift"></i>
@@ -297,16 +257,12 @@
                                              <a href="{{URL::to('/all-discount-products')}}">Khuyến mãi sản phẩm</a>
                                         </li>
                                         <li>
-                                             <a href="{{URL::to('/all-discount-types')}}">Khuyến mãi loại sản phẩm </a>
-                                        </li>
-                                        <li>
-                                             <a href="{{URL::to('/all-discount-orders')}}">Khuyến mãi hoá đơn</a>
-                                        </li>
-                                        <li>
                                              <a href="{{URL::to('/all-discount-stores')}}">Khuyến mãi cửa hàng</a>
                                         </li>
                                    </ul>
-                              </li> -->
+                              </li>
+
+
                          </ul>
                     </div>
                </div>
