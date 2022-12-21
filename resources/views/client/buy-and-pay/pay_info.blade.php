@@ -315,7 +315,7 @@
                         swal({
                                 title: "Đã đặt hàng thành công",
                                 text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
-                                showCancelButton: true,
+                                showCancelButton: false,
                                 //cancelButtonText: "Xem tiếp",
                                 confirmButtonClass: "btn-success",
                                 confirmButtonText: "Quay về trang chủ",
