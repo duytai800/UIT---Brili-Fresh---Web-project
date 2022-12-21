@@ -11,11 +11,28 @@ use Illuminate\Support\Arr;
 
 class AdminEmployee extends Controller
 {
+    public function AuthLogin()
+    {
+        $UserID_employee = Session::get('UserID_employee');
+        $UserID_manager = Session::get('UserID_manager');
+        if ($UserID_employee == 2 or $UserID_manager == 3) {
+        } else {
+            return Redirect::to('/login')->send();
+        }
+    }
+
     public function all_employee()
     {
+        $this->AuthLogin();
+
         $all_employee = DB::table('employee')->join('store', 'employee.storeid', '=', 'store.storeid')
-            ->select('employee.*', 'store.city as store_city', 'store.SpecificAddress as store_address',
-             'store.IsDeleted as store_isdeleted', DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate'))
+            ->select(
+                'employee.*',
+                'store.city as store_city',
+                'store.SpecificAddress as store_address',
+                'store.IsDeleted as store_isdeleted',
+                DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate')
+            )
             ->where('employee.IsDeleted', 0)->get();
         $manager_all_employee = view('admin.employee.admin_employee')->with('all_employee', $all_employee);
         return view('admin_layout_manager')->with('admin.employee.admin_employee', $manager_all_employee);
@@ -23,6 +40,8 @@ class AdminEmployee extends Controller
 
     public function create_employee()
     {
+        $this->AuthLogin();
+
         $insert_store_id = DB::table('store')->get();
         $manage_insert_store_id = view('admin.employee.create_employee')->with('insert_store_id', $insert_store_id);
         return view('admin_layout_manager')->with('admin.employee.create_employee', $manage_insert_store_id);
@@ -30,6 +49,8 @@ class AdminEmployee extends Controller
 
     public function save_employee(Request $request)
     {
+        $this->AuthLogin();
+
         $user_employee = DB::table('user')->where('user.UserName', $request->employee_user)->get()->toArray();
         $startdate = $request->startdate;
         if (is_null($startdate)) {
@@ -81,6 +102,8 @@ class AdminEmployee extends Controller
 
     public function detail_employee($employee_id)
     {
+        $this->AuthLogin();
+
         $detail_employee = DB::table('employee')->join('store', 'employee.StoreID', '=', 'store.StoreID')->where('empid', $employee_id)
             ->select('employee.*', 'store.city as store_city', 'store.SpecificAddress as store_address', 'store.district as store_district', 'store.ward as store_ward')
             ->get();
@@ -101,12 +124,14 @@ class AdminEmployee extends Controller
 
     public function edit_employee($employee_id)
     {
+        $this->AuthLogin();
+
 
         $insert_store_id = DB::table('store')->get();
         //$manage_insert_store_id = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id);
 
         $edit_employee = DB::table('employee')
-        ->select('employee.*', DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate'))->where('empid', $employee_id)->get();
+            ->select('employee.*', DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate'))->where('empid', $employee_id)->get();
         $manage_edit_employee = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id)
             ->with('edit_employee', $edit_employee);
 
@@ -115,6 +140,8 @@ class AdminEmployee extends Controller
 
     public function update_employee(Request $request, $employee_id)
     {
+        $this->AuthLogin();
+
         $startdate = $request->startdate;
         $enddate = $request->enddate;
         if (is_null($startdate)) {
@@ -150,6 +177,8 @@ class AdminEmployee extends Controller
 
     public function delete_employee($employee_id)
     {
+        $this->AuthLogin();
+
         //$manage_insert_store_id = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id);
 
         $edit_employee = DB::table('employee')->where('empid', $employee_id)->get();
@@ -165,6 +194,8 @@ class AdminEmployee extends Controller
 
     public function soft_delete_employee($employee_id)
     {
+        $this->AuthLogin();
+
         $data = array();
         $data['IsDeleted'] = 1;
         DB::table('employee')->where('empid', $employee_id)->update($data);

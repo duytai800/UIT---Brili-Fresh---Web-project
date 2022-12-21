@@ -10,8 +10,20 @@ use Illuminate\Http\Request;
 
 class AdminAccount extends Controller
 {
+    public function AuthLogin()
+    {
+        $UserID_employee = Session::get('UserID_employee');
+        $UserID_manager = Session::get('UserID_manager');
+        if ($UserID_employee == 2 or $UserID_manager == 3) {
+        } else {
+            return Redirect::to('/login')->send();
+        }
+    }
+
     public function index_account()
     {
+        $this->AuthLogin();
+
         $index_account = (DB::table('user')->where('user.isDeleted', 0)->leftJoin('employee', 'user.userid', '=', 'employee.userid'))
             ->leftJoin('customer', 'user.userid', '=', 'customer.userid')
             ->select(
@@ -30,6 +42,8 @@ class AdminAccount extends Controller
 
     public function delete_account($user_id)
     {
+        $this->AuthLogin();
+
         $delete_account = (DB::table('user')->leftJoin('employee', 'user.userid', '=', 'employee.userid'))
             ->leftJoin('customer', 'user.userid', '=', 'customer.userid')
             ->where('user.isDeleted', 0)->where('user.userid', $user_id)
@@ -49,6 +63,8 @@ class AdminAccount extends Controller
 
     public function confirm_delete_account($user_id)
     {
+        $this->AuthLogin();
+
         $data = array();
         $data['IsDeleted'] = 1;
         DB::table('user')->where('user.userid', $user_id)->update($data);

@@ -10,19 +10,10 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function AuthLogin()
-    {
-        $UserID_client = Session::get('UserID_client');
-        if ($UserID_client) {
-            return Redirect::to('/client');
-        } else {
-            return Redirect::to('/');
-        }
-    }
+
 
     public function index_fish_and_meat()
     {
-        $this->AuthLogin();
         //Redirect::setIntendedUrl(url()->previous()); 
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
@@ -38,7 +29,6 @@ class ClientController extends Controller
 
     public function index_beef_goat()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
 
         $beef_goat_products = DB::table('product')
@@ -70,7 +60,6 @@ class ClientController extends Controller
 
     public function detail_beef_goat($pro_id)
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
 
         $beef_goat_products = DB::table('product')
@@ -149,7 +138,6 @@ class ClientController extends Controller
 
     public function index_fruit()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $header = view('share.login_fruit_header')->with('UserID_client', $UserID_client);
@@ -164,7 +152,6 @@ class ClientController extends Controller
 
     public function index_imported_fruit()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $header = view('share.login_fruit_header')->with('UserID_client', $UserID_client);
@@ -179,7 +166,6 @@ class ClientController extends Controller
 
     public function detail_imported_fruit()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $header = view('share.login_fruit_header')->with('UserID_client', $UserID_client);
@@ -194,7 +180,6 @@ class ClientController extends Controller
 
     public function index_vegetable()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $header = view('share.login_vegetable_header')->with('UserID_client', $UserID_client);
@@ -209,7 +194,6 @@ class ClientController extends Controller
 
     public function index_leaf_vegetable()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $header = view('share.login_vegetable_header')->with('UserID_client', $UserID_client);
@@ -224,7 +208,6 @@ class ClientController extends Controller
 
     public function detail_leaf_vegetable()
     {
-        $this->AuthLogin();
         $UserID_client = Session::get('UserID_client');
         if ($UserID_client) {
             $header = view('share.login_vegetable_header')->with('UserID_client', $UserID_client);

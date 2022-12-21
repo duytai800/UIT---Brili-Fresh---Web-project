@@ -9,8 +9,22 @@ use Illuminate\Http\Request;
 
 class AdminDiscount extends Controller
 {
+    public function AuthLogin()
+    {
+        $this->AuthLogin();
+
+        $UserID_employee = Session::get('UserID_employee');
+        $UserID_manager = Session::get('UserID_manager');
+        if ($UserID_employee == 2 or $UserID_manager == 3) {
+        } else {
+            return Redirect::to('/login')->send();
+        }
+    }
+
     public function all_discount_products()
     {
+        $this->AuthLogin();
+
         $all_discount_products = DB::table('discount_product')
             ->join('product_image', 'product_image.proid', '=', 'discount_product.proid')
             ->join('product', 'product.proid', '=', 'discount_product.proid')
@@ -34,6 +48,8 @@ class AdminDiscount extends Controller
 
     public function create_discount_product()
     {
+        $this->AuthLogin();
+
         $products = DB::table('product')
             ->where('product.isdeleted', 0)->orderBy('product.proid', 'asc')->get();
         $manage_discount_product = view('admin.discount-product.create_discount_product')
@@ -43,6 +59,8 @@ class AdminDiscount extends Controller
 
     public function save_discount_product(Request $request)
     {
+        $this->AuthLogin();
+
         $disid = DB::table('discount_type')->where('discount_type.typeid', $request->pro_id)->get()->toArray();
         if (empty($disid)) {
             $startdate = $request->startdate;
@@ -77,6 +95,8 @@ class AdminDiscount extends Controller
 
     public function edit_discount_product($dis_id)
     {
+        $this->AuthLogin();
+
         // $discount_product = DB::table('discount_product')
         //     ->where('discount_product.disid', $dis_id)->get();
         $product = DB::table('product')
@@ -99,6 +119,8 @@ class AdminDiscount extends Controller
 
     public function update_discount_product(Request $request, $did_id)
     {
+        $this->AuthLogin();
+
         $startdate = $request->startdate;
         $enddate = $request->enddate;
         if (is_null($startdate)) {
@@ -133,6 +155,8 @@ class AdminDiscount extends Controller
 
     public function delete_discount_product($dis_id)
     {
+        $this->AuthLogin();
+
 
         $product = DB::table('product')
             ->join('discount_product', 'product.proid', '=', 'discount_product.proid')
@@ -159,6 +183,8 @@ class AdminDiscount extends Controller
 
     public function confirm_delete_discount_product($dis_id)
     {
+        $this->AuthLogin();
+
         $data = array();
         $data['IsDeleted'] = 1;
         DB::table('discount_product')->where('discount_product.disid', $dis_id)->update($data);
@@ -496,6 +522,8 @@ class AdminDiscount extends Controller
 
     public function all_discount_orders()
     {
+        $this->AuthLogin();
+
         $all_discount_orders = DB::table('discount_order')
             ->select(
                 DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
@@ -514,12 +542,16 @@ class AdminDiscount extends Controller
 
     public function create_discount_order()
     {
+        $this->AuthLogin();
+
         $manage_all_discount_orders = view('admin.discount-order.create_discount_order');
         return view('admin_layout_manager')->with('admin.discount-order.create_discount_order', $manage_all_discount_orders);
     }
 
     public function save_discount_order(Request $request)
     {
+        $this->AuthLogin();
+
         $code_discount_order = DB::table('discount_order')
             ->select('discode')->where('discount_order.discode', $request->discode)
             ->get()->toArray();
@@ -571,6 +603,8 @@ class AdminDiscount extends Controller
 
     public function edit_discount_order($dis_id)
     {
+        $this->AuthLogin();
+
         $edit_discount_order = DB::table('discount_order')
             ->select(
                 DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
@@ -591,6 +625,8 @@ class AdminDiscount extends Controller
 
     public function update_discount_order(Request $request, $dis_id)
     {
+        $this->AuthLogin();
+
         $startdate = $request->startdate;
         $enddate = $request->enddate;
 
@@ -629,6 +665,8 @@ class AdminDiscount extends Controller
 
     public function delete_discount_order($dis_id)
     {
+        $this->AuthLogin();
+
         $delete_discount_order = DB::table('discount_order')
             ->select(
                 DB::raw('DATE_FORMAT(discount_order.startdate, "%d/%m/%Y %H:%i:%s") as StartDate'),
@@ -647,6 +685,8 @@ class AdminDiscount extends Controller
 
     public function confirm_delete_discount_order(Request $request, $dis_id)
     {
+        $this->AuthLogin();
+
         DB::table('discount_order')->where('discount_order.disid', $dis_id)->delete();
         Session::put('delete_discount_order_message', 'Xoá thông tin khuyến mãi thành công!');
         return Redirect::to('all-discount-orders');

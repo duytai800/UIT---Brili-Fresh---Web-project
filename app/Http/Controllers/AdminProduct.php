@@ -10,8 +10,21 @@ use Illuminate\Http\Request;
 
 class AdminProduct extends Controller
 {
+    public function AuthLogin()
+    {
+        $UserID_employee = Session::get('UserID_employee');
+        $UserID_manager = Session::get('UserID_manager');
+        if ($UserID_employee == 2 or $UserID_manager == 3) {
+        } else {
+            return Redirect::to('/login')->send();
+        }
+    }
+
+
     public function all_products()
     {
+        $this->AuthLogin();
+
         $all_products = DB::table('product')
             ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
@@ -31,6 +44,8 @@ class AdminProduct extends Controller
 
     public function create_product()
     {
+        $this->AuthLogin();
+
 
         $main_type = DB::table('type')
             ->select('type.MainType')
@@ -56,6 +71,8 @@ class AdminProduct extends Controller
 
     public function save_product(Request $request)
     {
+        $this->AuthLogin();
+
         $pro_id = DB::table('product')->max('proid') + 1;
 
         $type_id = DB::table('type')
@@ -118,6 +135,8 @@ class AdminProduct extends Controller
 
     public function edit_product($product_id)
     {
+        $this->AuthLogin();
+
         $edit_product = DB::table('product')
             ->select(
                 'product.*',
@@ -210,6 +229,8 @@ class AdminProduct extends Controller
 
     public function update_product(Request $request, $product_id)
     {
+        $this->AuthLogin();
+
         $type_id = DB::table('type')
             ->select('typeid')->where('type.subtype', $request->product_subtype)
             ->where('type.maintype', $request->product_type)->get()->toArray();
@@ -401,6 +422,8 @@ class AdminProduct extends Controller
 
     public function detail_product($product_id)
     {
+        $this->AuthLogin();
+
         $detail_product = DB::table('product')
             ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity',   DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate'))
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
@@ -434,6 +457,8 @@ class AdminProduct extends Controller
 
     public function delete_product($product_id)
     {
+        $this->AuthLogin();
+
         $detail_product = DB::table('product')
             ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
@@ -470,6 +495,8 @@ class AdminProduct extends Controller
 
     public function soft_delete_product($product_id)
     {
+        $this->AuthLogin();
+
         $data = array();
         $data['IsDeleted'] = 1;
         DB::table('product')->where('proid', $product_id)->update($data);

@@ -8,14 +8,11 @@ class AdminCustomer extends Controller
 {
     public function AuthLogin()
     {
-        $UserID_client = Session::get('UserID_employee');
+        $UserID_employee = Session::get('UserID_employee');
         $UserID_manager = Session::get('UserID_manager');
-        if ($UserID_client == 2 or $UserID_manager == 3) {
-            //echo "ok";
+        if ($UserID_employee == 2 or $UserID_manager == 3) {
         } else {
-            return Redirect::to('/login');
-            //echo "not ok";
-
+            return Redirect::to('/login')->send();
         }
     }
 
@@ -30,6 +27,7 @@ class AdminCustomer extends Controller
 
     public function detail_customers($customer_id)
     {
+        $this->AuthLogin();
         $detail_customers = DB::table('customer')->join('reward','customer.rewardid','=','reward.rewardid')->where('cusid',$customer_id)->get();
         $manager_detail_customers = view('admin.customer.detail_customer')->with('detail_customer', $detail_customers);
         return view('admin_layout')->with('admin.customer.detail_customer', $manager_detail_customers);

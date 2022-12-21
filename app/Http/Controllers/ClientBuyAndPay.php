@@ -11,15 +11,7 @@ use Illuminate\Http\Request;
 
 class ClientBuyAndPay extends Controller
 {
-    public function AuthLogin()
-    {
-        $UserID_client = Session::get('UserID_client');
-        if ($UserID_client) {
-            return Redirect::to('/client');
-        } else {
-            return Redirect::to('/');
-        }
-    }
+
 
     public function add_cart_ajax(Request $request)
     {
