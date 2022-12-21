@@ -123,6 +123,7 @@
                     altInput: true,
                     altFormat: " d/m/Y ",
                     dateFormat: "m/d/Y",
+                    minDate: 'today',
                 })});
 </script>
 @endsection

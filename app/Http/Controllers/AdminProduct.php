@@ -119,7 +119,14 @@ class AdminProduct extends Controller
     public function edit_product($product_id)
     {
         $edit_product = DB::table('product')
-            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->select(
+                'product.*',
+                'product_image.*',
+                'type.*',
+                'stock.ProId',
+                'stock.quantity as product_quantity',
+                DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate')
+            )
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
             ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
@@ -127,12 +134,9 @@ class AdminProduct extends Controller
             ->where('product.proid', $product_id)
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
 
-        $product_start_date = DB::table('product')
-            ->select('startdate')->where('product.proid', $product_id)
-            ->distinct()->get();
-        $product_date = $product_start_date[0]->startdate;
-        $product_date = explode("-", $product_date);
-        $product_date = $product_date[2] . "/" . $product_date[1] . "/" . $product_date[0];
+        // echo '<pre>';
+        // print_r($edit_product);
+        // echo '</pre>';
 
         $product_unit = DB::table('product')
             ->select('unit')->where('product.proid', $product_id)
@@ -195,7 +199,7 @@ class AdminProduct extends Controller
             ->with('des_img_0', $des_img_0)
             ->with('des_img_1', $des_img_1)
             ->with('des_img_2', $des_img_2)
-            ->with('product_date', $product_date)
+            //->with('product_date', $product_date)
             ->with('product_source', $product_source)
             ->with('product_unit_number', $product_unit[0])
             ->with('product_unit_unit_original', $product_unit[1])
@@ -274,10 +278,10 @@ class AdminProduct extends Controller
                     $get_image_description[$i]->move('public/upload/product', $image_description);
                     $data_img_description['ImgData'] = $image_description;
                     DB::table('product_image')
-                        ->where('imgid', $id_img_des[$i]->ImgID)->update($data_img_description);   
+                        ->where('imgid', $id_img_des[$i]->ImgID)->update($data_img_description);
                 }
                 Session::put('message_des', 'Sửa ảnh mô tả thành công.');
-                    return Redirect::to('all-products');
+                return Redirect::to('all-products');
             } else {
                 $bonus_img = $number_of_img_des_added - $number_of_img_des;
                 if ($bonus_img == 3) {
@@ -301,7 +305,7 @@ class AdminProduct extends Controller
                             $get_image_description_detail->move('public/upload/product', $image_description);
                             $data_img_description['ImgData'] = $image_description;
                             $data_img_description['ProID'] = $product_id;
-                            DB::table('product_image')->insert($data_img_description);            
+                            DB::table('product_image')->insert($data_img_description);
                         }
                         Session::put('message_des', 'Đã thêm 2 ảnh mô tả sản phẩm.');
                         return Redirect::to('all-products');
@@ -398,7 +402,7 @@ class AdminProduct extends Controller
     public function detail_product($product_id)
     {
         $detail_product = DB::table('product')
-            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity',   DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate'))
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
             ->leftjoin('stock', 'product.proid', '=', 'stock.proid')

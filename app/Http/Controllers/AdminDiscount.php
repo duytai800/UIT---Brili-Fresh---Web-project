@@ -645,7 +645,8 @@ class AdminDiscount extends Controller
         return view('admin_layout')->with('admin.discount-order.delete_discount_order', $manage_all_discount_orders);
     }
 
-    public function confirm_delete_discount_order(Request $request, $dis_id){
+    public function confirm_delete_discount_order(Request $request, $dis_id)
+    {
         DB::table('discount_order')->where('discount_order.disid', $dis_id)->delete();
         Session::put('delete_discount_order_message', 'Xoá thông tin khuyến mãi thành công!');
         return Redirect::to('all-discount-orders');

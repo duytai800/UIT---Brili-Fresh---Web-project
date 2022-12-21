@@ -239,7 +239,10 @@
             altInput: true,
             altFormat: " d/m/Y ",
             dateFormat: "m/d/Y",
+            minDate: 'today',
         });
+
+
         t2.prop("disabled", true);
         t3.prop("disabled", true);
         s2.hide()

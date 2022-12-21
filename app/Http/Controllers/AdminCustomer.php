@@ -11,10 +11,10 @@ class AdminCustomer extends Controller
         $UserID_client = Session::get('UserID_employee');
         $UserID_manager = Session::get('UserID_manager');
         if ($UserID_client == 2 or $UserID_manager == 3) {
-            echo "ok";
+            //echo "ok";
         } else {
-            // return Redirect::to('/login');
-            echo "not ok";
+            return Redirect::to('/login');
+            //echo "not ok";
 
         }
     }
@@ -25,7 +25,7 @@ class AdminCustomer extends Controller
         $this->AuthLogin();
         $all_customers = DB::table('customer')->join('reward','customer.rewardid','=','reward.rewardid')->get();
         $manager_all_customers = view('admin.customer.admin_customer')->with('all_customers', $all_customers);
-        //return view('admin_layout')->with('admin.customer.admin_customer', $manager_all_customers);
+        return view('admin_layout')->with('admin.customer.admin_customer', $manager_all_customers);
     }
 
     public function detail_customers($customer_id)

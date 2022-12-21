@@ -14,7 +14,8 @@ class AdminEmployee extends Controller
     public function all_employee()
     {
         $all_employee = DB::table('employee')->join('store', 'employee.storeid', '=', 'store.storeid')
-            ->select('employee.*', 'store.city as store_city', 'store.SpecificAddress as store_address', 'store.IsDeleted as store_isdeleted')
+            ->select('employee.*', 'store.city as store_city', 'store.SpecificAddress as store_address',
+             'store.IsDeleted as store_isdeleted', DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate'))
             ->where('employee.IsDeleted', 0)->get();
         $manager_all_employee = view('admin.employee.admin_employee')->with('all_employee', $all_employee);
         return view('admin_layout')->with('admin.employee.admin_employee', $manager_all_employee);
@@ -104,7 +105,8 @@ class AdminEmployee extends Controller
         $insert_store_id = DB::table('store')->get();
         //$manage_insert_store_id = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id);
 
-        $edit_employee = DB::table('employee')->where('empid', $employee_id)->get();
+        $edit_employee = DB::table('employee')
+        ->select('employee.*', DB::raw('DATE_FORMAT(employee.startdate, "%d-%m-%Y ") as StartDate'))->where('empid', $employee_id)->get();
         $manage_edit_employee = view('admin.employee.edit_employee')->with('insert_store_id', $insert_store_id)
             ->with('edit_employee', $edit_employee);
 

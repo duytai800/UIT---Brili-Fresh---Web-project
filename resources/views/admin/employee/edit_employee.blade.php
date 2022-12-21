@@ -107,7 +107,8 @@
         flatpickr("#date", {
             altInput: true,
             altFormat: " d/m/Y ",
-            dateFormat: "m/d/Y",
+            dateFormat: "d/m/Y",
+            minDate: 'today',
         })
     });
 </script>
