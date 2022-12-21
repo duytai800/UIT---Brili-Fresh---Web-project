@@ -14,9 +14,9 @@ class ClientMyAccount extends Controller
     public function AuthLogin()
     {
         $UserID_client = Session::get('UserID_client');
-        if ($UserID_client == 1) {
+        if ($UserID_client) {
         } else {
-            return Redirect::to('/')->send();
+            return Redirect::to('/login')->send();
         }
     }
 

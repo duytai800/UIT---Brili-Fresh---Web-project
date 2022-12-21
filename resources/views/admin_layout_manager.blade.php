@@ -146,7 +146,7 @@
                                                             use Illuminate\Support\Facades\Session;
                                                             use Illuminate\Support\Facades\DB;
 
-                                                            $UserID = Session::get('UserID_employee');
+                                                            $UserID = Session::get('UserID_manager');
 
                                                             if ($UserID) {
                                                                  $result = DB::table('employee')->where('UserID', $UserID)->first();

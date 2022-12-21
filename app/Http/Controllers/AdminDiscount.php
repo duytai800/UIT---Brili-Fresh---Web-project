@@ -11,11 +11,10 @@ class AdminDiscount extends Controller
 {
     public function AuthLogin()
     {
-        $this->AuthLogin();
-
         $UserID_employee = Session::get('UserID_employee');
         $UserID_manager = Session::get('UserID_manager');
-        if ($UserID_employee == 2 or $UserID_manager == 3) {
+        
+        if ($UserID_employee or $UserID_manager ) {
         } else {
             return Redirect::to('/login')->send();
         }
