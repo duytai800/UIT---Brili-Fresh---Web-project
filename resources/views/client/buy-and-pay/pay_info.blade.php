@@ -311,19 +311,19 @@
                         _token: _token
                     },
                     success: function(data) {
-                        alert(data);
-                        // swal({
-                        //         title: "Đã thêm sản phẩm vào giỏ hàng",
-                        //         text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
-                        //         showCancelButton: true,
-                        //         cancelButtonText: "Xem tiếp",
-                        //         confirmButtonClass: "btn-success",
-                        //         confirmButtonText: "Đi đến giỏ hàng",
-                        //         closeOnConfirm: false
-                        //     },
-                        //     function() {
-                        //         window.location.href = "{{url('/show-cart')}}";
-                        //     });
+                        //alert(data);
+                        swal({
+                                title: "Đã đặt hàng thành công",
+                                text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                showCancelButton: true,
+                                //cancelButtonText: "Xem tiếp",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Quay về trang chủ",
+                                closeOnConfirm: false
+                            },
+                            function() {
+                                window.location.href = "{{url('/')}}";
+                            });
 
                     }
 

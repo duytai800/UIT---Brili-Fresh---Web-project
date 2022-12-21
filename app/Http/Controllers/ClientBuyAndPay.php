@@ -273,6 +273,9 @@ class ClientBuyAndPay extends Controller
             // print_r($data_insert_order_detail);
             // echo '</pre>';
             DB::table('order_details')->insert($data_insert_order_detail);
+   
         }
     }
+
+    
 }

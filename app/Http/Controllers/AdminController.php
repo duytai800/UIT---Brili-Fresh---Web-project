@@ -88,9 +88,12 @@ class AdminController extends Controller
     }
     public function logout()
     {
-        Session::put('admin_username', null);
-        Session::put('admin_pass', null);
-        Session::put('fail_message', null);
-        return Redirect::to('/login');
+        //dd(session()->all());
+        // Session::put('admin_username', null);
+        // Session::put('admin_pass', null);
+        // Session::put('fail_message', null);
+        Session::flush();
+        //dd(session()->all());
+        return Redirect::to('/');
     }
 }
