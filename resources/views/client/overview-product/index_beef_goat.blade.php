@@ -189,7 +189,7 @@
 
                     <div class="products-pagination d-flex justify-content-end">
                         <div class="col-7">
-                            Hiển thị {{$beef_goat_products->firstItem()}} -  {{$beef_goat_products->lastItem()}} trong {{$beef_goat_products->total()}} sản phẩm 
+                            Hiển thị {{$beef_goat_products->firstItem()}} - {{$beef_goat_products->lastItem()}} trong {{$beef_goat_products->total()}} sản phẩm
                         </div>
                         <div class="pagination">
                             {{ $beef_goat_products->onEachSide(1)->links() }}
@@ -252,13 +252,13 @@
             });
         });
     </script>
-        <script>
+    <script>
         $(document).ready(function() {
             $(".location_item_child_link").click(function() {
                 console.log("thanh phuong")
                 var id_selecting = $(".direction-detail").data("storeid")
                 var id_selected = $(this).data("storeid")
-                console.log (id_selected)
+                console.log(id_selected)
 
                 $(".direction-detail").data("storeid", id_selected)
                 $(this).data("storeid", id_selecting)
@@ -279,7 +279,18 @@
                         _token: _token
                     },
                     success: function(data) {
-                        alert(data);
+                        swal({
+                                title: "Thay đổi chi nhánh!",
+                                text: "Mời quý khách khám phá nguồn thực phẩm của Brili Fresh!",
+                                showCancelButton: false,
+                                //cancelButtonText: "Xem tiếp",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Quay về trang chủ",
+                                closeOnConfirm: false
+                            },
+                            function() {
+                                window.location.href = "{{url('/')}}";
+                            });
                     }
 
                 });

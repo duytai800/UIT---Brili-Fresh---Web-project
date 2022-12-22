@@ -13,10 +13,11 @@ class ClientController extends Controller
     public function change_store(Request $request)
     {
         $data = $request->all();
-        print_r($data);
+        //print_r($data);
         $store_id = $data['store_id'];
         Session::put('store_id', $store_id);
-        Session::save();
+        //Session::save();
+        //return Redirect::to('/');
     }
 
     public function index_fish_and_meat()
@@ -71,7 +72,9 @@ class ClientController extends Controller
             ->leftjoin('discount_product', 'product.proid', '=', 'discount_product.proid')
             ->leftjoin('discount_type', 'product.typeid', '=', 'discount_type.typeid')
 
-            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
+            ->where('product.IsDeleted', 0)
+            ->where('stock.storeid', $store_id)
+            ->where('product_image.imgdata', 'like', 'main%')
             ->where('type.typeid', 5)->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
             ->orderBy('product.proid', 'asc')->distinct('product.proid')
             //->get();
