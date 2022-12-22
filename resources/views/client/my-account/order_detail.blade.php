@@ -59,33 +59,33 @@
                     <div class="header-order">
                         <span></span>
                         @if ($order_detail->Status == 1)
-                        
+
                         <span><i class="ti-truck"></i> Đang xử lý</span>
-                        
+
                         @elseif ($order_detail->Status == 2)
-                        
+
                         <span><i class="ti-truck"></i> Đang chuẩn bị hàng</span>
-                        
+
                         @elseif ($order_detail->Status == 3)
-                        
+
                         <span><i class="ti-truck"></i> Đang đóng gói</span>
-                        
+
                         @elseif ($order_detail->Status == 4)
-                        
+
                         <span><i class="ti-truck"></i> Đã giao cho đơn vị vận chuyển</span>
-                        
+
                         @elseif ($order_detail->Status == 5)
-                        
+
                         <span><i class="ti-truck"></i> Đang vận chuyển</span>
-                        
+
                         @elseif ($order_detail->Status == 6)
-                        
+
                         <span><i class="ti-truck"></i> Đã giao</span>
-                        
+
                         @else
-                        
+
                         <span><i class="ti-truck"></i> Đã hủy</span>
-                        
+
                         @endif
                     </div>
 
@@ -166,6 +166,45 @@
     </div>
     @yield('home_footer')
     <script src="{{asset('public/client/DanhGiaSanPham.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".location_item_child_link").click(function() {
+                console.log("thanh phuong")
+                var id_selecting = $(".direction-detail").data("storeid")
+                var id_selected = $(this).data("storeid")
+                console.log(id_selected)
+
+                $(".direction-detail").data("storeid", id_selected)
+                $(this).data("storeid", id_selecting)
+
+                $(".list_location").addClass("display_list_location")
+                var text_is_selecting = $(".direction-detail").text()
+                var text_slected = $(this).text()
+                $(".direction-detail").text(text_slected)
+                $(this).text(text_is_selecting)
+
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "{{route('change_store')}}",
+                    method: 'POST',
+                    data: {
+                        store_id: id_selected,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+
+                });
+            });
+
+            $(".change-location-store").click(function() {
+                console.log("thanh phuong")
+                $(".list_location").removeClass("display_list_location")
+            });
+        });
+    </script>
 </body>
 
 </html>

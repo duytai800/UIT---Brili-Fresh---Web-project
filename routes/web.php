@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientBuyAndPay;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 /*
@@ -124,6 +125,8 @@ Route::get('/dashboard', 'App\Http\Controllers\AdminController@show_dashboard');
 Route::post('/process-role', 'App\Http\Controllers\AdminController@process_role');
 //Đăng xuất admin
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
+Route::post('/change-store', [ClientController::class, 'change_store'])->name('change_store'); 
+
 
 //sản phẩm thịt cá
 Route::get('/fish-and-meat', 'App\Http\Controllers\ClientController@index_fish_and_meat');

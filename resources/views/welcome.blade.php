@@ -337,7 +337,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js" integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{asset('public/client/HomeAssets/asset/index.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".location_item_child_link").click(function() {
+                console.log("thanh phuong")
+                var id_selecting = $(".direction-detail").data("storeid")
+                var id_selected = $(this).data("storeid")
+                console.log (id_selected)
 
+                $(".direction-detail").data("storeid", id_selected)
+                $(this).data("storeid", id_selecting)
+
+                $(".list_location").addClass("display_list_location")
+                var text_is_selecting = $(".direction-detail").text()
+                var text_slected = $(this).text()
+                $(".direction-detail").text(text_slected)
+                $(this).text(text_is_selecting)
+
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "{{route('change_store')}}",
+                    method: 'POST',
+                    data: {
+                        store_id: id_selected,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+
+                });
+            });
+
+            $(".change-location-store").click(function() {
+                console.log("thanh phuong")
+                $(".list_location").removeClass("display_list_location")
+            });
+        });
+    </script>
 </body>
 
 </html>

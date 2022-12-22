@@ -33,20 +33,32 @@ class AdminController extends Controller
         //$user_roles = 0;
         //$manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
         $UserID_client = Session::get('UserID_client');
+        if (Session::get('store_id')) {
+        } else Session::put('store_id', 1);
+
+        $store_id = Session::get('store_id');
+
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
+
         if ($UserID_client) {
             $customer = DB::table('customer')
-            ->join('user', 'user.userid', '=', 'customer.userid')
-            ->where('customer.userid', $UserID_client)->get()->toArray();
-            // echo '<pre>';
-            // print_r($customer);
-            // echo '</pre>';
+                ->join('user', 'user.userid', '=', 'customer.userid')
+                ->where('customer.userid', $UserID_client)->get()->toArray();
 
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('store', $store)
+                ->with('store_selected', $store_selected)
+                ->with('customer', $customer);
             $homefooter = view('share.homefooter');
-            return view('welcome')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter)
-            ;
+            return view('welcome')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter);
         } else {
-            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client)
+                ->with('store', $store)->with('store_selected', $store_selected);
             $homefooter = view('share.homefooter');
             return view('welcome')->with('share.homeheader', $homeheader)->with('share.homefooter', $homefooter);
         }

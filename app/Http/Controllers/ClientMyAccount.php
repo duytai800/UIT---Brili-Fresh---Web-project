@@ -27,7 +27,18 @@ class ClientMyAccount extends Controller
         $customer = DB::table('customer')
             ->join('user', 'user.userid', '=', 'customer.userid')
             ->where('customer.userid', $UserID_client)->get()->toArray();
-        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+
+        $store_id = Session::get('store_id');
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
+
+        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+            ->with('customer', $customer)
+            ->with('store_selected', $store_selected)
+            ->with('store', $store);
         $homefooter = view('share.homefooter');
         $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);
         return view('client.my-account.account_info')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter)
@@ -42,8 +53,18 @@ class ClientMyAccount extends Controller
         $customer = DB::table('customer')
             ->join('user', 'user.userid', '=', 'customer.userid')
             ->where('customer.userid', $UserID_client)->get()->toArray();
-        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
-        $homefooter = view('share.homefooter');
+            $store_id = Session::get('store_id');
+            $store_selected = DB::table('store')
+                ->where('storeid', $store_id)->get()->toArray();
+            $store = DB::table('store')
+                ->whereNotIn('store.storeid', [$store_id])
+                ->get()->toArray();
+    
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
+            $homefooter = view('share.homefooter');
         $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);
         return view('client.my-account.change_password')->with('share.homeheader_login', $homeheader)->with('share.homefooter', $homefooter)
             ->with('share.sub_nav_my_account', $sub_nav_my_account);
@@ -122,8 +143,18 @@ class ClientMyAccount extends Controller
         $customer = DB::table('customer')
             ->join('user', 'user.userid', '=', 'customer.userid')
             ->where('customer.userid', $UserID_client)->get()->toArray();
-        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
-        $homefooter = view('share.homefooter');
+            $store_id = Session::get('store_id');
+            $store_selected = DB::table('store')
+                ->where('storeid', $store_id)->get()->toArray();
+            $store = DB::table('store')
+                ->whereNotIn('store.storeid', [$store_id])
+                ->get()->toArray();
+    
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
+            $homefooter = view('share.homefooter');
         $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);
 
         $customer_address = DB::table('customer')
@@ -143,6 +174,7 @@ class ClientMyAccount extends Controller
         $customer = DB::table('customer')
             ->join('user', 'user.userid', '=', 'customer.userid')
             ->where('customer.userid', $UserID_client)->get()->toArray();
+            
         $customer_order = DB::table('customer')
             ->join('user', 'user.userid', '=', 'customer.userid')
             ->join('order', 'order.cusid', '=', 'customer.cusid')
@@ -174,7 +206,17 @@ class ClientMyAccount extends Controller
         // print_r($customer_order_detail);
         // echo '</pre>';
 
-        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+        $store_id = Session::get('store_id');
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
+
+        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+            ->with('customer', $customer)
+            ->with('store_selected', $store_selected)
+            ->with('store', $store);
         $homefooter = view('share.homefooter');
         $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);
 
@@ -234,7 +276,17 @@ class ClientMyAccount extends Controller
         // print_r($order_detail);
         // echo '</pre>';
 
-        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+        $store_id = Session::get('store_id');
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
+
+        $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+            ->with('customer', $customer)
+            ->with('store_selected', $store_selected)
+            ->with('store', $store);
         $homefooter = view('share.homefooter');
         $sub_nav_my_account = view('share.sub_nav_my_account')->with('customer', $customer);
 

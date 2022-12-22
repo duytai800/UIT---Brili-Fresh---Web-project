@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-
+    public function change_store(Request $request)
+    {
+        $data = $request->all();
+        print_r($data);
+    }
 
     public function index_fish_and_meat()
     {
@@ -41,7 +45,7 @@ class ClientController extends Controller
 
             ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
             ->where('type.typeid', 5)->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
-            ->orderBy('product.proid', 'asc')->distinct('product.proid')        
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')
             //->get();
             ->paginate(2);
 

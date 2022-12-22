@@ -133,7 +133,7 @@
                         </div>
                         <label class="choose-img-btn btn-shared">
                             <span>Chọn ảnh</span>
-                            <input type="file" name="Photo"  accept="image/gif, image/jpeg, image/png" onchange="preview()">
+                            <input type="file" name="Photo" accept="image/gif, image/jpeg, image/png" onchange="preview()">
                         </label>
                     </div>
                 </form>
@@ -144,7 +144,6 @@
     </div>
     @yield('home_footer')
     <script src="{{asset('public/client/lib/jquery/dist/jquery.min.js')}}"></script>
-    @await Html.PartialAsync("_ValidationScriptsPartial")
     <script>
         function preview() {
             frame.src = URL.createObjectURL(event.target.files[0]);
@@ -154,6 +153,45 @@
             document.getElementById('formFile').value = null;
             frame.src = "";
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(".location_item_child_link").click(function() {
+                console.log("thanh phuong")
+                var id_selecting = $(".direction-detail").data("storeid")
+                var id_selected = $(this).data("storeid")
+                console.log(id_selected)
+
+                $(".direction-detail").data("storeid", id_selected)
+                $(this).data("storeid", id_selecting)
+
+                $(".list_location").addClass("display_list_location")
+                var text_is_selecting = $(".direction-detail").text()
+                var text_slected = $(this).text()
+                $(".direction-detail").text(text_slected)
+                $(this).text(text_is_selecting)
+
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "{{route('change_store')}}",
+                    method: 'POST',
+                    data: {
+                        store_id: id_selected,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+
+                });
+            });
+
+            $(".change-location-store").click(function() {
+                console.log("thanh phuong")
+                $(".list_location").removeClass("display_list_location")
+            });
+        });
     </script>
 
 </body>
