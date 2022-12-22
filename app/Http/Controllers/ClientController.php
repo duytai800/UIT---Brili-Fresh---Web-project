@@ -14,18 +14,39 @@ class ClientController extends Controller
     {
         $data = $request->all();
         print_r($data);
+        $store_id = $data['store_id'];
+        Session::put('store_id', $store_id);
+        Session::save();
     }
 
     public function index_fish_and_meat()
     {
         //Redirect::setIntendedUrl(url()->previous()); 
         $UserID_client = Session::get('UserID_client');
+        $store_id = Session::get('store_id');
+
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
+
         if ($UserID_client) {
-            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $customer = DB::table('customer')
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+
+
+            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client)
+            ->with('customer', $customer)
+            ->with('store_selected', $store_selected)
+            ->with('store', $store);
             $footer = view('share.homefooter');
             return view('client.overview-product.index_fish_and_meat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer);
         } else {
-            $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client)
+            ->with('store_selected', $store_selected)
+            ->with('store', $store);
             $footer = view('share.homefooter');
             return view('client.overview-product.index_fish_and_meat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer);
         }
@@ -34,6 +55,13 @@ class ClientController extends Controller
     public function index_beef_goat()
     {
         $UserID_client = Session::get('UserID_client');
+        $store_id = Session::get('store_id');
+
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
 
         $beef_goat_products = DB::table('product')
             ->select('product.*', 'product_image.*', 'type.*', 'discount_product.value as value_discount_product', 'discount_type.value as value_discount_type', 'stock.ProId', 'stock.quantity as product_quantity')
@@ -51,7 +79,13 @@ class ClientController extends Controller
 
 
         if ($UserID_client) {
-            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $customer = DB::table('customer')
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client)
+            ->with('customer', $customer)
+            ->with('store_selected', $store_selected)
+            ->with('store', $store);
             $footer = view('share.homefooter');
 
             return view('client.overview-product.index_beef_goat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer)
@@ -60,7 +94,9 @@ class ClientController extends Controller
             $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
             $footer = view('share.homefooter');
             return view('client.overview-product.index_beef_goat')->with('share.fish_and_meat_header', $header)->with('share.homefooter', $footer)
-                ->with('beef_goat_products', $beef_goat_products);
+                ->with('beef_goat_products', $beef_goat_products)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);;
         }
     }
 

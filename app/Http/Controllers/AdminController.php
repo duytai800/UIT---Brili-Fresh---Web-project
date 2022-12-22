@@ -33,7 +33,8 @@ class AdminController extends Controller
         //$user_roles = 0;
         //$manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
         $UserID_client = Session::get('UserID_client');
-        if (Session::get('store_id')) {
+        $check_store_id=Session::get('store_id');
+        if ($check_store_id) {
         } else Session::put('store_id', 1);
 
         $store_id = Session::get('store_id');

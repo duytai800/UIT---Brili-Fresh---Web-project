@@ -29,6 +29,7 @@ class ClientMyAccount extends Controller
             ->where('customer.userid', $UserID_client)->get()->toArray();
 
         $store_id = Session::get('store_id');
+        echo $store_id;
         $store_selected = DB::table('store')
             ->where('storeid', $store_id)->get()->toArray();
         $store = DB::table('store')
