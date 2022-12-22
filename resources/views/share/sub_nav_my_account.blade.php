@@ -13,7 +13,6 @@
 
         <div class="sidebar">
             <a href="{{URL::to('/account-info')}}" id="AccountInfo_2"><i class="ti-user"></i><span>Thông tin tài khoản</a>
-            <a id="MyNotice_2"><i class="ti-bell"></i><span>Thông báo của tôi</a>
             <a href="{{URL::to('/account-info/manage-orders')}}" id="ManageOrder_2"><i class="ti-package"></i><span>Quản lý đơn hàng</a>
             <a href="{{URL::to('/account-info/manage-address')}}" id="ManageAddress_2"><i class="ti-location-pin"></i><span>Sổ địa chỉ</a>
             <a id="ManageFeedback_2"><i class="ti-star"></i><span>Đánh giá sản phẩm</a>

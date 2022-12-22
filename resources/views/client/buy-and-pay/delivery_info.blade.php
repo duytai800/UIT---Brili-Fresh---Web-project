@@ -156,6 +156,45 @@
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script type="text/javascript" src="{{asset('public/client/BuyAndPayAssets/delivery/deliveryInfo.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".location_item_child_link").click(function() {
+
+                console.log("thanh phuong")
+                var id_selecting = $(".direction-detail").data("storeid")
+                var id_selected = $(this).data("storeid")
+                console.log(id_selected)
+
+                $(".direction-detail").data("storeid", id_selected)
+                $(this).data("storeid", id_selecting)
+
+                $(".list_location").addClass("display_list_location")
+                var text_is_selecting = $(".direction-detail").text()
+                var text_slected = $(this).text()
+                $(".direction-detail").text(text_slected)
+                $(this).text(text_is_selecting)
+
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{route('change_store')}}",
+                    method: 'POST',
+                    data: {
+                        id_selected: id_selected,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            $(".change-location-store").click(function() {
+                console.log("thanh phuong")
+                $(".list_location").removeClass("display_list_location")
+            });
+
+        });
+    </script>
 </body>
 
 </html>

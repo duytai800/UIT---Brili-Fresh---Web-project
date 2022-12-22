@@ -71,11 +71,22 @@ class ClientBuyAndPay extends Controller
         $url_canonical = $request->url();
 
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
 
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+            $store_id = Session::get('store_id');
+            $store_selected = DB::table('store')
+                ->where('storeid', $store_id)->get()->toArray();
+            $store = DB::table('store')
+                ->whereNotIn('store.storeid', [$store_id])
+                ->get()->toArray();
+
+            $homeheader = view('share.homeheader_login')
+                ->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.cart_info_check')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
                 ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
@@ -111,8 +122,8 @@ class ClientBuyAndPay extends Controller
 
         $type_client = DB::table('customer')->where('userid', $UserID_client)->select('customer.rewardid')->get();
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
         //seo
         $meta_desc = "Giỏ hàng của bạn";
         $meta_keywords = "Gió hàng";
@@ -122,7 +133,18 @@ class ClientBuyAndPay extends Controller
         $coupon = DB::table('discount_order')->get();
 
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);;
+            $store_id = Session::get('store_id');
+            $store_selected = DB::table('store')
+                ->where('storeid', $store_id)->get()->toArray();
+            $store = DB::table('store')
+                ->whereNotIn('store.storeid', [$store_id])
+                ->get()->toArray();
+
+            $homeheader = view('share.homeheader_login')
+                ->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
 
             return view('client.buy-and-pay.cart_info', compact('coupon'))->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
@@ -143,8 +165,8 @@ class ClientBuyAndPay extends Controller
     {
         $UserID_client = Session::get('UserID_client');
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
         if ($UserID_client) {
             $client_address_default = DB::table('address')
                 //->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
@@ -157,8 +179,19 @@ class ClientBuyAndPay extends Controller
                 ->where('customer.userid', $UserID_client)->where('address.default', 0)
                 ->get();
 
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);;
-            $homefooter = view('share.homefooter');
+                $store_id = Session::get('store_id');
+                $store_selected = DB::table('store')
+                    ->where('storeid', $store_id)->get()->toArray();
+                $store = DB::table('store')
+                    ->whereNotIn('store.storeid', [$store_id])
+                    ->get()->toArray();
+    
+                $homeheader = view('share.homeheader_login')
+                    ->with('UserID_client', $UserID_client)
+                    ->with('customer', $customer)
+                    ->with('store_selected', $store_selected)
+                    ->with('store', $store);
+                $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.delivery_info_login')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
                 ->with('client_address_default', $client_address_default)
                 ->with('client_address', $client_address);
@@ -173,11 +206,22 @@ class ClientBuyAndPay extends Controller
     {
         $UserID_client = Session::get('UserID_client');
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
 
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);;
+            $store_id = Session::get('store_id');
+            $store_selected = DB::table('store')
+                ->where('storeid', $store_id)->get()->toArray();
+            $store = DB::table('store')
+                ->whereNotIn('store.storeid', [$store_id])
+                ->get()->toArray();
+
+            $homeheader = view('share.homeheader_login')
+                ->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.pay_info')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader);
         } else {
@@ -242,7 +286,7 @@ class ClientBuyAndPay extends Controller
 
         for ($i = 0; $i < $row; $i++) {
             //$data_insert_order_detail = array();
-   
+
             $product_image = $data['product_image'][$i];
             $product_image = explode("/", $product_image);
             $product_image = $product_image[7];
@@ -263,9 +307,6 @@ class ClientBuyAndPay extends Controller
             // print_r($data_insert_order_detail);
             // echo '</pre>';
             DB::table('order_details')->insert($data_insert_order_detail);
-   
         }
     }
-
-    
 }

@@ -14,8 +14,8 @@ class AdminProduct extends Controller
     {
         $UserID_employee = Session::get('UserID_employee');
         $UserID_manager = Session::get('UserID_manager');
-        
-        if ($UserID_employee or $UserID_manager ) {
+
+        if ($UserID_employee or $UserID_manager) {
         } else {
             return Redirect::to('/login')->send();
         }
@@ -145,7 +145,7 @@ class AdminProduct extends Controller
                 'type.*',
                 'stock.ProId',
                 'stock.quantity as product_quantity',
-                DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate')
+                DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as startdate')
             )
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')

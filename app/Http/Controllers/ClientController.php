@@ -10,15 +10,38 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-
+    public function change_store(Request $request)
+    {
+        $data = $request->all();
+        print_r($data);
+        $store_id = $data['id_selected'];
+        Session::put('store_id', $store_id);
+        Session::save();
+    }
 
     public function index_fish_and_meat()
     {
         //Redirect::setIntendedUrl(url()->previous()); 
         $UserID_client = Session::get('UserID_client');
+
         if ($UserID_client) {
-            $header = view('share.login_fish_and_meat_header')->with('UserID_client', $UserID_client);
+            $customer = DB::table('customer')
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+            $store_id = Session::get('store_id');
+            $store_selected = DB::table('store')
+                ->where('storeid', $store_id)->get()->toArray();
+            $store = DB::table('store')
+                ->whereNotIn('store.storeid', [$store_id])
+                ->get()->toArray();
+
+            $header = view('share.homeheader_login')
+                ->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $footer = view('share.homefooter');
+
             return view('client.overview-product.index_fish_and_meat')->with('share.login_fish_and_meat_header', $header)->with('share.homefooter', $footer);
         } else {
             $header = view('share.fish_and_meat_header')->with('UserID_client', $UserID_client);
@@ -41,7 +64,9 @@ class ClientController extends Controller
 
             ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
             ->where('type.typeid', 5)->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
-            ->orderBy('product.proid', 'asc')->distinct('product.proid')->paginate(2);
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')
+            //->get();
+            ->paginate(2);
 
 
         if ($UserID_client) {

@@ -11,27 +11,25 @@
                         <span class="firstName p-1">Brili<span class="lastName">Fresh</span></span>
                     </a>
                 </div>
-
-                <form class="d-flex align-item-center justify-content-center ms-auto header-form me-auto" style="margin: 0;">
-
-                    <button class="btnHome inline-block" type="button">
-                        <!-- <img id="home" src="~/OverviewProductAssets/images/Homebutton.png" class="imgHome me-auto mx-sm-auto"></img> -->
-                    </button>
-                    <div class="direction ms-3 me-3 d-flex">
-                        <i class="fa-sharp fa-solid fa-location-dot ms-2"></i>
-                        <p class="direction-detail mt-3 ms-3">Chọn cửa hàng: 17 Trần Khắc Chân... <a href="" class="">Thay đổi</a> </p>
+                <form>
+                    {{ csrf_field() }}
+                    <div class="location_container">
+                        @foreach ($store_selected as $key => $store_selected)
+                        <div class="direction change-location-store ms-3 me-3 d-flex">
+                            <i class="ti-location-pin" style="font-size:20px !important;padding-right: 8px;padding-bottom: 16px;"></i>
+                            <p class="direction-detail" data-storeid="{{$store_selected->StoreID}}" type="button" style="margin-top: 5px;">{{ $store_selected->SpecificAddress}}, {{$store_selected->Ward}}, {{$store_selected->District}}, {{$store_selected->City}}</p>
+                        </div>
+                        @endforeach
+                        <div class="list_location display_list_location">
+                            <div class="location_item">
+                                <ol class="location_item_list">
+                                    @foreach ($store as $key => $store)
+                                    <li type="button " class="location_item_child"><a class="location_item_child_link" type="button" data-storeid="{{$store->StoreID}}"> {{$store->SpecificAddress}}, {{$store->Ward}}, {{$store->District}}, {{$store->City}}</a></li>
+                                    @endforeach
+                                </ol>
+                            </div>
+                        </div>
                     </div>
-                    <div class="search-container">
-                        <input class="form-control ms-0 search-input" type="search" placeholder="Tìm kiếm thực phẩm" aria-label="Search">
-                        </input>
-                    </div>
-                    <div class="search-button">
-                        <button name="search" id="search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
-
-
                 </form>
                 <div class="navbar-nav me-auto mb-lg-0 align-item-center p-1 nav-right">
                     <div class="nav-item col-11 mt-1 d-flex justify-content-between align-item-center">

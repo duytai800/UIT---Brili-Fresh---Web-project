@@ -33,36 +33,22 @@ class AdminController extends Controller
         //$user_roles = 0;
         //$manage_homeheader = view('share.homeheader')->with('user_roles', $user_roles);
         $UserID_client = Session::get('UserID_client');
-        Session::put('store_id', 1);
+        if (Session::get('store_id')) {
+        } else Session::put('store_id', 1);
+
         $store_id = Session::get('store_id');
 
         $store_selected = DB::table('store')
             ->where('storeid', $store_id)->get()->toArray();
 
-         $store = DB::table('store')//->select(
-        //     'store.city as city',
-        //     'store.district as district',
-        //     'store.ward as ward',
-        //     'store.specificaddress as specificaddress',
-        //     'store.storeid as storeid')
-        ->whereNotIn('store.storeid', [$store_id])
-        ->get()->toArray();
-
-        // echo '<pre>';
-        // print_r($store_selected);
-        // echo '</pre>';
-
-        //  echo '<pre>';
-        // print_r($store);
-        // echo '</pre>';
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
 
         if ($UserID_client) {
             $customer = DB::table('customer')
                 ->join('user', 'user.userid', '=', 'customer.userid')
                 ->where('customer.userid', $UserID_client)->get()->toArray();
-            // echo '<pre>';
-            // print_r($customer);
-            // echo '</pre>';
 
             $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
                 ->with('store', $store)

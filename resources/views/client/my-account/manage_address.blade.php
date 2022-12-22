@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 </head>
+
 <body>
     <!-- Begin header -->
     @yield('home_header')
@@ -54,28 +55,28 @@
                 </div>
 
                 @foreach ($customer_address as $key => $address )
-                    <div class="address-card">
-                        <div class="first-row">
-                            <div class="left-first-row">
-                                {{$address->SpecificAddress}}
-                            </div>
-                            <div class="right-first-row">
-                                <a class="js-edit-address" onclick="showEditAddress( '{{$address->AddID}} ')">Cập nhật</a>
-                                <a class="js-delete-address" onclick="showDeleteAddress('{{$address->AddID}} ')" >Xóa</a>
-                            </div>
+                <div class="address-card">
+                    <div class="first-row">
+                        <div class="left-first-row">
+                            {{$address->SpecificAddress}}
                         </div>
-
-                        <div class="second-row">
-                            <div class="left-second-row">
-                                <div>{{$address->Ward}}, {{$address->District}}, {{$address->City}} </div>
-                            </div>
-                            @if ($address->Default == 1)
-                                <span class="third-row">Mặc định</span>
-                            @else
-                             <button class="btn-shared right-second-row" >Chọn làm mặc định</button>
-                            @endif
+                        <div class="right-first-row">
+                            <a class="js-edit-address" onclick="showEditAddress( '{{$address->AddID}} ')">Cập nhật</a>
+                            <a class="js-delete-address" onclick="showDeleteAddress('{{$address->AddID}} ')">Xóa</a>
                         </div>
                     </div>
+
+                    <div class="second-row">
+                        <div class="left-second-row">
+                            <div>{{$address->Ward}}, {{$address->District}}, {{$address->City}} </div>
+                        </div>
+                        @if ($address->Default == 1)
+                        <span class="third-row">Mặc định</span>
+                        @else
+                        <button class="btn-shared right-second-row">Chọn làm mặc định</button>
+                        @endif
+                    </div>
+                </div>
                 @endforeach
             </div>
             <!-- End Content -->
@@ -142,5 +143,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="{{asset('public/client/MyAccountAssets/ManageAddress/ManageAddress.js')}}"></script>
     <script type="text/javascript" src="{{asset('public/client/MyAccountAssets/MyAccount/SubNavSide.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".location_item_child_link").click(function() {
+
+                console.log("thanh phuong")
+                var id_selecting = $(".direction-detail").data("storeid")
+                var id_selected = $(this).data("storeid")
+                console.log(id_selected)
+
+                $(".direction-detail").data("storeid", id_selected)
+                $(this).data("storeid", id_selecting)
+
+                $(".list_location").addClass("display_list_location")
+                var text_is_selecting = $(".direction-detail").text()
+                var text_slected = $(this).text()
+                $(".direction-detail").text(text_slected)
+                $(this).text(text_is_selecting)
+
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{route('change_store')}}",
+                    method: 'POST',
+                    data: {
+                        id_selected: id_selected,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            $(".change-location-store").click(function() {
+                console.log("thanh phuong")
+                $(".list_location").removeClass("display_list_location")
+            });
+
+        });
+    </script>
 </body>
+
 </html>

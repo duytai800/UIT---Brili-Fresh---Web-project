@@ -139,7 +139,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-semibold" for="product_date">Ngày tạo</label>
-                                <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy" value="{{$edit_product->StartDate}}" >
+                                <input type="date" class="form-control" name="product_date" id="product_date" placeholder="dd/mm/yyyy" value="{{$edit_product->startdate}}" >
 
                             </div>
                             <div class="form-group">
