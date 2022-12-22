@@ -13,7 +13,10 @@
             //});
             console.log("thanh phuong")
             var id_selecting = $(".direction-detail").data("storeid")
-            var id_selected = $(this).data("storeid")
+            console.log (id_selecting);
+
+             var id_selected = $(".location_item_child").data("storeid")
+            console.log (id_selected);
 
             $(".direction-detail").data("storeid", id_selected)
             $(this).data("storeid", id_selecting) 
@@ -27,6 +30,7 @@
 
         $(".change-location-store").click(function () {
             console.log("thanh phuong")
+         
         $(".list_location").removeClass("display_list_location")
     });
 });

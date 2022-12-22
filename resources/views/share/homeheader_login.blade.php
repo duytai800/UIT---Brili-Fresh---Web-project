@@ -7,7 +7,23 @@
             <img src="{{asset('public/client/HomeAssets/asset/image/logo.png')}}" alt="" class="header__navbar-logo" />
             <h2 class="header__navbar-tittle"><span style="color: #118129; font-weight: 600;">Brili</span><span style="color: #14df41; font-weight: 600;">Fresh</span></h2>
             <div class="location_container">
- 
+                @foreach ($store_selected as $key => $store_selected)
+
+                <div class="direction change-location-store ms-3 me-3 d-flex">
+                    <i class="ti-location-pin" style="font-size:20px !important;padding-right: 8px;padding-bottom: 16px;"></i>
+                    <p class="direction-detail" data-storeid="{{$store_selected->StoreID}}" type="button" style="margin-top: 5px;">{{ $store_selected->SpecificAddress}}, {{$store_selected->Ward}}, {{$store_selected->District}}, {{$store_selected->City}}</p>
+                </div>
+
+                <div class="list_location display_list_location">
+                    <div class="location_item">
+                        <ol class="location_item_child_link">
+                            @foreach ($store as $key => $store)
+                            <li class="location_item_child"><a type="button" data-storeid="{{$store->StoreID}}"> {{$store->SpecificAddress}}, {{$store->Ward}}, {{$store->District}}, {{$store->City}}</a></li>
+                            @endforeach
+                        </ol>
+                    </div>
+                </div>
+                @endforeach
             </div>
             <ul class="header__navbar-list">
                 <li class="header__navbar-item"><a href="#">Trang chủ</a></li>

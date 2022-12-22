@@ -41,7 +41,7 @@ class ClientController extends Controller
 
             ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
             ->where('type.typeid', 5)->where('type.typeid', 5)->whereRaw('stock.quantity  >0')
-            ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
+            ->orderBy('product.proid', 'asc')->distinct('product.proid')->paginate(2);
 
 
         if ($UserID_client) {

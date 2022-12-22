@@ -13,6 +13,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <title>BriliFresh - Bò dê</title>
 </head>
 
@@ -184,21 +186,24 @@
                             </div>
                         </div>
                         @endforeach
-
+                
                     </div>
 
                     <div class="products-pagination d-flex justify-content-end">
                         <div class="pagination">
-                            <a href="#">&laquo;</a>
+                            <!-- <a href="#">&laquo;</a>
                             <a href="#">1</a>
                             <a href="#" class="active">2</a>
                             <a href="#">3</a>
                             <a href="#">4</a>
                             <a href="#">5</a>
                             <a href="#">...</a>
-                            <a href="#">&raquo;</a>
+                            <a href="#">&raquo;</a> -->
+                            <!-- {{ $beef_goat_products->onEachSide(1)->links() }} -->
                         </div>
+
                     </div>
+                    
                 </div>
             </div>
         </div>
