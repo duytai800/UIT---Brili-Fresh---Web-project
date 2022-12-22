@@ -188,16 +188,13 @@
                     </div>
 
                     <div class="products-pagination d-flex justify-content-end">
-                        <div class="pagination">
-                            <a href="#">&laquo;</a>
-                            <a href="#">1</a>
-                            <a href="#" class="active">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">...</a>
-                            <a href="#">&raquo;</a>
+                        <div class="col-7">
+                            Hiển thị {{$beef_goat_products->firstItem()}} -  {{$beef_goat_products->lastItem()}} trong {{$beef_goat_products->total()}} sản phẩm 
                         </div>
+                        <div class="pagination">
+                            {{ $beef_goat_products->onEachSide(1)->links() }}
+                        </div>
+
                     </div>
                 </div>
             </div>
