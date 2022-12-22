@@ -160,13 +160,10 @@ class AdminProduct extends Controller
                 'product.*',
                 'product_image.*',
                 'type.*',
-                'stock.ProId',
-                'stock.quantity as product_quantity',
                 DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate')
             )
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
-            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
             ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', '%is_avt%')
             ->where('product.proid', $product_id)
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
@@ -188,7 +185,7 @@ class AdminProduct extends Controller
             ->select('ImgData')->where('product_image.ImgData', 'like', '%is_avt%')->where('product_image.proid', $product_id)
             ->distinct()->get();
         $des_img = DB::table('product_image')
-            ->select('ImgData')->where('product_image.ImgData', 'not like', '%is_avt')->where('product_image.proid', $product_id)
+            ->select('ImgData')->where('product_image.ImgData', 'not like', '%is_avt%')->where('product_image.proid', $product_id)
             ->distinct()->get()->toArray();
         if (count($des_img) == 3) {
             $des_img_0 = $des_img[0]->ImgData;
