@@ -286,6 +286,8 @@
                 var product_name = JSON.parse(sessionStorage.getItem("PRONAME"));
                 var product_unit_price = JSON.parse(sessionStorage.getItem("UNITPRICE"));
                 var product_quantity = JSON.parse(sessionStorage.getItem("QUANTITY"));
+                console.log('ok');
+
                 
 
                 var _token = $('input[name="_token"]').val();
