@@ -12,7 +12,7 @@
 </div>
 <hr />
 
-<h1>Danh sách sản phẩm</h1>
+<h2>DANH SÁCH SẢN PHẨM</h2>
 <?php
 
 use Illuminate\Support\Facades\Session;
@@ -63,12 +63,23 @@ if ($message_no_des) {
         <div class="row m-b-30">
             <div class="col-lg-8">
                 <div class="d-md-flex">
-                    <div class="m-b-10 m-r-15">
-                        <select class="custom-select" id="rank_customer" style="min-width: 180px;">
-                            <option value="" selected>Hạng khách hàng</option>
-                            <option value=1>Vàng</option>
-                            <option value=2>Bạc</option>
-                            <option value=3>Đồng</option>
+                <div class="m-b-10 m-r-15">
+                        <b>Loại sản phẩm</b>
+                        <select id="type" class="form-control">
+                            <option value="" selected>Tất cả</option>
+                            
+                        @foreach($insert_subtype as $key =>$subtype)
+                            <option value="{{$subtype->SubType}}">{{$subtype->SubType}}</option>
+                            
+                        @endforeach
+                        </select>
+                    </div>
+                    <div class="m-b-10 m-r-15" style="margin-left: 12px">
+                        <b>Tình trạng tồn kho</b>
+                        <select id="status" class="form-control">
+                            <option value="" selected>Tất cả</option>
+                            <option value="Còn hàng">Còn hàng</option>
+                            <option value="Hết hàng">Hết hàng</option>
                         </select>
                     </div>
                 </div>
@@ -106,7 +117,6 @@ if ($message_no_des) {
                         </td>
                         <td>
                             <div class="d-flex align-items-center" class="logo logo-dark">
-                                <h6 class="m-b-0 m-l-10">{{$product->MainType}}</h6>
                                 <h6 class="m-b-0 m-l-10">{{$product->SubType}}</h6>
                             </div>
                         </td>
@@ -117,8 +127,7 @@ if ($message_no_des) {
                         <?php {
                             echo "<td>";
                             echo    "<div class='d-flex align-items-center' class='logo logo-dark'> ";
-                            $pro_quantity = $product->product_quantity;
-                            if ($pro_quantity > 0) {
+                            if ($totalQuantity > 0) {
                                 echo "<div class='badge badge-success badge-dot m-r-10'></div>";
                                 echo "<div>Còn hàng</div>";
                             } else {
@@ -147,4 +156,13 @@ if ($message_no_des) {
         </div>
     </div>
 </div>
+<script>
+    $('#type, #status').change(function(){
+        var a = $('#type').val();
+        var b = $('#status').val();
+        $("input[type=search]").val(a + " " + b).trigger("keyup");
+        $("input[type=search]").val("");
+    })
+
+</script>
 @endsection

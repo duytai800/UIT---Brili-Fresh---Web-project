@@ -147,8 +147,7 @@
                                     <?php {
                                         echo "<td>";
                                         echo    "<div class='d-flex align-items-center' class='logo logo-dark'> ";
-                                        $detail_product = $detail_product->product_quantity;
-                                        if ($detail_product > 0) {
+                                        if ($totalQuantity > 0) {
                                             echo "<div class='badge badge-success badge-dot m-r-10'></div>";
                                             echo "<div>Còn hàng</div>";
                                         } else {

@@ -27,20 +27,37 @@ class AdminProduct extends Controller
         $this->AuthLogin();
 
         $all_products = DB::table('product')
-            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
+            ->select('product.*', 'product_image.*', 'type.*')
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
-            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
-            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
+            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', '%is_avt%')
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
 
+        foreach ($all_products as $item) {
+            $totalQuantity = AdminProduct::TotalQuantity($item->ProID);
+        }
+
+        $insert_subtype = DB::table('type')->get();
         $manage_all_products = view('admin.product.admin_product')
-            ->with('all_products', $all_products);
+            ->with('all_products', $all_products)
+            ->with('insert_subtype', $insert_subtype)
+            ->with('totalQuantity', $totalQuantity);
         // echo '<pre>';
         // print_r($all_products);
         // echo '</pre>';
 
         return view('admin_layout')->with('admin.product.admin_product', $manage_all_products);
+    }
+
+    public function TotalQuantity(int $id)
+    {
+        $TotalQuantity = DB::table('stock')
+            ->where('proid', $id)
+            ->sum('Quantity');
+        if (is_null($TotalQuantity)) {
+            $TotalQuantity = 0;
+        }
+        return $TotalQuantity;
     }
 
     public function create_product()
@@ -106,7 +123,7 @@ class AdminProduct extends Controller
         if ($get_image_main) {
             $get_name_img = $get_image_main->getClientOriginalName();
             $name_img = current(explode('.', $get_name_img));
-            $image_main = 'main' . '-' . $name_img . rand(0, 999) . '.' . $get_image_main->getClientOriginalExtension();
+            $image_main = 'is_avt' . '-' . $name_img . rand(0, 999) . '.' . $get_image_main->getClientOriginalExtension();
             $get_image_main->move('public/upload/product', $image_main);
             $data_img['ImgData'] = $image_main;
             $data_img['ProID'] = $pro_id;
@@ -150,7 +167,7 @@ class AdminProduct extends Controller
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
             ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
-            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', 'main%')
+            ->where('product.IsDeleted', 0)->where('product_image.imgdata', 'like', '%is_avt%')
             ->where('product.proid', $product_id)
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
 
@@ -168,10 +185,10 @@ class AdminProduct extends Controller
         );
 
         $main_img = DB::table('product_image')
-            ->select('ImgData')->where('product_image.ImgData', 'like', 'main%')->where('product_image.proid', $product_id)
+            ->select('ImgData')->where('product_image.ImgData', 'like', '%is_avt%')->where('product_image.proid', $product_id)
             ->distinct()->get();
         $des_img = DB::table('product_image')
-            ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $product_id)
+            ->select('ImgData')->where('product_image.ImgData', 'not like', '%is_avt')->where('product_image.proid', $product_id)
             ->distinct()->get()->toArray();
         if (count($des_img) == 3) {
             $des_img_0 = $des_img[0]->ImgData;
@@ -261,7 +278,7 @@ class AdminProduct extends Controller
 
         $id_img_main = DB::table('product_image')
             ->select('ImgID')->where('product_image.proid', $product_id)
-            ->where('product_image.imgdata', 'like', 'main%')
+            ->where('product_image.imgdata', 'like', '%is_avt%')
             ->distinct()->get()->toArray();
         $id_img_main = $id_img_main[0]->ImgID;
         $data_img = array();
@@ -270,7 +287,7 @@ class AdminProduct extends Controller
         if ($get_image_main) {
             $get_name_img = $get_image_main->getClientOriginalName();
             $name_img = current(explode('.', $get_name_img));
-            $image_main = 'main' . '-' . $name_img . rand(0, 999) . '.' . $get_image_main->getClientOriginalExtension();
+            $image_main = 'is_avt' . '-' . $name_img . rand(0, 999) . '.' . $get_image_main->getClientOriginalExtension();
             $get_image_main->move('public/upload/product', $image_main);
             $data_img['ImgData'] = $image_main;
             DB::table('product_image')->where('imgid', $id_img_main)->update($data_img);
@@ -279,7 +296,7 @@ class AdminProduct extends Controller
 
         $id_img_des = DB::table('product_image')
             ->select('ImgID')->where('product_image.proid', $product_id)
-            ->where('product_image.imgdata', 'like', 'des%')
+            ->where('product_image.imgdata', 'not like', '%is_avt%')
             ->distinct()->get()->toArray();
 
         $get_image_description = $request->file('product_img_description');
@@ -426,11 +443,10 @@ class AdminProduct extends Controller
         $this->AuthLogin();
 
         $detail_product = DB::table('product')
-            ->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity',   DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate'))
+            ->select('product.*', 'product_image.*', 'type.*',   DB::raw('DATE_FORMAT(product.startdate, "%d-%m-%Y ") as StartDate'))
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
-            ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
-            ->where('product.IsDeleted', 0)->where('product.proid', $product_id)->where('product_image.imgdata', 'like', 'main%')
+            ->where('product.IsDeleted', 0)->where('product.proid', $product_id)->where('product_image.imgdata', 'like', '%is_avt%')
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
 
         $type_detail_product = DB::table('product')->select('MainType', 'SubType')
@@ -439,16 +455,21 @@ class AdminProduct extends Controller
         $des_detail_product = DB::table('product')->select('Des')
             ->where('product.proid', $product_id)->distinct('product.proid')->get();
         $des_img = DB::table('product_image')
-            ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $product_id)
+            ->select('ImgData')->where('product_image.ImgData', 'not like', '%is_avt%')->where('product_image.proid', $product_id)
             ->distinct()->get()->toArray();
         $count_des_img = count($des_img);
+
+        foreach ($detail_product as $item) {
+            $totalQuantity = AdminProduct::TotalQuantity($item->ProID);
+        }
 
         $manage_detail_product = view('admin.product.detail_product')
             ->with('type_detail_product', $type_detail_product)
             ->with('des_detail_product', $des_detail_product)
             ->with('des_img', $des_img)
             ->with('count_des_img', $count_des_img)
-            ->with('detail_product', $detail_product);
+            ->with('detail_product', $detail_product)
+            ->with('totalQuantity', $totalQuantity);
         // echo '<pre>';
         // print_r($detail_product[0]->Des);
         // echo '</pre>';
@@ -465,7 +486,7 @@ class AdminProduct extends Controller
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->join('type', 'product.typeid', '=', 'type.typeid')
             ->leftjoin('stock', 'product.proid', '=', 'stock.proid')
-            ->where('product.IsDeleted', 0)->where('product.proid', $product_id)->where('product_image.imgdata', 'like', 'main%')
+            ->where('product.IsDeleted', 0)->where('product.proid', $product_id)->where('product_image.imgdata', 'like', '%is_avt%')
             ->orderBy('product.proid', 'asc')->distinct('product.proid')->get();
 
         $type_detail_product = DB::table('product')->select('MainType', 'SubType')
@@ -476,7 +497,7 @@ class AdminProduct extends Controller
         $id_product = DB::table('product')->select('ProID')
             ->where('product.proid', $product_id)->get();
         $des_img = DB::table('product_image')
-            ->select('ImgData')->where('product_image.ImgData', 'like', 'des%')->where('product_image.proid', $product_id)
+            ->select('ImgData')->where('product_image.ImgData', 'not like', '%is_avt%')->where('product_image.proid', $product_id)
             ->distinct()->get()->toArray();
         $count_des_img = count($des_img);
 

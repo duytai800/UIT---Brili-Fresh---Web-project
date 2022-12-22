@@ -50,8 +50,7 @@
                         <td>{{$customer->CusID}}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <h6 class="m-b-0 m-l-10">{{$customer->LastName}}</h6>
-                                <h6 class="m-b-0 m-l-10">{{$customer->FirstName}}</h6>
+                            {{$customer->LastName}} {{$customer->FirstName}}
                             </div>
                         </td>
 
@@ -79,7 +78,10 @@
                             echo "<div class='badge badge-dark badge-dot m-r-10'></div>";                          
                             echo "Bạc";
                             echo "</td>";
-                        } else {
+                        } elseif ($type_customer == null) {
+                            echo "<td></td>";
+                        }
+                        else {
                             echo "<td>";
                             echo "<div class='badge badge-light badge-dot m-r-10'></div>";                          
                             echo "Đồng";
