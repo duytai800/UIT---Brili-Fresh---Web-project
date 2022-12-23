@@ -46,11 +46,11 @@ if ($delete_discount_product_message) {
             <div class="col-lg-8">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
-                        <select class="custom-select" id="rank_customer" style="min-width: 180px;">
-                            <option value="" selected>Hạng khách hàng</option>
-                            <option value=1>Vàng</option>
-                            <option value=2>Bạc</option>
-                            <option value=3>Đồng</option>
+                        <b>Tình trạng khuyến mãi</b>
+                        <select id="statusSelect" style="min-width: 180px;">
+                            <option value="" selected>Tất cả</option>
+                            <option value="Hoạt động">Hoạt động</option>
+                            <option value="Không hoạt động">Không hoạt động</option>
                         </select>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ if ($delete_discount_product_message) {
                                 echo "<div>Hoạt động</div>";
                             } else {
                                 echo "<div class='badge badge-danger badge-dot m-r-10'></div>";
-                                echo "<div>Hết hạn</div>";
+                                echo "<div>Không hoạt động</div>";
                             }
                             echo "</td>";
                         }
@@ -119,4 +119,11 @@ if ($delete_discount_product_message) {
         </div>
     </div>
 </div>
+<script>
+    $('#statusSelect').change(function () {
+        var status = $('#statusSelect').val();
+        $("input[type=search]").val(status).trigger("keyup");
+        $("input[type=search]").val("");
+    })
+</script>
 @endsection
