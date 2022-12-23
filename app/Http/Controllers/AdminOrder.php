@@ -88,7 +88,7 @@ class AdminOrder extends Controller
         $edit_order = DB::table('order')
             ->join('transport', 'order.transid', '=', 'transport.transid')
             ->join('customer', 'order.cusid', '=', 'customer.cusid')
-            ->join('reward', 'customer.rewardid', '=', 'reward.rewardid')
+            ->leftjoin('reward', 'customer.rewardid', '=', 'reward.rewardid')
             ->where('OrderId', $order_id)
             ->select(
                 'order.*',
