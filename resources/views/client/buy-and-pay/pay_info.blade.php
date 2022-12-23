@@ -35,6 +35,11 @@
                     <center>THANH TOÁN & ĐẶT HÀNG</center>
                 </h3>
             </div>
+            @if (session ()->has('fail_order'))
+            <div class="alert alert-danger">
+                {{ session()->get('fail_order') }}
+            </div>
+            @endif
 
             <div class="container">
                 <div class="row">
@@ -275,6 +280,9 @@
                 var hour = OrderDate.getHours();
                 OrderDate = curr_year + "-" + curr_month + "-" + curr_date + " " + hour + ":" + minutes + ":" + seconds;
 
+                var fullname = document.getElementById('fullname').innerText;
+                var phonenum = document.getElementById('phonenum').innerText;
+
                 var specificAddress = document.getElementById('specificAddress').innerText;
                 var ward = document.getElementById('ward').innerText;
                 var district = document.getElementById('district').innerText;
@@ -286,7 +294,7 @@
                 var product_name = JSON.parse(sessionStorage.getItem("PRONAME"));
                 var product_unit_price = JSON.parse(sessionStorage.getItem("UNITPRICE"));
                 var product_quantity = JSON.parse(sessionStorage.getItem("QUANTITY"));
-                
+
 
                 var _token = $('input[name="_token"]').val();
 
@@ -304,6 +312,8 @@
                         district: district,
                         city: city,
                         disid: disid,
+                        fullname: fullname,
+                        phonenum: phonenum,
                         product_image: product_image,
                         product_name: product_name,
                         product_unit_price: product_unit_price,

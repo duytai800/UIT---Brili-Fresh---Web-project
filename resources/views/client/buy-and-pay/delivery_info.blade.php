@@ -22,8 +22,8 @@
 </head>
 
 <body>
-    <form action="{{URL::to('/pay-info/')}}" method="POST" class="thongtinnhanhangform">
-    {{ csrf_field() }}
+    <form action="{{URL::to('/pay-info/')}}" method="get" class="thongtinnhanhangform">
+
         <!-- Header login -->
         @yield('home_header')
         <!-- Header no login -->
@@ -138,7 +138,9 @@
 
 
             <div class="content__continue">
-                <input class="content__continue-button" type="submit" value="Tiếp tục">
+                <a href="{{URL::to('/pay-info')}}" method="get">
+                    <input class="content__continue-button" type="submit" value="Tiếp tục">
+                </a>
             </div>
 
             <div class="content__info">

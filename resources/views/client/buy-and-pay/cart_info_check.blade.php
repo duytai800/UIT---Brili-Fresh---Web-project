@@ -102,7 +102,7 @@
                             <div class="col-md-1">
                                 <button type="button" class="content__remove">
                                     <a href="{{URL::to('/delete-cart/'.$cart['session_id'])}}">
-                                        <img src="{{asset('public/client/assets/icons/trash.png')}}"  class="content__remove-img"></img>
+                                        <img src="{{asset('public/client/assets/icons/trash.png')}}" class="content__remove-img"></img>
                                     </a>
                                 </button>
                             </div>
@@ -119,7 +119,10 @@
             </div>
 
             <div class="content__order">
-                <input class="content__order-button" type="submit" href="{{URL::to('/cart-info')}}" value="TIẾN HÀNH ĐẶT HÀNG">
+                <!-- <input class="content__order-button" type="submit" value="TIẾN HÀNH ĐẶT HÀNG"> -->
+                <a href="{{URL::to('/cart-info')}}" method="get">
+                    <input class="content__order-button" type="submit" value="TIẾN HÀNH ĐẶT HÀNG">
+                </a>
             </div>
         </div>
         <!-- Content -->
@@ -131,6 +134,7 @@
 
     </form>
     <script type="text/javascript" src="{{asset('public/client/BuyAndPayAssets/CartInfoCheck/CartInfoCheck.js')}}"></script>
+
 </body>
 
 </html>

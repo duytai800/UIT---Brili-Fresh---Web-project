@@ -23,8 +23,7 @@
 </head>
 
 <body>
-    <form action="{{URL::to('/pay-info/')}}" method="POST" class="thongtinnhanhangform">
-        {{ csrf_field() }}
+    <form action="{{URL::to('/pay-info/')}}" method="get" class="thongtinnhanhangform">
         <!-- Header   -->
         @yield('home_header')
         <!-- Header -->
@@ -82,7 +81,7 @@
                         </div>
                         @foreach ($client_address as $key=>$client_address)
                         <div class="content__address-list">
-                           
+
                             <span class="content__fullname">{{$client_address->LastName}} {{$client_address->FirstName}}</span>
                             <span class="content__default"></span>
                             <br>
@@ -121,7 +120,7 @@
                                     <img src="{{asset('public/client/assets/icons/Remove.png')}}">
                                     Xóa
                                 </button> -->
-                            </div> 
+                            </div>
                         </div>
                         @endforeach
                     </div>
@@ -307,7 +306,9 @@
 
 
             <div class="content__continue">
+                <a href="{{URL::to('/pay-info')}}" method="get">
                 <input class="content__continue-button" type="submit" value="Tiếp tục">
+                </a>
             </div>
 
 

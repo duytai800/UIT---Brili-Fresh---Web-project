@@ -72,24 +72,36 @@ class ClientBuyAndPay extends Controller
         $meta_title = "Giỏ hàng";
         $url_canonical = $request->url();
 
+        $store_id = Session::get('store_id');
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
 
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.cart_info_check')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
                 ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
                 ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)
                 ->with('meta_desc', $meta_desc);
         } else {
-            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client)->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.cart_info_check')->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader)
                 ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
                 ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)
-                ->with('meta_desc', $meta_desc);
+                ->with('meta_desc', $meta_desc)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
         }
     }
 
@@ -109,12 +121,19 @@ class ClientBuyAndPay extends Controller
 
     public function cart_info(Request $request)
     {
+
         $UserID_client = Session::get('UserID_client');
 
         $type_client = DB::table('customer')->where('userid', $UserID_client)->select('customer.rewardid')->get();
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+        $store_id = Session::get('store_id');
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
         //seo
         $meta_desc = "Giỏ hàng của bạn";
         $meta_keywords = "Gió hàng";
@@ -124,20 +143,24 @@ class ClientBuyAndPay extends Controller
         $coupon = DB::table('discount_order')->get();
 
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);;
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
 
             return view('client.buy-and-pay.cart_info', compact('coupon'))->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
                 ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
-                ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)->with('type_client', $type_client)
-                ->with('meta_desc', $meta_desc);
+                ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)->with('type_client', $type_client);
         } else {
-            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client)->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.cart_info', compact('coupon'))->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader)
                 ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
                 ->with('meta_title', $meta_title)->with('url_canonical', $url_canonical)->with('type_client', $type_client)
-                ->with('meta_desc', $meta_desc);
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
         }
     }
 
@@ -145,8 +168,14 @@ class ClientBuyAndPay extends Controller
     {
         $UserID_client = Session::get('UserID_client');
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+        $store_id = Session::get('store_id');
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
         if ($UserID_client) {
             $client_address_default = DB::table('address')
                 //->select('product.*', 'product_image.*', 'type.*', 'stock.ProId', 'stock.quantity as product_quantity')
@@ -159,13 +188,18 @@ class ClientBuyAndPay extends Controller
                 ->where('customer.userid', $UserID_client)->where('address.default', 0)
                 ->get();
 
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);;
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.delivery_info_login')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader)
                 ->with('client_address_default', $client_address_default)
                 ->with('client_address', $client_address);
         } else {
-            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client)->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);;
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.delivery_info')->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader);
         }
@@ -175,15 +209,25 @@ class ClientBuyAndPay extends Controller
     {
         $UserID_client = Session::get('UserID_client');
         $customer = DB::table('customer')
-        ->join('user', 'user.userid', '=', 'customer.userid')
-        ->where('customer.userid', $UserID_client)->get()->toArray();
+            ->join('user', 'user.userid', '=', 'customer.userid')
+            ->where('customer.userid', $UserID_client)->get()->toArray();
+        $store_id = Session::get('store_id');
+        $store_selected = DB::table('store')
+            ->where('storeid', $store_id)->get()->toArray();
+        $store = DB::table('store')
+            ->whereNotIn('store.storeid', [$store_id])
+            ->get()->toArray();
 
         if ($UserID_client) {
-            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)->with('customer', $customer);;
+            $homeheader = view('share.homeheader_login')->with('UserID_client', $UserID_client)
+                ->with('customer', $customer)
+                ->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.pay_info')->with('share.homefooter', $homefooter)->with('share.homeheader_login', $homeheader);
         } else {
-            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client);
+            $homeheader = view('share.homeheader')->with('UserID_client', $UserID_client)->with('store_selected', $store_selected)
+                ->with('store', $store);
             $homefooter = view('share.homefooter');
             return view('client.buy-and-pay.pay_info')->with('share.homefooter', $homefooter)->with('share.homeheader', $homeheader);
         }
@@ -191,9 +235,11 @@ class ClientBuyAndPay extends Controller
 
     public function pay_info_ajax(Request $request)
     {
+        $store_id = Session::get('store_id');
         $data = $request->all();
 
         //print_r($data);
+
 
         $id_transport = DB::table('transport')->max('transid') + 1;
         $id_order = DB::table('order')->max('orderid') + 1;
@@ -218,13 +264,19 @@ class ClientBuyAndPay extends Controller
                 ->get()->toArray();
             $cus_id = $cus_id[0]->cusid;
             $data_insert_order['CusID'] = $cus_id;
+        } else {
+            $data_insert_customer = array();
+            $data_insert_customer['FirstName'] =  $data['fullname'];
+            $data_insert_customer['Phone'] = $data['phonenum'];
+            //$data_insert_customer['Email'] =  $data['phonenum'];
+            $data_insert_customer['RewardID'] = 3;
+            DB::table('customer')->insert($data_insert_customer);
         }
 
         $add_id = DB::table('address')->select('addid')->where('city', $data['city'])
             ->where('district', $data['district'])
             ->where('ward', $data['ward'])
             ->where('specificaddress', $data['specificAddress'])->get()->toArray();
-
         if ($add_id) {
             $add_id = $add_id[0]->addid;
             $data_insert_order['AddID'] =  $add_id;
@@ -234,17 +286,18 @@ class ClientBuyAndPay extends Controller
         $data_insert_order['OrderTotal'] = $data['total'];
         $data_insert_order['DisID'] = $data['disid'];
         $data_insert_order['OrderID'] = $id_order;
-
         $data_insert_order['SubTotal'] = $data['subtotal'];
         $data_insert_order['PayBy'] = $data['payment_method'];
+        $data_insert_order['StoreID'] = $store_id;
         DB::table('order')->insert($data_insert_order);
 
         $data_insert_order_detail = array();
         $row = count($data['product_image']);
 
+        $flag = 1;
         for ($i = 0; $i < $row; $i++) {
             //$data_insert_order_detail = array();
-   
+
             $product_image = $data['product_image'][$i];
             $product_image = explode("/", $product_image);
             $product_image = $product_image[7];
@@ -257,17 +310,171 @@ class ClientBuyAndPay extends Controller
             $product_unit_price = explode(",", $product_unit_price[0]);
             $product_unit_price = $product_unit_price[0] . $product_unit_price[1];
 
-            $data_insert_order_detail['OrderID'] = $id_order;
-            $data_insert_order_detail['ProID'] = $pro_id;
-            $data_insert_order_detail['Quantity'] = $product_quantity;
-            $data_insert_order_detail['Price'] = $product_unit_price;
-            // echo '<pre>';
-            // print_r($data_insert_order_detail);
-            // echo '</pre>';
-            DB::table('order_details')->insert($data_insert_order_detail);
-   
+            $product_quantity_in_stock = DB::table('stock')
+                ->where('proid', $pro_id)->where('storeid', $store_id)
+                ->get()->toArray();
+            $product_quantity_in_stock = $product_quantity_in_stock[0]->Quantity;
+            if ($product_quantity_in_stock < $product_quantity) {
+                $flag = 0;
+            }
+        }
+        if ($flag == 1) {
+            for ($i = 0; $i < $row; $i++) {
+                //$data_insert_order_detail = array();
+
+                $product_image = $data['product_image'][$i];
+                $product_image = explode("/", $product_image);
+                $product_image = $product_image[7];
+                $pro_id = DB::table('product_image')->select('proid')->where('imgdata', $product_image)
+                    ->get()->toArray();
+                $pro_id = $pro_id[0]->proid;
+                $product_quantity = $data['product_quantity'][$i];
+                $product_unit_price = $data['product_unit_price'][$i];
+                $product_unit_price = explode(" ", $product_unit_price);
+                $product_unit_price = explode(",", $product_unit_price[0]);
+                $product_unit_price = $product_unit_price[0] . $product_unit_price[1];
+
+                $data_insert_order_detail['OrderID'] = $id_order;
+                $data_insert_order_detail['ProID'] = $pro_id;
+                $data_insert_order_detail['Quantity'] = $product_quantity;
+                $data_insert_order_detail['Price'] = $product_unit_price;
+                // echo '<pre>';
+                // print_r($data_insert_order_detail);
+                // echo '</pre>';
+                DB::table('order_details')->insert($data_insert_order_detail);
+
+                $product_quantity_in_stock = DB::table('stock')
+                    ->where('proid', $pro_id)->where('storeid', $store_id)
+                    ->get()->toArray();
+                $product_quantity_in_stock = $product_quantity_in_stock[0]->Quantity;
+                $data_fix_stock = array();
+                $data_fix_stock['Quantity'] = $product_quantity_in_stock - $product_quantity;
+                DB::table('stock')->where('StoreID', $store_id)->where('ProID', $pro_id)->update($data_fix_stock);
+            }
+        } else {
+            Session::put('fail_order', 'Đặt hàng thất bại! Số lượng hàng trong kho không đủ, xin mời quý khách lựa chọn sản phẩm khác!');
+            return Redirect::to('/');
         }
     }
 
-    
+    public function pay_info_ajax_1(Request $request)
+    {
+        $store_id = Session::get('store_id');
+        $data = $request->all();
+
+        //print_r($data);
+        $data_insert_order_detail = array();
+        $row = count($data['product_image']);
+        $id_transport = DB::table('transport')->max('transid') + 1;
+        $id_order = DB::table('order')->max('orderid') + 1;
+        $flag = 1;
+        for ($i = 0; $i < $row; $i++) {
+            //$data_insert_order_detail = array();
+
+            $product_image = $data['product_image'][$i];
+            $product_image = explode("/", $product_image);
+            $product_image = $product_image[7];
+            $pro_id = DB::table('product_image')->select('proid')->where('imgdata', $product_image)
+                ->get()->toArray();
+            $pro_id = $pro_id[0]->proid;
+            $product_quantity = $data['product_quantity'][$i];
+            $product_unit_price = $data['product_unit_price'][$i];
+            $product_unit_price = explode(" ", $product_unit_price);
+            $product_unit_price = explode(",", $product_unit_price[0]);
+            $product_unit_price = $product_unit_price[0] . $product_unit_price[1];
+
+            $product_quantity_in_stock = DB::table('stock')
+                ->where('proid', $pro_id)->where('storeid', $store_id)
+                ->get()->toArray();
+            $product_quantity_in_stock = $product_quantity_in_stock[0]->Quantity;
+            if ($product_quantity_in_stock < $product_quantity) {
+                $flag = 0;
+            }
+        }
+        if ($flag == 1) {
+            for ($i = 0; $i < $row; $i++) {
+                //$data_insert_order_detail = array();
+
+                $product_image = $data['product_image'][$i];
+                $product_image = explode("/", $product_image);
+                $product_image = $product_image[7];
+                $pro_id = DB::table('product_image')->select('proid')->where('imgdata', $product_image)
+                    ->get()->toArray();
+                $pro_id = $pro_id[0]->proid;
+                $product_quantity = $data['product_quantity'][$i];
+                $product_unit_price = $data['product_unit_price'][$i];
+                $product_unit_price = explode(" ", $product_unit_price);
+                $product_unit_price = explode(",", $product_unit_price[0]);
+                $product_unit_price = $product_unit_price[0] . $product_unit_price[1];
+
+                $data_insert_order_detail['OrderID'] = $id_order;
+                $data_insert_order_detail['ProID'] = $pro_id;
+                $data_insert_order_detail['Quantity'] = $product_quantity;
+                $data_insert_order_detail['Price'] = $product_unit_price;
+                // echo '<pre>';
+                // print_r($data_insert_order_detail);
+                // echo '</pre>';
+                DB::table('order_details')->insert($data_insert_order_detail);
+
+                $product_quantity_in_stock = DB::table('stock')
+                    ->where('proid', $pro_id)->where('storeid', $store_id)
+                    ->get()->toArray();
+                $product_quantity_in_stock = $product_quantity_in_stock[0]->Quantity;
+                $data_fix_stock = array();
+                $data_fix_stock['Quantity'] = $product_quantity_in_stock - $product_quantity;
+                DB::table('stock')->where('StoreID', $store_id)->where('ProID', $pro_id)->update($data_fix_stock);
+            }
+
+            $data_insert_transport = array();
+            $tranport_type =  $data['delivery_method'];
+            $data_insert_transport['Type'] = $tranport_type;
+            $data_insert_transport['Status'] = 1;
+            $data_insert_transport['TransID'] = $id_transport;
+            if ($tranport_type == 1) {
+                $data_insert_transport['Fee'] = 14000;
+            } else {
+                $data_insert_transport['Fee'] = 30000;
+            }
+            DB::table('transport')->insert($data_insert_transport);
+
+            $UserID_client = Session::get('UserID_client');
+            $data_insert_order = array();
+
+            if ($UserID_client) {
+                $cus_id = DB::table('customer')->select('cusid')
+                    ->where('userid', $UserID_client)
+                    ->get()->toArray();
+                $cus_id = $cus_id[0]->cusid;
+                $data_insert_order['CusID'] = $cus_id;
+            } else {
+                $data_insert_customer = array();
+                $data_insert_customer['FirstName'] =  $data['fullname'];
+                $data_insert_customer['Phone'] = $data['phonenum'];
+                //$data_insert_customer['Email'] =  $data['phonenum'];
+                $data_insert_customer['RewardID'] = 3;
+                DB::table('customer')->insert($data_insert_customer);
+            }
+
+            $add_id = DB::table('address')->select('addid')->where('city', $data['city'])
+                ->where('district', $data['district'])
+                ->where('ward', $data['ward'])
+                ->where('specificaddress', $data['specificAddress'])->get()->toArray();
+            if ($add_id) {
+                $add_id = $add_id[0]->addid;
+                $data_insert_order['AddID'] =  $add_id;
+            }
+            $data_insert_order['OrderDate'] = $data['OrderDate'];
+            $data_insert_order['TransID'] = $id_transport;
+            $data_insert_order['OrderTotal'] = $data['total'];
+            $data_insert_order['DisID'] = $data['disid'];
+            $data_insert_order['OrderID'] = $id_order;
+            $data_insert_order['SubTotal'] = $data['subtotal'];
+            $data_insert_order['PayBy'] = $data['payment_method'];
+            $data_insert_order['StoreID'] = $store_id;
+            DB::table('order')->insert($data_insert_order);
+        } else {
+            Session::put('fail_order', 'Đặt hàng thất bại! Số lượng hàng trong kho không đủ, xin mời quý khách lựa chọn sản phẩm khác!');
+            return Redirect::to('/');
+        }
+    }
 }

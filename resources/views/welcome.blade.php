@@ -28,7 +28,17 @@
     <div id="main">
 
         @yield('home_header')
+        <?php
 
+        use Illuminate\Support\Facades\Session;
+
+        $fail_order = Session::get('fail_order');
+        if ($fail_order) {
+            echo '<span style= "color: red"; text-align: center; font-size: 14px; >' . $fail_order . '</span>';
+            Session::put('fail_order', null);
+        }
+
+        ?>
         <container class="container">
             <div class="slider">
                 <div class="slider__image">
@@ -343,7 +353,7 @@
                 console.log("thanh phuong")
                 var id_selecting = $(".direction-detail").data("storeid")
                 var id_selected = $(this).data("storeid")
-                console.log (id_selected)
+                console.log(id_selected)
 
                 $(".direction-detail").data("storeid", id_selected)
                 $(this).data("storeid", id_selecting)

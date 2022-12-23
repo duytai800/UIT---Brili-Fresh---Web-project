@@ -215,9 +215,9 @@ $(document).ready(function() {
                     var unitPrice = $('.content__unit-price')[i].innerHTML;
                     var quantity = $('.content__quantity')[i].value;
                     var amount = $('.content__amount')[i].innerHTML;
-                    var proid = $('.pro_id_item')[i].innerHTML;
-                    var storeid = $('.store_id_item')[i].innerHTML;
-                    var priceformat = $('.price_no_format')[i].innerHTML;
+                    // var proid = $('.pro_id_item')[i].innerHTML;
+                    // var storeid = $('.store_id_item')[i].innerHTML;
+                    // var priceformat = $('.price_no_format')[i].innerHTML;
 
                     //Thêm phần tử vào mảng theo từng dòng sản phẩm
                     aArray.push(image);
@@ -225,9 +225,9 @@ $(document).ready(function() {
                     cArray.push(unitPrice);
                     dArray.push(quantity);
                     eArray.push(amount);
-                    fArray.push(proid);
-                    gArray.push(storeid);
-                    hArray.push(priceformat);
+                    // fArray.push(proid);
+                    // gArray.push(storeid);
+                    // hArray.push(priceformat);
                 }
                 
             }

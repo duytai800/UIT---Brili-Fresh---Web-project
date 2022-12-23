@@ -23,7 +23,6 @@
 </head>
 
 <body>
-    {{ csrf_field() }}
     <!-- Header  -->
     @yield('home_header')
     <!-- Header -->
