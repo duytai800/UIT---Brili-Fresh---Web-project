@@ -208,7 +208,7 @@
     <input class="topProId" type="hidden" value="{{$item}}" />
     @endforeach
     @foreach ($topProImg as $key=>$item)
-    <input class="topProImg" type="hidden" value="{{$item}}" />
+    <input class="topProImg" type="hidden" value="{{ $item->imgdata}}" />
     @endforeach
     @foreach ($topProName as $key=>$item)
     <input class="topProName" type="hidden" value="{{$item}}" />
@@ -351,6 +351,7 @@
         for (var i = 0; i < $(".earning").length; i++) {
             $(".proid")[i].innerHTML = $(".topProId")[i].value;
             $(".proimg")[i].src = "/public/upload/product/"+ $(".topProImg")[i].value;
+            
             $(".proname")[i].innerHTML = $(".topProName")[i].value;
             $(".sales")[i].innerHTML = $(".topProSales")[i].value;
             $(".earning")[i].innerHTML = $(".topProEarning")[i].value;

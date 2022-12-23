@@ -53,8 +53,8 @@ class AdminStatistic extends Controller
             }
         }
 
-        $topProducts = DB::table('Order_Details')
-            ->join('Product', 'Product.proid', '=', 'Order_Details.proid')
+        $topProducts = DB::table('order_details')
+            ->join('product', 'product.proid', '=', 'order_details.proid')
             ->select('product.proid AS PRO', 'proname', DB::raw('sum(quantity) as Sales'))
             ->groupBy('product.proid', 'proname')
             ->orderByDesc('Sales', 'PRO')
@@ -76,9 +76,9 @@ class AdminStatistic extends Controller
             array_push($topProEarning, AdminStatistic::ProEarning($item->PRO));
             array_push($topProStockLeft, AdminStatistic::ProStockLeft($item->PRO));
 
-            $a = DB::table('Product_Image')
+            $a = DB::table('product_image')
                 ->where('proid', $item->PRO)
-                ->where('imgdata', 'LIKE', '%is_avat%')
+                ->where('imgdata', 'LIKE', 'is_avt%')
                 ->select('imgdata')
                 ->first();
             if ($a == null) {
@@ -110,7 +110,8 @@ class AdminStatistic extends Controller
             ->with('topProSales', $topProSales)
             ->with('topProEarning', $topProEarning)
             ->with('topProStockLeft', $topProStockLeft)
-            ->with('yyyy', $yyyy);
+            ->with('yyyy', $yyyy)
+            ;
         return view('admin_layout_manager')->with('admin.statistic.index_statistic', $manager_index_statistic);
     }
 
