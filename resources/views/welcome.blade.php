@@ -188,27 +188,13 @@
                 <div class="list-items-hot row d-flex justify-content-around">
                     <div class="item-hot col-2">
                         <div class="img-item">
-                            <img src="{{asset('public/client/HomeAssets/asset/image/item1.png')}}" alt="" class="item-hot-img">
-                        </div>
-                        <div class="name-item">
-                            <p class="name-item-hot">Kiwi</p>
-                        </div>
-                        <div class="price-item">
-                            <p class="price-item-hot">225.000đ/kg</p>
-                        </div>
-                        <div class="buy-item-hot row">
-                            <button class="btn-buy-item-hot">Thêm vào giỏ</button>
-                        </div>
-                    </div>
-                    <div class="item-hot col-2">
-                        <div class="img-item">
                             <img src="{{asset('public/client/HomeAssets/asset/image/item2.png')}}" alt="" class="item-hot-img">
                         </div>
                         <div class="name-item">
-                            <p class="name-item-hot">Kiwi</p>
+                            <p class="name-item-hot">Dâu tây Đà Lạt</p>
                         </div>
                         <div class="price-item">
-                            <p class="price-item-hot">225.000đ/kg</p>
+                            <p class="price-item-hot">225.000 đ</p>
                         </div>
                         <div class="buy-item-hot row">
                             <button class="btn-buy-item-hot">Thêm vào giỏ</button>
@@ -219,10 +205,10 @@
                             <img src="{{asset('public/client/HomeAssets/asset/image/item3.png')}}" alt="" class="item-hot-img">
                         </div>
                         <div class="name-item">
-                            <p class="name-item-hot">Kiwi</p>
+                            <p class="name-item-hot">Đùi gà</p>
                         </div>
                         <div class="price-item">
-                            <p class="price-item-hot">225.000đ/kg</p>
+                            <p class="price-item-hot">55.000 đ</p>
                         </div>
                         <div class="buy-item-hot row">
                             <button class="btn-buy-item-hot">Thêm vào giỏ</button>
@@ -233,10 +219,10 @@
                             <img src="{{asset('public/client/HomeAssets/asset/image/item4.png')}}" alt="" class="item-hot-img">
                         </div>
                         <div class="name-item">
-                            <p class="name-item-hot">Kiwi</p>
+                            <p class="name-item-hot">Rau cải</p>
                         </div>
                         <div class="price-item">
-                            <p class="price-item-hot">225.000đ/kg</p>
+                            <p class="price-item-hot">115.000 đ</p>
                         </div>
                         <div class="buy-item-hot row">
                             <button class="btn-buy-item-hot">Thêm vào giỏ</button>
@@ -247,10 +233,24 @@
                             <img src="{{asset('public/client/HomeAssets/asset/image/item5.png')}}" alt="" class="item-hot-img">
                         </div>
                         <div class="name-item">
+                            <p class="name-item-hot">Cá biển</p>
+                        </div>
+                        <div class="price-item">
+                            <p class="price-item-hot">15.000 đ</p>
+                        </div>
+                        <div class="buy-item-hot row">
+                            <button class="btn-buy-item-hot">Thêm vào giỏ</button>
+                        </div>
+                    </div>
+                    <div class="item-hot col-2">
+                        <div class="img-item">
+                            <img src="{{asset('public/client/HomeAssets/asset/image/item1.png')}}" alt="" class="item-hot-img">
+                        </div>
+                        <div class="name-item">
                             <p class="name-item-hot">Kiwi</p>
                         </div>
                         <div class="price-item">
-                            <p class="price-item-hot">225.000đ/kg</p>
+                            <p class="price-item-hot">35.000đ/kg</p>
                         </div>
                         <div class="buy-item-hot row">
                             <button class="btn-buy-item-hot">Thêm vào giỏ</button>

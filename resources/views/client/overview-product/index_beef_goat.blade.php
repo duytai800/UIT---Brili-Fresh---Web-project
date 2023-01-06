@@ -113,7 +113,7 @@
                         <div class="product-item col-3">
                             <div class="product-item-img">
                                 <a class="nav-link" href="{{URL::to('/fish-and-meat/beef-goat/' .$beef_goat_product->ProID)}}">
-                                    <img src="{{URL::to('../public/upload/product/'.$beef_goat_product->ImgData)}}" alt="" class="product-item-img-child" />
+                                    <img src="{{URL::to('../public/upload/product/'.$beef_goat_product->ImgData)}}" style="padding-right: 20px;"alt="" class="product-item-img-child" />
                                 </a>
                             </div>
 

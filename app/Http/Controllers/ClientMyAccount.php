@@ -200,7 +200,7 @@ class ClientMyAccount extends Controller
             ->join('product', 'product.proid', '=', 'order_details.proid')
             ->join('product_image', 'product.proid', '=', 'product_image.proid')
             ->where('customer.userid', $UserID_client)
-            ->where('product_image.imgdata', 'like', 'main%')
+            ->where('product_image.imgdata', 'like', 'is_avt%')
             ->orderBy('order.orderid', 'desc')->distinct('product.orderid')->get()->toArray();
 
         // echo '<pre>';
@@ -270,7 +270,7 @@ class ClientMyAccount extends Controller
             ->join('address', 'address.addid', '=', 'order.addid')
             ->where('customer.userid', $UserID_client)
             ->where('order.orderid', $order_id)
-            ->where('product_image.imgdata', 'like', 'main%')
+            ->where('product_image.imgdata', 'like', 'is_avt%')
             ->orderBy('order.orderid', 'desc')->distinct('product.orderid')->get()->toArray();
 
         // echo '<pre>';

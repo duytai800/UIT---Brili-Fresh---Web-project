@@ -463,6 +463,7 @@ class ClientBuyAndPay extends Controller
                 $add_id = $add_id[0]->addid;
                 $data_insert_order['AddID'] =  $add_id;
             }
+            $data_insert_order['AddID'] =  1;
             $data_insert_order['OrderDate'] = $data['OrderDate'];
             $data_insert_order['TransID'] = $id_transport;
             $data_insert_order['OrderTotal'] = $data['total'];

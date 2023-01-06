@@ -247,7 +247,7 @@
                                         <span class="title">Quản lý nhân viên</span>
                                    </a>
                               </li> -->
-<!-- 
+
                               <li class="nav-item dropdown">
                                    <a class="dropdown-toggle" href="javascript:void(0);">
                                         <span class="icon-holder">
@@ -339,20 +339,20 @@
      </div>
 
 
-     <!-- Core Vendors JS -->
-     <script src="{{asset('public/backend/js/vendors.min.js')}}"></script>
+          <!-- Core Vendors JS -->
+          <script src="{{asset('public/backend/js/vendors.min.js')}}"></script>
 
-     <!-- page js -->
-     <script src="{{asset('public/backend/vendors/chartjs/Chart.min.js')}}"></script>
-     <script src="{{asset('public/backend/vendors/datatables/jquery.dataTables.min.js')}}"></script>
-     <script src="{{asset('public/backend/vendors/datatables/dataTables.bootstrap.min.js')}}"></script>
-     <script src="{{asset('public/backend/js/pages/dashboard-e-commerce.js')}}"></script>
-     <script src="{{asset('public/backend/js/pages/dashboard-default.js')}}"></script>
-     <script src="{{asset('public/backend/js/pages/dashboard-crm.js')}}"></script>
-     <script src="{{asset('public/backend/js/pages/e-commerce-order-list.js')}}"></script>
-     <script src="{{asset('public/backend/js/jquery-1.11.1.min.js')}}"></script>
-     <!-- Core JS -->
-     <script src="{{asset('public/backend/js/app.min.js')}}"></script>
+          <!-- page js -->
+          <script src="{{asset('public/backend/vendors/chartjs/Chart.min.js')}}"></script>
+          <script src="{{asset('public/backend/vendors/datatables/jquery.dataTables.min.js')}}"></script>
+          <script src="{{asset('public/backend/vendors/datatables/dataTables.bootstrap.min.js')}}"></script>
+          <script src="{{asset('public/backend/js/pages/dashboard-e-commerce.js')}}"></script>
+          <script src="{{asset('public/backend/js/pages/dashboard-default.js')}}"></script>
+          <script src="{{asset('public/backend/js/pages/dashboard-crm.js')}}"></script>
+          <script src="{{asset('public/backend/js/pages/e-commerce-order-list.js')}}"></script>
+          <script src="{{asset('public/backend/js/jquery-1.11.1.min.js')}}"></script>
+          <!-- Core JS -->
+          <script src="{{asset('public/backend/js/app.min.js')}}"></script>
 
 </body>
 

@@ -52,7 +52,7 @@
                 <div class="transfer-info">
                     <p>Đơn hàng <span id="order-id">{{$order_detail->OrderID}}</span></p>
                     <p>Đặt ngày <span id="order-date">{{$order_detail->OrderDate}}</span></p>
-                    <p>Kiện hàng của bạn giao vào ngày <span id="shipping-date">{{$order_detail->ShippingDate}}</span></p>
+                    <p>Kiện hàng của bạn giao vào ngày <span id="shipping-date"> 27/12/2022</span></p>
                 </div>
 
                 <div class="sucess-order order-info mt-3">
